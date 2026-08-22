@@ -1,0 +1,72 @@
+from fastapi import APIRouter,Depends,Cookie,HTTPException
+import jwt
+import os
+from dotenv import load_dotenv
+load_dotenv()
+SECRET_KEY=os.getenv("SECRET_KEY")
+def get_current_driver(access_token:str|None=Cookie(default=None)):
+    print("COOKIE:", access_token)
+    if access_token is None:
+        raise HTTPException(
+            status_code=401,
+            detail="Not authenticated"
+            )
+    try:
+        payload=jwt.decode(
+            access_token,
+            SECRET_KEY,
+            algorithms=["HS256"]
+        )
+        role = payload.get("role")
+        if role != "driver":
+            raise HTTPException(
+                status_code=403,
+                detail="Driver access required"
+            )
+        driver_id=payload.get("sub")
+        if driver_id is None:
+            print("No driver found")
+            raise HTTPException(
+                status_code=401,
+                detail="Invalid Token"
+            )
+        return int(driver_id)
+    except jwt.InvalidTokenError:
+        print("error yehin hai")
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid Token"
+        )
+
+def get_current_user(access_token:str|None=Cookie(default=None)):
+    if access_token is None:
+        raise HTTPException(
+            status_code=401,
+            detail="Not Authenticated"
+        )
+    
+    try:
+        payload=jwt.decode(
+            access_token,
+            SECRET_KEY,
+            algorithms=["HS256"]
+        )
+        role = payload.get("role")
+        if role != "user":
+            raise HTTPException(
+                status_code=403,
+                detail="user access required"
+            )
+        user_id=payload.get("sub")
+        if user_id is None:
+            raise HTTPException(
+                status_code=401,
+                detail="Invalid Token"
+            )
+        return int(user_id)
+    except jwt.InvalidTokenError:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid Token"
+        )
+
