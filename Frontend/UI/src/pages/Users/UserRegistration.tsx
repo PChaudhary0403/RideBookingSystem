@@ -1,5 +1,6 @@
 import { useState,useEffect } from 'react'
 import{ useNavigate } from 'react-router-dom'
+import type { FormEvent } from "react";
 function UserRegister(){
     const[name,setName]=useState("")
     const[phone,setPhone]=useState("")
@@ -9,7 +10,7 @@ function UserRegister(){
     const[status,setStatus]=useState(false)
     const payload={name,phone,emailID,password}
     const navigate=useNavigate()
-    async function Submit(e){
+    async function Submit(e: FormEvent<HTMLFormElement>){
         e.preventDefault()
         if(check!=password){
             alert("Password do not match")
@@ -47,7 +48,7 @@ function Switch(){
                     <input placeholder="email" value={emailID} onChange={(e)=>setEmail(e.target.value)}></input>
                     <input placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)}></input>
                     <input placeholder="confirm password" value={check} onChange={(e)=>setCheck(e.target.value)}></input>
-                    <button onClick={Submit}>Submit</button>
+                    <button type="submit">Submit</button>
                 </form>
                 <button onClick={Switch}>Login</button>
             </div>

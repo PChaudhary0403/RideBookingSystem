@@ -1,5 +1,6 @@
 import { useState,useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
+import type { FormEvent } from "react";
 function LoginDriver(){
 const[email,setEmail]=useState("")
 const[password,setPassword]=useState("")
@@ -7,7 +8,7 @@ const[status,setStatus]=useState(false)
 const payload={email,password}
 const navigate=useNavigate()
 
-async function Submit(e){
+async function Submit(e: FormEvent<HTMLFormElement>){
     e.preventDefault();
     const response=await fetch(`${import.meta.env.VITE_API_URL}/drivers/login`,{
         method:"POST",

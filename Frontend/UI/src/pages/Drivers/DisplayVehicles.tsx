@@ -1,7 +1,14 @@
 import { useState,useEffect } from 'react'
+interface Vehicle {
+    id: string;
+    name: string;
+    type: string;
+    model: string;
+    mileage: number;
+}
 function DisplayVehicles(){
     const driver_id=localStorage.getItem("driver_id")
-    const[vehicles,setVehicles]=useState([])
+    const[vehicles,setVehicles]=useState<Vehicle[]>([]);
 useEffect(()=>{
     async function fetchVehicles(){
     const response=await fetch(`${import.meta.env.VITE_API_URL}/vehicles/driver/${driver_id}`)
@@ -12,7 +19,7 @@ useEffect(()=>{
     setVehicles(vehicles)
     }
     fetchVehicles()
-},[]);
+},[driver_id]);
     return(
         <>
         <div>
