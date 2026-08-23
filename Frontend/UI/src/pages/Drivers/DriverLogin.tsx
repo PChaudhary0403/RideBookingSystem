@@ -34,9 +34,6 @@ async function Submit(e: FormEvent<HTMLFormElement>){
             navigate("/maps")
         }
     },[status])
-    function Switch_to_vehicle(){
-        navigate("/vehicle/register")
-      }
     return(
         <>
         <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100vh"}}>
