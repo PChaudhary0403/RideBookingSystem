@@ -9,7 +9,7 @@ const navigate=useNavigate()
 
 async function Submit(e){
     e.preventDefault();
-    const response=await fetch("http://localhost:8000/drivers/login",{
+    const response=await fetch(`${import.meta.env.VITE_API_URL}/drivers/login`,{
         method:"POST",
         headers:{
             "Content-Type":"application/json",

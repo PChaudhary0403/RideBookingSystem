@@ -30,7 +30,7 @@ function Maps() {
         )
     }
     async function getdrivers(){
-        const response=await fetch("http://localhost:8000/users/nearby-drivers",{
+        const response=await fetch(`${import.meta.env.VITE_API_URL}/users/nearby-drivers`,{
             method:"POST",
             headers:{
                 "Content-Type":"application/json",
@@ -49,7 +49,7 @@ function Maps() {
         }
     }
     async function logout(){
-        const url=role=="driver"?"http://localhost:8000/drivers/logout":"http://localhost:8000/users/logout"
+        const url=role=="driver"?`${import.meta.env.VITE_API_URL}/drivers/logout`:`${import.meta.env.VITE_API_URL}/users/logout`
         const response=await fetch(url,{
             method:"POST",
             credentials:"include"

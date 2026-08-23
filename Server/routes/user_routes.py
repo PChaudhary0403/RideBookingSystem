@@ -9,7 +9,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 SECRET_KEY=os.getenv("SECRET_KEY")   
-# http://localhost:8000/users/register
+# ${import.meta.env.VITE_API_URL}/users/register
 router=APIRouter(
     prefix="/users",
     tags=['user_register']

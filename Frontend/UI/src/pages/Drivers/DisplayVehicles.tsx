@@ -4,7 +4,7 @@ function DisplayVehicles(){
     const[vehicles,setVehicles]=useState([])
 useEffect(()=>{
     async function fetchVehicles(){
-    const response=await fetch(`http://127.0.0.1:8000/vehicles/driver/${driver_id}`)
+    const response=await fetch(`${import.meta.env.VITE_API_URL}/vehicles/driver/${driver_id}`)
     const data=await response.json()
     console.log(data)
     const vehicles=data.vehicles

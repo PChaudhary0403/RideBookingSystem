@@ -20,7 +20,7 @@ async function Submit(){
         alert("Passwords don't match");
         return;
     }
-const response=await fetch("http://localhost:8000/drivers/register",{
+const response=await fetch(`${import.meta.env.VITE_API_URL}/drivers/register`,{
     method:"POST",
     headers:{
         "Content-Type":"application/json"
