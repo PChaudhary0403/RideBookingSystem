@@ -45,7 +45,6 @@ async function Submit(e: FormEvent<HTMLFormElement>){
                     <input placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
                     <input placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
                     <button type="submit">Click</button>
-                    <button onClick={Switch_to_vehicle}>Register Vehicles(if any)</button>
                 </form>
             </div>
         </div>

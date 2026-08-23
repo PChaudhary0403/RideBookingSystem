@@ -59,6 +59,9 @@ function Maps() {
             setLogout(true)
         }
     }
+    function Switch_to_vehicle(){
+        navigate("/vehicle/register")
+      }
     useEffect(()=>{
         if(logoutstatus===true){
             navigate('/')
@@ -73,6 +76,7 @@ function Maps() {
             <button onClick={getdrivers}>Get Drivers</button>
             )
 }
+            <button onClick={Switch_to_vehicle}>Register Vehicles(if any)</button>
         </div>
     );
 }
