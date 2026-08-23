@@ -47,9 +47,6 @@ if(response.ok){
 }
 }
 const navigate=useNavigate()
-function Switch_to_vehicle(){
-  navigate("/vehicle/register")
-}
 function Switch_to_login(){
     navigate("/driver/login")
 }
@@ -69,7 +66,6 @@ return(
             <button type="button" onClick={Submit}>Register yourself as a driver</button>
             </form>
             <div>
-            <button onClick={Switch_to_vehicle}>Register Vehicles(if any)</button>
             <button onClick={Switch_to_login}>Login as a Driver</button>
             </div>
         </div>

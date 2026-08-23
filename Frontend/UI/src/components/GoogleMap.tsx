@@ -64,7 +64,7 @@ function GoogleMap({location,drivers}:GoogleMapsProps){
             {location && (<AdvancedMarker position={mapLocation}>    
             <img
             src={userImage}
-            alt="User"
+            alt="user"
             style={{
                 width: "45px",
                 height: "45px",

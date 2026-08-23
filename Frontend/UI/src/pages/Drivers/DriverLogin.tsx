@@ -34,6 +34,9 @@ async function Submit(e: FormEvent<HTMLFormElement>){
             navigate("/maps")
         }
     },[status])
+    function Switch_to_vehicle(){
+        navigate("/vehicle/register")
+      }
     return(
         <>
         <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100vh"}}>
@@ -42,6 +45,7 @@ async function Submit(e: FormEvent<HTMLFormElement>){
                     <input placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
                     <input placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
                     <button type="submit">Click</button>
+                    <button onClick={Switch_to_vehicle}>Register Vehicles(if any)</button>
                 </form>
             </div>
         </div>
