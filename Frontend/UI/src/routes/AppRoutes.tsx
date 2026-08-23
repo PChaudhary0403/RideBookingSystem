@@ -7,9 +7,7 @@ import UserRegister from "../pages/Users/UserRegistration"
 import LoginUser from "../pages/Users/LoginPage"
 import HomePage from "../pages/Drivers/HomePage"
 import Maps from "../pages/Map"
-import App from "../App"
 function AppRoutes(){
-    const driver_id=localStorage.getItem("driver_id")
     return(
     <Routes>
         <Route path="/driver/register" element={<RegisterDriver/>}/>
