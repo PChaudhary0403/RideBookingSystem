@@ -90,7 +90,10 @@ function GoogleMap({location,drivers}:GoogleMapsProps){
             style={{
                 width: "45px",
                 height: "45px",
-                objectFit: "contain"
+                borderRadius: "50%",
+                border: "3px solid white",
+                boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
+                objectFit: "cover"
             }}/>
             </AdvancedMarker>
             ))}
