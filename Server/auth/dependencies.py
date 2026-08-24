@@ -4,16 +4,16 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 SECRET_KEY=os.getenv("SECRET_KEY")
-def get_current_driver(access_token:str|None=Cookie(default=None)):
-    print("COOKIE:", access_token is not None)
-    if access_token is None:
+def get_current_driver(refresh_token:str|None=Cookie(default=None)):
+    print("COOKIE:", refresh_token is not None)
+    if refresh_token is None:
         raise HTTPException(
             status_code=401,
             detail="Not authenticated"
             )
     try:
         payload=jwt.decode(
-            access_token,
+            refresh_token,
             SECRET_KEY,
             algorithms=["HS256"]
         )
@@ -38,8 +38,8 @@ def get_current_driver(access_token:str|None=Cookie(default=None)):
             detail="Invalid Token"
         )
 
-def get_current_user(access_token:str|None=Cookie(default=None)):
-    if access_token is None:
+def get_current_user(refresh_token:str|None=Cookie(default=None)):
+    if refresh_token is None:
         raise HTTPException(
             status_code=401,
             detail="Not Authenticated"
@@ -47,7 +47,7 @@ def get_current_user(access_token:str|None=Cookie(default=None)):
     
     try:
         payload=jwt.decode(
-            access_token,
+            refresh_token,
             SECRET_KEY,
             algorithms=["HS256"]
         )

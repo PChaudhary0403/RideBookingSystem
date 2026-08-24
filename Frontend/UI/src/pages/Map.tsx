@@ -80,7 +80,9 @@ function Maps() {
             )
 }
             <button onClick={Switch_to_vehicle}>Register Vehicles(if any)</button>
+            {role=="driver"&&(
             <button onClick={display_vehicles}>Display your vehicles</button>
+        )}
         </div>
     );
 }
