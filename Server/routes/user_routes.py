@@ -188,9 +188,9 @@ def nearby_drivers(
         "status":True,
         "drivers":[
         {
-            "driver_id": driver.driver_id,
-            "latitude": driver.latitude,
-            "longitude": driver.longitude
+            "driver_id": driver["driver_id"],
+            "latitude": driver["latitude"],
+            "longitude": driver["longitude"]
         }
         for driver in drivers
     ]
