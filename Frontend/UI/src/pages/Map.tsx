@@ -2,18 +2,12 @@ import GoogleMap from "../components/GoogleMap";
 import { useState,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-type Driver = {
-    latitude: number;
-    longitude: number;
-    distance_km?: number;
-}
-
 function Maps() {
     const[location,setLocation]=useState<{
         latitude:number;
         longitude:number;
     }|null>(null);
-    const[driver,setDriver]=useState<Driver[]>([])
+    const[driver,setDriver]=useState([])
     const[logoutstatus,setLogout]=useState(false)
     const navigate=useNavigate()
     const role=localStorage.getItem("role")

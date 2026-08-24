@@ -1,6 +1,7 @@
 import { APIProvider,Map,AdvancedMarker,useMap } from "@vis.gl/react-google-maps"
 import { useEffect } from 'react'
 import userImage from "../assets/user.png";
+import driverImage from "../assets/driver.jpg"
 type Location={
     latitude:number,
     longitude:number
@@ -83,7 +84,14 @@ function GoogleMap({location,drivers}:GoogleMapsProps){
                     lng: driver.longitude
                 }}
             >
-                🚗
+            <img
+            src={driverImage}
+            alt="Driver"
+            style={{
+                width: "45px",
+                height: "45px",
+                objectFit: "contain"
+            }}/>
             </AdvancedMarker>
             ))}
             </Map>
