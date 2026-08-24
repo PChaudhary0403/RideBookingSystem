@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 SECRET_KEY=os.getenv("SECRET_KEY")
 def get_current_driver(access_token:str|None=Cookie(default=None)):
-    print("COOKIE:", access_token)
+    print("COOKIE:", access_token is not None)
     if access_token is None:
         raise HTTPException(
             status_code=401,
