@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 *.env
 *node_modules/.package-lock.json
-*UI/node_modules
+*Frontend/node_modules/

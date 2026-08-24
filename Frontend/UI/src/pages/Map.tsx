@@ -62,6 +62,9 @@ function Maps() {
     function Switch_to_vehicle(){
         navigate("/vehicle/register")
       }
+    function display_vehicles(){
+        navigate("/driver/vehicles")
+    }
     useEffect(()=>{
         if(logoutstatus===true){
             navigate('/')
@@ -77,6 +80,7 @@ function Maps() {
             )
 }
             <button onClick={Switch_to_vehicle}>Register Vehicles(if any)</button>
+            <button onClick={display_vehicles}>Display your vehicles</button>
         </div>
     );
 }
