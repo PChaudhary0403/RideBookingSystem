@@ -38,7 +38,7 @@ class UserService:
             )
             if distance<=radius_km:
                 nearby_drivers.append({
-                    "driver_id":active_driver.id,
+                    "driver_id":active_driver.driver_id,
                     "latitude":location.latitude,
                     "longitude":location.longitude,
                     "distance_km":round(distance,2)
