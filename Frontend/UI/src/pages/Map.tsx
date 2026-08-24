@@ -39,7 +39,7 @@ function Maps() {
             body:JSON.stringify({
                 latitude:location?.latitude,
                 longitude:location?.longitude,
-                radius_km:5
+                radius_km:30
             })
         })
         const data=await response.json()
