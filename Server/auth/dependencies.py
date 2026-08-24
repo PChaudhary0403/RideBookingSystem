@@ -70,3 +70,33 @@ def get_current_user(access_token:str|None=Cookie(default=None)):
             detail="Invalid Token"
         )
 
+# def get_driver_vehicles(access_token:str|None=Cookie(default=None)):
+#     if access_token is None:
+#         raise HTTPException(
+#             status_code=401,
+#             detail='Not AUthenticated'
+#         )
+#     try:
+#         payload=jwt.decode(
+#             access_token,
+#             SECRET_KEY,
+#             algorithms=["HS256"]
+#         )
+#         role=payload.get("role")
+#         if role!='driver':
+#             raise HTTPException(
+#                 status_code=403,
+#                 detail="user access required"
+#             )
+#         driver_id=payload.get("sub")
+#         if driver_id is None:
+#             raise HTTPException(
+#                 status_code=401,
+#                 detail="Invalid Token"
+#             )
+#         return (int(driver_id))
+#     except jwt.InvalidTokenError:
+#         raise HTTPException(
+#             status_code=401,
+#             detail="Invalid Token"
+#         )

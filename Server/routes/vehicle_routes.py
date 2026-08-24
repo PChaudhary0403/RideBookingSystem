@@ -25,13 +25,12 @@ def register_vehicle(vehicle:VehicleCreate,driver_id:int=Depends(get_current_dri
     )
     return{
         "vehicle_id":result.id,
-        "driver_id":result.driver_id,
         "message":"Vehicle registered successfully!"
     }
 
-@router.get("/driver/{driver_id}")
+@router.get("/driver-vehicles")
 
-def get_driver_vehicles(driver_id:int):
+def get_driver_vehicles(driver_id:int=Depends(get_current_driver)):
     vehicles=service.get_driver_vehicles(driver_id)
     return{
         "driver_id":driver_id,
