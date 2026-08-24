@@ -34,7 +34,7 @@ class UserService:
                 user_lat,
                 user_lng,
                 location.latitude,
-                location.langitude
+                location.longitude
             )
             if distance<=radius_km:
                 nearby_drivers.append({
