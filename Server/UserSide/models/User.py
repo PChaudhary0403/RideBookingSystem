@@ -8,7 +8,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     phone=Column(String(15),unique=True,nullable=False)
-    emailID = Column(String)
+    emailID = Column(String,unique=True,index=True,nullable=False)
     password=Column(String)
     location=relationship("UserLocation",back_populates="user",uselist=False)
     trips = relationship("Trip",back_populates="user")

@@ -8,7 +8,7 @@ class Rider(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     surname=Column(String)
-    email=Column(String)
+    email=Column(String,unique=True,index=True,nullable=False)
     phone=Column(String)
     password=Column(String)
     address = Column(String)
