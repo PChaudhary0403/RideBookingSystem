@@ -66,16 +66,16 @@ def login(user:UserLogin,response:Response):
         key="access_token",
         value=token,
         httponly=True,
-        secure=False,
-        samesite="lax",
+        secure=True,
+        samesite="none",
         max_age=60*15
     )
     response.set_cookie(
         key="refresh_token",
         value=refresh_token,
         httponly=True,
-        secure=False,
-        samesite="lax",
+        secure=True,
+        samesite="none",
         max_age=60*60*24*30
     )
     return {
@@ -153,8 +153,8 @@ def refresh_token(
             key="access_token",
             value=new_access_token,
             httponly=True,
-            secure=False,
-            samesite="lax",
+            secure=True,
+            samesite="none",
             max_age=60 * 15
         )
 
