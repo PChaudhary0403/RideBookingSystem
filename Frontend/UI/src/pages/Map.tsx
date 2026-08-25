@@ -81,9 +81,11 @@ function Maps() {
             <button onClick={getdrivers}>Get Drivers</button>
             )
 }
-            <button onClick={Switch_to_vehicle}>Register Vehicles(if any)</button>
             {role==="driver" &&(
+                <>
+            <button onClick={Switch_to_vehicle}>Register Vehicles(if any)</button>
             <button onClick={display_vehicles}>Display your vehicles</button>
+            </>
         )}
         </div>
     );

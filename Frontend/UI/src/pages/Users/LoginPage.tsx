@@ -26,11 +26,11 @@ const response=await fetch(`${import.meta.env.VITE_API_URL}/users/login`,{
     const data=await response.json()
     if(data.status===true){
         setStatus(true)
+        localStorage.setItem("role",data.role)
     }
     else{
         alert("Login failed")
         }
-    localStorage.setItem("role",data.role)
     console.log(data)
 }
     return(
