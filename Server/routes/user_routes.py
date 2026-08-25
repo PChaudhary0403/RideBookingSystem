@@ -67,7 +67,8 @@ def login(user:UserLogin,response:Response):
         value=token,
         httponly=True,
         secure=True,
-        samesite="none",
+        samesite="lax",
+        domain="https://ridebookingsystem.onrender.com",
         max_age=60*15
     )
     response.set_cookie(
@@ -75,7 +76,8 @@ def login(user:UserLogin,response:Response):
         value=refresh_token,
         httponly=True,
         secure=True,
-        samesite="none",
+        samesite="lax",
+        domain="https://ridebookingsystem.onrender.com",
         max_age=60*60*24*30
     )
     return {
@@ -154,7 +156,8 @@ def refresh_token(
             value=new_access_token,
             httponly=True,
             secure=True,
-            samesite="none",
+            samesite="lax",
+            domain="https://ridebookingsystem.onrender.com",
             max_age=60 * 15
         )
 
