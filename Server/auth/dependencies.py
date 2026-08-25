@@ -38,33 +38,48 @@ def get_current_driver(refresh_token:str|None=Cookie(default=None)):
             detail="Invalid Token"
         )
 
-def get_current_user(refresh_token:str|None=Cookie(default=None)):
-    print("COOKIE:", refresh_token is not None)
+def get_current_user(refresh_token: str | None = Cookie(default=None)):
+    print("COOKIE EXISTS:", refresh_token is not None)
+
     if refresh_token is None:
         raise HTTPException(
             status_code=401,
             detail="Not Authenticated"
         )
-    
+
     try:
-        payload=jwt.decode(
+        payload = jwt.decode(
             refresh_token,
             SECRET_KEY,
             algorithms=["HS256"]
         )
-        role = payload.get("role")
-        if role != "user":
+
+        print("JWT PAYLOAD:", payload)
+        print("JWT ROLE:", payload.get("role"))
+        print("JWT TYPE:", payload.get("type"))
+
+        if payload.get("type") != "refresh":
+            raise HTTPException(
+                status_code=401,
+                detail="Invalid refresh token"
+            )
+
+        if payload.get("role") != "user":
             raise HTTPException(
                 status_code=403,
-                detail="user access required"
+                detail="User access required"
             )
-        user_id=payload.get("sub")
+
+        user_id = payload.get("sub")
+
         if user_id is None:
             raise HTTPException(
                 status_code=401,
                 detail="Invalid Token"
             )
+
         return int(user_id)
+
     except jwt.InvalidTokenError:
         raise HTTPException(
             status_code=401,
