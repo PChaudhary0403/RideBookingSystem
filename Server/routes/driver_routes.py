@@ -69,8 +69,7 @@ def login(driver:DriverLogin,response:Response):
         value=token,
         httponly=True,
         secure=True,
-        samesite="lax",
-        domain="ridebookingsystem.onrender.com",
+        samesite="none",
         max_age=60*15
     )
     response.set_cookie(
@@ -78,8 +77,7 @@ def login(driver:DriverLogin,response:Response):
         value=refresh_token,
         httponly=True,
         secure=True,
-        samesite="lax",
-        domain="ridebookingsystem.onrender.com",
+        samesite="none",
         max_age=60*60*24*30
     )
     return {
@@ -158,7 +156,6 @@ def refresh_token(
             httponly=True,
             secure=True,
             samesite="none",
-            domain="ridebookingsystem.onrender.com",
             max_age=60 * 15
         )
 
