@@ -51,6 +51,7 @@ function Maps() {
     }
     async function logout(){
         const url=role=="driver"?`${import.meta.env.VITE_API_URL}/drivers/logout`:`${import.meta.env.VITE_API_URL}/users/logout`
+        console.log(url)
         const response=await fetch(url,{
             method:"POST",
             credentials:"include"

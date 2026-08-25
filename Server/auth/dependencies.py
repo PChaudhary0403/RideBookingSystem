@@ -39,6 +39,7 @@ def get_current_driver(refresh_token:str|None=Cookie(default=None)):
         )
 
 def get_current_user(refresh_token:str|None=Cookie(default=None)):
+    print("COOKIE:", refresh_token is not None)
     if refresh_token is None:
         raise HTTPException(
             status_code=401,
