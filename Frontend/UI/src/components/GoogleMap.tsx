@@ -188,7 +188,7 @@ function GoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDriver
                                     right: "10px",
                                     top: "8px",
                                     border: "none",
-                                    background: "transparent",
+                                    backgroundColor: "red",
                                     fontSize: "18px",
                                     cursor: "pointer"
                                 }}
