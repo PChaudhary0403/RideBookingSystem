@@ -15,13 +15,6 @@ class RiderRepository:
         db=SessionLocal()
         try:
             print("Email Recieved: ",repr(email))
-            riders=db.query(Rider).all()
-            for rider in riders:
-                print(
-                    "DB:",
-                    rider.id,
-                    repr(rider.email)
-                )
             rider = db.query(Rider).filter(Rider.email == email).first()
             print("Matched rider:", rider)
             return rider
@@ -35,3 +28,12 @@ class RiderRepository:
             return db.query(Rider).filter(Rider.id==driver_id).first()
         finally:
             db.close()
+
+    def get_profile(driver_id):
+        db=SessionLocal()
+        try:
+            driver=db.query(Rider).filter(Rider.id==driver_id).first()
+            return driver
+        finally:
+            db.close()
+

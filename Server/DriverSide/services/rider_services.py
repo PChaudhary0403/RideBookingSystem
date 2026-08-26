@@ -51,3 +51,17 @@ class RiderService:
         return {
             "success": True
         }
+
+    def get_profile(self,driver_id):
+        driver=RiderRepository.get_profile(
+            driver_id=driver_id
+        )
+        if driver is None:
+            return{
+                "success":False,
+                "error":"No Driver Found with such ID"
+            }
+        return{
+            "success":True,
+            "driver":driver
+        }

@@ -40,7 +40,14 @@ function MapController({ location }: MapControllerProps) {
 
     return null;
 }
-
+async function getDriverProfile(driverId: number) {
+    const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/drivers/${driverId}/profile`,
+        {
+            credentials: "include"
+        }
+    )
+}
 function GoogleMap({location,drivers}:GoogleMapsProps){
     const defaultLocation={
         lat:19.0760,
@@ -83,6 +90,7 @@ function GoogleMap({location,drivers}:GoogleMapsProps){
                     lat: driver.latitude,
                     lng: driver.longitude
                 }}
+                onClick={() => getDriverProfile(driver.driver_id)}
             >
             <img
             src={driverImage}

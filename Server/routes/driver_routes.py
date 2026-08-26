@@ -2,6 +2,7 @@ from fastapi import APIRouter,Response,Cookie,HTTPException,Depends
 from schemas.driver_schema import DriverCreate,DriverLogin
 from DriverSide.services.rider_services import RiderService
 from DynamicDB.services.active_rider_services import ActiveRiderServices
+from schemas.DriveProfile import DriverProfileResponse
 from auth.dependencies import  get_current_driver
 from datetime import datetime, timedelta
 import jwt
@@ -176,3 +177,21 @@ def refresh_token(
             detail="Invalid refresh token"
         )
 
+@router.post("/{driver_id}/profile",response_model=DriverProfileResponse)
+def get_profile(driver:int):
+    result=service.get_profile(
+        driver.id
+    )
+    if not result["success"]:
+        raise HTTPException(
+            status_code=404,
+            detail="Driver Not found"
+        )
+    rider=result["rider"]
+    return{
+        "id":rider.id,
+        "name":rider.name,
+        "surname":rider.surname,
+        "rating":rider.rating,
+        "reviews":rider.total_reviews
+    }
