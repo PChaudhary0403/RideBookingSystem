@@ -1,10 +1,17 @@
 import { APIProvider,Map,AdvancedMarker,useMap,useMapsLibrary } from "@vis.gl/react-google-maps"
-import { useState,useEffect } from 'react'
+import { useEffect } from 'react'
 import userImage from "../assets/user.png";
 import driverImage from "../assets/driver.jpg"
 type Location={
     latitude:number,
     longitude:number
+}
+
+type Driver = {
+    driver_id: number;
+    latitude: number;
+    longitude: number;
+    distance_km?: number;
 }
 type DriverProfile = {
     driver_id: number;
@@ -14,24 +21,20 @@ type DriverProfile = {
     total_reviews: number;
 };
 
-type Driver = {
-    driver_id: number;
-    latitude: number;
-    longitude: number;
-    distance_km?: number;
-}
-
 type GoogleMapsProps={
     location:Location|null;
     drivers:Driver[];
-    onDriverSelect:(driverId:Number)=>void;
+    onDriverSelect:(driverId:number)=>void;
     selectedDriver:DriverProfile|null;
     onCloseDriverProfile:()=>void;
 }
 type MapControllerProps = {
     location: Location | null;
 };
-const [selectedDriver, setSelectedDriver] =useState<DriverProfile | null>(null);
+type FitDriversProps = {
+    location: Location | null;
+    drivers: Driver[];
+};
 function MapController({ location }: MapControllerProps) {
     const map = useMap();
 
@@ -50,19 +53,7 @@ function MapController({ location }: MapControllerProps) {
 
     return null;
 }
-async function getDriverProfile(driverId: number) {
-    const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/drivers/${driverId}/profile`,
-        {
-            credentials: "include"
-        }
-    )
-    const data=await response.json()
-    if(data.status){
-        setSelectedDriver(data)
-    }
-}
-function FitDrivers({ drivers,location}:GoogleMapsProps) {
+function FitDrivers({ drivers,location}:FitDriversProps) {
     const map = useMap();
     const mapsLibrary = useMapsLibrary("core");
 
@@ -89,7 +80,7 @@ function FitDrivers({ drivers,location}:GoogleMapsProps) {
   
     return null;
   }
-function GoogleMap({location,drivers,onDriverSelect,onCloseDriverProfile}:GoogleMapsProps){
+function GoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDriverProfile}:GoogleMapsProps){
     const defaultLocation={
         lat:19.0760,
         lng:72.8777
@@ -174,7 +165,7 @@ function GoogleMap({location,drivers,onDriverSelect,onCloseDriverProfile}:Google
                 objectFit: "cover"
             }}/>
                                 <h3>
-                        {selectedDriver.name} {selectedDriver.surname}
+                        {selectedDriver.name}{" "} {selectedDriver.surname}
                     </h3>
 
                     <p>

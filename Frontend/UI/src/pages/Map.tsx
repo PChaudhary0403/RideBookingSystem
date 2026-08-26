@@ -1,6 +1,13 @@
 import GoogleMap from "../components/GoogleMap";
 import { useState,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+type DriverProfile = {
+    driver_id: number;
+    name: string;
+    surname: string;
+    rating: number | null;
+    total_reviews: number;
+};
 
 function Maps() {
     const[location,setLocation]=useState<{
@@ -8,6 +15,7 @@ function Maps() {
         longitude:number;
     }|null>(null);
     const[driver,setDriver]=useState([])
+    const [selectedDriver, setSelectedDriver] =useState<DriverProfile | null>(null);
     const[logoutstatus,setLogout]=useState(false)
     const navigate=useNavigate()
     const role=localStorage.getItem("role")
@@ -72,11 +80,28 @@ function Maps() {
             navigate('/')
         }
     },[logoutstatus,navigate])
+    async function getDriverProfile(driverId: number) {
+        const response = await fetch(
+            `${import.meta.env.VITE_API_URL}/drivers/${driverId}/profile`,
+            {
+                credentials: "include"
+            }
+        )
+        const data=await response.json()
+        if(data.status){
+            setSelectedDriver(data.driver)
+        }
+    }
     return (
         <div>
             <button onClick={getLocation}>Get Location</button>
             <button onClick={logout}>Logout</button>
-            <GoogleMap location={location} drivers={driver}/>
+            <GoogleMap 
+            location={location}
+            drivers={driver}
+            onDriverSelect={getDriverProfile}
+            selectedDriver={selectedDriver}
+            onCloseDriverProfile={()=>setSelectedDriver} />
             {role==="user" &&(
             <button onClick={getdrivers}>Get Drivers</button>
             )
