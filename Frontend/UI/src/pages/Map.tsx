@@ -104,7 +104,7 @@ function Maps() {
             drivers={driver}
             onDriverSelect={getDriverProfile}
             selectedDriver={selectedDriver}
-            onCloseDriverProfile={()=>setSelectedDriver} />
+            onCloseDriverProfile={()=>setSelectedDriver(null)} />
             {role==="user" &&(
             <button onClick={getdrivers}>Get Drivers</button>
             )

@@ -182,7 +182,7 @@ function GoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDriver
                             }}
                         >
                             <button
-                                onClick={onCloseDriverProfile}
+                                onClick={(e)=>{e.stopPropagation();onCloseDriverProfile}}
                                 style={{
                                     position: "absolute",
                                     right: "10px",
