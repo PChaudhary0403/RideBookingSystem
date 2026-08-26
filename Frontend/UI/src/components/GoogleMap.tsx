@@ -91,100 +91,133 @@ function GoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDriver
             lng: location.longitude
         }
         : defaultLocation;
-    return(
-        <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
-        <Map
-        defaultCenter={mapLocation}
-        defaultZoom={14}
-        mapId={import.meta.env.VITE_GOOGLE_MAPS_MAP_ID}
-        style={{width:"100%",
-            height:"500px"
-        }}>
-            <MapController location={location} />
-            <FitDrivers drivers={drivers} location={location}></FitDrivers>
-            {location && (<AdvancedMarker position={mapLocation}>    
-            <img
-            src={userImage}
-            alt="user"
-            style={{
-                width: "45px",
-                height: "45px",
-                borderRadius: "50%",
-                objectFit: "cover",
-                border: "3px solid white",
-                boxShadow: "0 2px 6px rgba(0,0,0,0.3)"
-            }}/>
-            </AdvancedMarker>
-            )}
-            {drivers.map((driver) => (
-            <AdvancedMarker
-                key={driver.driver_id}
-                position={{
-                    lat: driver.latitude,
-                    lng: driver.longitude
-                }}
-                onClick={() => onDriverSelect(driver.driver_id)}
-            >
-                {selectedDriver && (
+        return (
+            <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
+        
                 <div
                     style={{
-                        position: "absolute",
-                        bottom: "20px",
-                        left: "20px",
-                        width: "280px",
-                        background: "white",
-                        borderRadius: "15px",
-                        padding: "16px",
-                        boxShadow: "0 4px 15px rgba(0,0,0,0.25)",
-                        zIndex: 10
+                        position: "relative",
+                        width: "100%",
+                        height: "500px"
                     }}
                 >
-            <button
-                onClick={onCloseDriverProfile}
-                style={{
-                    position: "absolute",
-                    right: "10px",
-                    top: "8px",
-                    border: "none",
-                    background: "transparent",
-                    fontSize: "18px",
-                    cursor: "pointer"
-                }}
-            >
-                ×
-            </button>
-            <img
-            src={driverImage}
-            alt="Driver"
-            style={{
-                width: "45px",
-                height: "45px",
-                borderRadius: "50%",
-                border: "3px solid white",
-                boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
-                objectFit: "cover"
-            }}/>
-                                <h3>
-                        {selectedDriver.name}{" "} {selectedDriver.surname}
-                    </h3>
-
-                    <p>
-                        ⭐ {selectedDriver.rating ?? "New Driver"}
-                    </p>
-
-                    <p>
-                        📝 {selectedDriver.total_reviews} reviews
-                    </p>
-
-                    <button>
-                        Request Ride
-                    </button>
-            </div>
-                )}
-            </AdvancedMarker>
-            ))}
-            </Map>
-        </APIProvider>
-    );
+        
+                    <Map
+                        defaultCenter={mapLocation}
+                        defaultZoom={14}
+                        mapId={import.meta.env.VITE_GOOGLE_MAPS_MAP_ID}
+                        style={{
+                            width: "100%",
+                            height: "100%"
+                        }}
+                    >
+        
+                        <MapController location={location} />
+        
+                        <FitDrivers
+                            drivers={drivers}
+                            location={location}
+                        />
+        
+                        {/* User Marker */}
+                        {location && (
+                            <AdvancedMarker position={mapLocation}>
+                                <img
+                                    src={userImage}
+                                    alt="user"
+                                    style={{
+                                        width: "45px",
+                                        height: "45px",
+                                        borderRadius: "50%",
+                                        objectFit: "cover",
+                                        border: "3px solid white",
+                                        boxShadow: "0 2px 6px rgba(0,0,0,0.3)"
+                                    }}
+                                />
+                            </AdvancedMarker>
+                        )}
+        
+                        {/* Driver Markers */}
+                        {drivers.map((driver) => (
+                            <AdvancedMarker
+                                key={driver.driver_id}
+                                position={{
+                                    lat: driver.latitude,
+                                    lng: driver.longitude
+                                }}
+                                onClick={() =>
+                                    onDriverSelect(driver.driver_id)
+                                }
+                            >
+                                <img
+                                    src={driverImage}
+                                    alt="Driver"
+                                    style={{
+                                        width: "45px",
+                                        height: "45px",
+                                        borderRadius: "50%",
+                                        border: "3px solid white",
+                                        boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
+                                        objectFit: "cover"
+                                    }}
+                                />
+                            </AdvancedMarker>
+                        ))}
+        
+                    </Map>
+        
+                    {/* Driver Profile Card */}
+                    {selectedDriver && (
+                        <div
+                            style={{
+                                position: "absolute",
+                                bottom: "20px",
+                                left: "20px",
+                                width: "280px",
+                                background: "white",
+                                borderRadius: "15px",
+                                padding: "16px",
+                                boxShadow: "0 4px 15px rgba(0,0,0,0.25)",
+                                zIndex: 10
+                            }}
+                        >
+                            <button
+                                onClick={onCloseDriverProfile}
+                                style={{
+                                    position: "absolute",
+                                    right: "10px",
+                                    top: "8px",
+                                    border: "none",
+                                    background: "transparent",
+                                    fontSize: "18px",
+                                    cursor: "pointer"
+                                }}
+                            >
+                                ×
+                            </button>
+        
+                            <h3>
+                                {selectedDriver.name}{" "}
+                                {selectedDriver.surname}
+                            </h3>
+        
+                            <p>
+                                ⭐ {selectedDriver.rating ?? "New Driver"}
+                            </p>
+        
+                            <p>
+                                📝 {selectedDriver.total_reviews} reviews
+                            </p>
+        
+                            <button>
+                                Request Ride
+                            </button>
+                        </div>
+                    )}
+        
+                </div>
+        
+            </APIProvider>
+        );
 }
 export default GoogleMap;
