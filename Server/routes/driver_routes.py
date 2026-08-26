@@ -178,9 +178,9 @@ def refresh_token(
         )
 
 @router.get("/{driver_id}/profile",response_model=DriverProfileResponse)
-def get_profile(driver:int):
+def get_profile(driver_id:int):
     result=service.get_profile(
-        driver.id
+        driver_id
     )
     if not result["success"]:
         raise HTTPException(
