@@ -1,4 +1,4 @@
-import { APIProvider,Map,AdvancedMarker,useMap } from "@vis.gl/react-google-maps"
+import { APIProvider,Map,AdvancedMarker,useMap,useMapsLibrary } from "@vis.gl/react-google-maps"
 import { useEffect } from 'react'
 import userImage from "../assets/user.png";
 import driverImage from "../assets/driver.jpg"
@@ -50,11 +50,12 @@ async function getDriverProfile(driverId: number) {
 }
 function FitDrivers({ drivers,location}:GoogleMapsProps) {
     const map = useMap();
-  
+    const mapsLibrary = useMapsLibrary("core");
+
     useEffect(() => {
-      if(!map) return
+      if(!map|| !mapsLibrary) return
       if (drivers.length === 0) return
-      const bounds = new google.maps.LatLngBounds()
+      const bounds = new mapsLibrary.LatLngBounds()
 
       if(location){
         bounds.extend({
