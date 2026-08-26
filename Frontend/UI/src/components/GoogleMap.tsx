@@ -1,11 +1,18 @@
 import { APIProvider,Map,AdvancedMarker,useMap,useMapsLibrary } from "@vis.gl/react-google-maps"
-import { useEffect } from 'react'
+import { useState,useEffect } from 'react'
 import userImage from "../assets/user.png";
 import driverImage from "../assets/driver.jpg"
 type Location={
     latitude:number,
     longitude:number
 }
+type DriverProfile = {
+    driver_id: number;
+    name: string;
+    surname: string;
+    rating: number | null;
+    total_reviews: number;
+};
 
 type Driver = {
     driver_id: number;
@@ -17,11 +24,14 @@ type Driver = {
 type GoogleMapsProps={
     location:Location|null;
     drivers:Driver[];
+    onDriverSelect:(driverId:Number)=>void;
+    selectedDriver:DriverProfile|null;
+    onCloseDriverProfile:()=>void;
 }
 type MapControllerProps = {
     location: Location | null;
 };
-
+const [selectedDriver, setSelectedDriver] =useState<DriverProfile | null>(null);
 function MapController({ location }: MapControllerProps) {
     const map = useMap();
 
@@ -47,7 +57,10 @@ async function getDriverProfile(driverId: number) {
             credentials: "include"
         }
     )
-    console.log(response)
+    const data=await response.json()
+    if(data.status){
+        setSelectedDriver(data)
+    }
 }
 function FitDrivers({ drivers,location}:GoogleMapsProps) {
     const map = useMap();
@@ -76,7 +89,7 @@ function FitDrivers({ drivers,location}:GoogleMapsProps) {
   
     return null;
   }
-function GoogleMap({location,drivers}:GoogleMapsProps){
+function GoogleMap({location,drivers,onDriverSelect,onCloseDriverProfile}:GoogleMapsProps){
     const defaultLocation={
         lat:19.0760,
         lng:72.8777
@@ -119,8 +132,36 @@ function GoogleMap({location,drivers}:GoogleMapsProps){
                     lat: driver.latitude,
                     lng: driver.longitude
                 }}
-                onClick={() => getDriverProfile(driver.driver_id)}
+                onClick={() => onDriverSelect(driver.driver_id)}
             >
+                {selectedDriver && (
+                <div
+                    style={{
+                        position: "absolute",
+                        bottom: "20px",
+                        left: "20px",
+                        width: "280px",
+                        background: "white",
+                        borderRadius: "15px",
+                        padding: "16px",
+                        boxShadow: "0 4px 15px rgba(0,0,0,0.25)",
+                        zIndex: 10
+                    }}
+                >
+            <button
+                onClick={onCloseDriverProfile}
+                style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: "8px",
+                    border: "none",
+                    background: "transparent",
+                    fontSize: "18px",
+                    cursor: "pointer"
+                }}
+            >
+                ×
+            </button>
             <img
             src={driverImage}
             alt="Driver"
@@ -132,6 +173,23 @@ function GoogleMap({location,drivers}:GoogleMapsProps){
                 boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
                 objectFit: "cover"
             }}/>
+                                <h3>
+                        {selectedDriver.name} {selectedDriver.surname}
+                    </h3>
+
+                    <p>
+                        ⭐ {selectedDriver.rating ?? "New Driver"}
+                    </p>
+
+                    <p>
+                        📝 {selectedDriver.total_reviews} reviews
+                    </p>
+
+                    <button>
+                        Request Ride
+                    </button>
+            </div>
+                )}
             </AdvancedMarker>
             ))}
             </Map>

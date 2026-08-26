@@ -189,6 +189,7 @@ def get_profile(driver_id:int):
         )
     rider=result["driver"]
     return{
+        "status":True,
         "id":rider.id,
         "name":rider.name,
         "surname":rider.surname,
