@@ -7,6 +7,8 @@ class DriverCreate(BaseModel):
         password:str
         address:str
         licenceno:str
+        rating:int
+        total_reviews:int
 
 class DriverLogin(BaseModel):
         email:str

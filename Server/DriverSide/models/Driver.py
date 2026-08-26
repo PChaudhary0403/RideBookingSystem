@@ -14,6 +14,8 @@ class Rider(Base):
     address = Column(String)
     licenceno=Column(String,unique=True)
     permit = Column(Boolean)
+    rating=Column(Integer)
+    total_reviews=Column(Integer)
     vehicles=relationship("Vehicle",back_populates="rider")
     location=relationship("DriverLocation",back_populates="rider",uselist=False)
     trips = relationship("Trip",back_populates="driver")
