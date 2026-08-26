@@ -179,7 +179,7 @@ def refresh_token(
 
 @router.get("/{driver_id}/profile",response_model=DriverProfileResponse)
 def get_profile(driver_id:int):
-    result=service.get_profile(
+    result=service.get_driver_profile(
         driver_id
     )
     if not result["success"]:
@@ -187,7 +187,7 @@ def get_profile(driver_id:int):
             status_code=404,
             detail="Driver Not found"
         )
-    rider=result["rider"]
+    rider=result["driver"]
     return{
         "id":rider.id,
         "name":rider.name,

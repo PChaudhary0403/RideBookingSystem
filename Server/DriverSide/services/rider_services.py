@@ -52,7 +52,7 @@ class RiderService:
             "success": True
         }
 
-    def get_profile(self,driver_id):
+    def get_driver_profile(self,driver_id):
         driver=RiderRepository.get_profile(
             driver_id=driver_id
         )
