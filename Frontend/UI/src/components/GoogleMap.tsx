@@ -214,7 +214,6 @@ function GoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDriver
                             </button>
                         </div>
                     )}
-        
                 </div>
         
             </APIProvider>

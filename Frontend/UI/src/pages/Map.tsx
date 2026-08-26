@@ -88,7 +88,7 @@ function Maps() {
             }
         )
         const data=await response.json()
-        if(data.status){
+        if(response.ok){
             setSelectedDriver(data.driver)
         }
     }
