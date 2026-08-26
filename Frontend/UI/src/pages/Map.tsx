@@ -81,15 +81,18 @@ function Maps() {
         }
     },[logoutstatus,navigate])
     async function getDriverProfile(driverId: number) {
+        console.log("Clicked driver:", driverId);
         const response = await fetch(
             `${import.meta.env.VITE_API_URL}/drivers/${driverId}/profile`,
             {
                 credentials: "include"
             }
         )
+        console.log("Response:", response.status);
         const data=await response.json()
+        console.log("Driver profile data:", data);
         if(response.ok){
-            setSelectedDriver(data.driver)
+            setSelectedDriver(data)
         }
     }
     return (
