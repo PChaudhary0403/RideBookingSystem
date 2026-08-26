@@ -47,6 +47,7 @@ async function getDriverProfile(driverId: number) {
             credentials: "include"
         }
     )
+    console.log(response)
 }
 function FitDrivers({ drivers,location}:GoogleMapsProps) {
     const map = useMap();
