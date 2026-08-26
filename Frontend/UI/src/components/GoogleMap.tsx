@@ -48,6 +48,32 @@ async function getDriverProfile(driverId: number) {
         }
     )
 }
+function FitDrivers({ drivers,location}:GoogleMapsProps) {
+    const map = useMap();
+  
+    useEffect(() => {
+      if(!map) return
+      if (drivers.length === 0) return
+      const bounds = new google.maps.LatLngBounds()
+
+      if(location){
+        bounds.extend({
+            lat:location.latitude,
+            lng:location.longitude
+        })
+      }
+
+      drivers.forEach((driver)=>{
+        bounds.extend({
+            lat:driver.latitude,
+            lng:driver.longitude
+        })
+      })
+      map.fitBounds(bounds,60);
+    }, [drivers, map ,location]);
+  
+    return null;
+  }
 function GoogleMap({location,drivers}:GoogleMapsProps){
     const defaultLocation={
         lat:19.0760,
@@ -69,6 +95,7 @@ function GoogleMap({location,drivers}:GoogleMapsProps){
             height:"500px"
         }}>
             <MapController location={location} />
+            <FitDrivers drivers={drivers} location={location}></FitDrivers>
             {location && (<AdvancedMarker position={mapLocation}>    
             <img
             src={userImage}
