@@ -177,7 +177,7 @@ def refresh_token(
             detail="Invalid refresh token"
         )
 
-@router.post("/{driver_id}/profile",response_model=DriverProfileResponse)
+@router.get("/{driver_id}/profile",response_model=DriverProfileResponse)
 def get_profile(driver:int):
     result=service.get_profile(
         driver.id
