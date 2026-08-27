@@ -54,11 +54,11 @@ function Switch(){
         <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100vh"}}>
             <div style={{backgroundColor: "#F8FAFC"}}>
                 <form onSubmit={Submit} style={{display:"flex",flexDirection:"column",gap:"5px"}}>
-                    <input style={{border:"2px solid #2563EB",borderRadius:"12px"}} placeholder="name" value={name} onChange={(e)=>setName(e.target.value)}></input>
-                    <input style={{border:"2px solid #2563EB",borderRadius:"12px"}} placeholder="phone" value={phone} onChange={(e)=>setPhone(e.target.value)}></input>
-                    <input style={{border:"2px solid #2563EB",borderRadius:"12px"}} placeholder="email" value={emailID} onChange={(e)=>setEmail(e.target.value)}></input>
-                    <input style={{border:"2px solid #2563EB",borderRadius:"12px"}} placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)}></input>
-                    <input style={{border:"2px solid #2563EB",borderRadius:"12px"}} placeholder="confirm password" value={check} onChange={(e)=>setCheck(e.target.value)}></input>
+                    <input style={{border:"2px solid #2563EB",borderRadius:"12px",padding:"2px"}} placeholder="name" value={name} onChange={(e)=>setName(e.target.value)}></input>
+                    <input style={{border:"2px solid #2563EB",borderRadius:"12px",padding:"2px"}} placeholder="phone" value={phone} onChange={(e)=>setPhone(e.target.value)}></input>
+                    <input style={{border:"2px solid #2563EB",borderRadius:"12px",padding:"2px"}} placeholder="email" value={emailID} onChange={(e)=>setEmail(e.target.value)}></input>
+                    <input style={{border:"2px solid #2563EB",borderRadius:"12px",padding:"2px"}} placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)}></input>
+                    <input style={{border:"2px solid #2563EB",borderRadius:"12px",padding:"2px"}} placeholder="confirm password" value={check} onChange={(e)=>setCheck(e.target.value)}></input>
                     <button style={buttonStyle} type="submit">Submit</button>
                 </form>
                 <button style={buttonStyle} onClick={Switch}>Login</button>
