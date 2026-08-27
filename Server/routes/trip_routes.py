@@ -8,7 +8,8 @@ router=APIRouter(
     tags=["trip_data"]
 )
 services=TripServices()
-@router.post("/get_request")
+# @router.post("/get_request")
+# def get_request(trip:)
 
 @router.post("/get_trip")
 def get_trip(trip:CreateTrip):

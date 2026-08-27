@@ -11,7 +11,7 @@ type Driver = {
     driver_id: number;
     latitude: number;
     longitude: number;
-    distance_km?: number;
+    distance_km: number;
 }
 type DriverProfile = {
     driver_id: number;
@@ -19,6 +19,7 @@ type DriverProfile = {
     surname: string;
     rating: number | null;
     total_reviews: number;
+    distance_km: number;
 };
 
 type GoogleMapsProps={
@@ -196,11 +197,11 @@ function GoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDriver
                                 ×
                             </button>
         
-                            <h3>
+                            <h2>
                                 {selectedDriver.name}{" "}
                                 {selectedDriver.surname}
-                            </h3>
-        
+                            </h2>
+                            <h3>{selectedDriver.distance_km}</h3>
                             <p>
                                 ⭐ {selectedDriver.rating ?? "New Driver"}
                             </p>

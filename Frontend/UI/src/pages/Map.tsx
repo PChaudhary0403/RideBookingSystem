@@ -7,14 +7,20 @@ type DriverProfile = {
     surname: string;
     rating: number | null;
     total_reviews: number;
+    distance_km: number;
 };
-
+type Driver = {
+    driver_id: number;
+    latitude: number;
+    longitude: number;
+    distance_km: number;
+};
 function Maps() {
     const[location,setLocation]=useState<{
         latitude:number;
         longitude:number;
     }|null>(null);
-    const[driver,setDriver]=useState([])
+    const [driver, setDriver] = useState<Driver[]>([]);
     const [selectedDriver, setSelectedDriver] =useState<DriverProfile | null>(null);
     const[logoutstatus,setLogout]=useState(false)
     const navigate=useNavigate()
@@ -52,7 +58,7 @@ function Maps() {
         })
         const data=await response.json()
         console.log(data)
-        console.log(data.drivers)
+        console.log(data)
         if(data.status===true){
             setDriver(data.drivers)
         }
@@ -82,6 +88,9 @@ function Maps() {
     },[logoutstatus,navigate])
     async function getDriverProfile(driverId: number) {
         console.log("Clicked driver:", driverId);
+        const clickedDriver = driver.find(
+            (d) => d.driver_id === driverId
+        );
         const response = await fetch(
             `${import.meta.env.VITE_API_URL}/drivers/${driverId}/profile`,
             {
@@ -92,7 +101,9 @@ function Maps() {
         const data=await response.json()
         console.log("Driver profile data:", data);
         if(response.ok){
-            setSelectedDriver(data)
+            setSelectedDriver({
+                ...data,distance_km: clickedDriver?.distance_km
+            })  
         }
     }
     return (

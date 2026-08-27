@@ -190,7 +190,8 @@ def nearby_drivers(
         {
             "driver_id": driver["driver_id"],
             "latitude": driver["latitude"],
-            "longitude": driver["longitude"]
+            "longitude": driver["longitude"],
+            "distance_km":driver["distance_km"]
         }
         for driver in drivers
     ]
