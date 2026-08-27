@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean,DateTime
+from sqlalchemy import Column, Integer, String,Float, Boolean,DateTime
 from sqlalchemy.orm import relationship
 from DataBase.Connection import Base
 
@@ -14,8 +14,8 @@ class Rider(Base):
     address = Column(String)
     licenceno=Column(String,unique=True)
     permit = Column(Boolean)
-    rating=Column(Integer)
-    total_reviews=Column(Integer)
+    rating = Column(Float, nullable=False, default=0)
+    total_reviews = Column(Integer, nullable=False, default=0)
     vehicles=relationship("Vehicle",back_populates="rider")
     location=relationship("DriverLocation",back_populates="rider",uselist=False)
     trips = relationship("Trip",back_populates="driver")
