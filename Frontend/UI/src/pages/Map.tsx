@@ -122,7 +122,7 @@ function Maps() {
     }
     return (
         <div style={{width: "100%",height: "100vh",backgroundColor: "#F8FAFC"}}>
-            <div style={{display:"flex",alignItems:"flex-end"}}>
+            <div style={{display:"flex",alignItems:"flex-start"}}>
             <button style={buttonStyle} onClick={logout}>Logout</button>
             </div>
             <div style={{border:"5px solid #2563EB",borderRadius:"12px",overflow: "hidden",boxShadow: "0 4px 12px rgba(37, 99, 235, 0.2)"}}>
