@@ -7,6 +7,17 @@ const[password,setPassword]=useState("")
 const[status,setStatus]=useState(false)
 const payload={email,password}
 const navigate=useNavigate()
+const buttonStyle = {
+    backgroundColor: "#2563EB",
+    color: "white",
+    border: "none",
+    borderRadius: "8px",
+    padding: "10px 18px",
+    cursor: "pointer",
+    fontSize: "14px",
+    fontWeight: "600",
+    margin: "8px",
+  };
 
 async function Submit(e: FormEvent<HTMLFormElement>){
     e.preventDefault();
@@ -58,11 +69,11 @@ async function Submit(e: FormEvent<HTMLFormElement>){
     return(
         <>
         <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100vh"}}>
-            <div>
+            <div style={{width: "100%",height: "100vh",backgroundColor: "#F8FAFC"}}>
                 <form onSubmit={Submit} style={{display:"flex",flexDirection:"column"}}>
-                    <input placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
-                    <input placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
-                    <button type="submit">Click</button>
+                    <input style={{border:"5px solid #2563EB",borderRadius:"12px"}} placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+                    <input style={{border:"5px solid #2563EB",borderRadius:"12px"}} placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
+                    <button style={buttonStyle} type="submit">Click</button>
                 </form>
             </div>
         </div>
