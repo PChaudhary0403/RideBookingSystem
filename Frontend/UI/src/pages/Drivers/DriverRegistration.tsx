@@ -64,7 +64,7 @@ function Switch_to_login(){
 return(
     <>
     <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100vh"}}>
-        <div style={{width: "100%",height: "100vh",backgroundColor: "#F8FAFC"}}>
+        <div style={{backgroundColor: "#F8FAFC"}}>
             <form onSubmit={Submit} style={{display:"flex",flexDirection:"column",gap:"2px"}}>
             <input style={{border:"5px solid #2563EB",borderRadius:"12px"}} placeholder="name" value={name} onChange={(e)=>setName(e.target.value)}/>
             <input style={{border:"5px solid #2563EB",borderRadius:"12px"}} placeholder="surname" value={surname} onChange={(e)=>setSurname(e.target.value)}/>

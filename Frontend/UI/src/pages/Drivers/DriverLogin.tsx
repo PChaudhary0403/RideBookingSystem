@@ -69,7 +69,7 @@ async function Submit(e: FormEvent<HTMLFormElement>){
     return(
         <>
         <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100vh"}}>
-            <div style={{width: "100%",height: "100vh",backgroundColor: "#F8FAFC"}}>
+            <div style={{backgroundColor: "#F8FAFC"}}>
                 <form onSubmit={Submit} style={{display:"flex",flexDirection:"column"}}>
                     <input style={{border:"5px solid #2563EB",borderRadius:"12px"}} placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
                     <input style={{border:"5px solid #2563EB",borderRadius:"12px"}} placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)}/>

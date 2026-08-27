@@ -47,7 +47,7 @@ const response=await fetch(`${import.meta.env.VITE_API_URL}/users/login`,{
     return(
         <>
         <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100vh"}}>
-            <div style={{width: "100%",height: "100vh",backgroundColor: "#F8FAFC"}}>
+            <div style={{backgroundColor: "#F8FAFC"}}>
                 <form onSubmit={(e: FormEvent<HTMLFormElement>)=>{e.preventDefault();Submit();}} style={{display:"flex",flexDirection:"column"}}>
                     <input style={{border:"5px solid #2563EB",borderRadius:"12px"}} placeholder="Email" value={emailID} onChange={(e)=>setEmail(e.target.value)}/>
                     <input style={{border:"5px solid #2563EB",borderRadius:"12px"}} placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)}/>

@@ -52,7 +52,7 @@ function Switch(){
     return(
         <>
         <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100vh"}}>
-            <div style={{width: "100%",height: "100vh",backgroundColor: "#F8FAFC"}}>
+            <div style={{backgroundColor: "#F8FAFC"}}>
                 <form onSubmit={Submit} style={{display:"flex",flexDirection:"column",gap:"2px"}}>
                     <input placeholder="name" value={name} onChange={(e)=>setName(e.target.value)}></input>
                     <input placeholder="phone" value={phone} onChange={(e)=>setPhone(e.target.value)}></input>
