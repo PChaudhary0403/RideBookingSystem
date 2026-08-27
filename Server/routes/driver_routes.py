@@ -25,7 +25,7 @@ def register_driver(driver:DriverCreate):
         driver.phone,
         driver.password,
         driver.address,
-        driver.licenceno,
+        driver.licenceno
     )
     return {
         "driverID":rider.id,
