@@ -110,7 +110,7 @@ function Maps() {
         }
     }
     return (
-        <div>
+        <div style={{width: "100%",height: "100vh",backgroundColor: "#F8FAFC"}}>
             <button onClick={logout}>Logout</button>
             <div style={{border:"5px solid #2563EB",borderRadius:"5px"}}>
             <GoogleMap 
