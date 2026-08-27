@@ -21,7 +21,7 @@ const buttonStyle = {
 useEffect(()=>{
     if(status===true){
         alert("Login Successful")
-        navigate("/maps")
+        navigate("/user-maps")
     }
 },[status])
 

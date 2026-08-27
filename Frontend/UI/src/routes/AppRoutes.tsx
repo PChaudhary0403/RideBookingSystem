@@ -6,7 +6,8 @@ import DisplayVehicles from "../pages/Drivers/DisplayVehicles"
 import UserRegister from "../pages/Users/UserRegistration"
 import LoginUser from "../pages/Users/LoginPage"
 import HomePage from "../pages/Drivers/HomePage"
-import Maps from "../pages/Map"
+import UserMaps from "../pages/Users/userMaps"
+import DriverMaps from "../pages/Drivers/driverMaps"
 function AppRoutes(){
     return(
     <Routes>
@@ -21,7 +22,8 @@ function AppRoutes(){
         <Route path="/" element={<HomePage/>}/>
 
         {/* map */}
-        <Route path="/maps" element={<Maps/>}/>
+        <Route path="/user-maps" element={<UserMaps/>}/>
+        <Route path="/driver-maps" element={<DriverMaps/>}></Route>
     </Routes>
     );
 }

@@ -42,7 +42,7 @@ async function Submit(e: FormEvent<HTMLFormElement>){
     useEffect(()=>{
         if(status===true){
             alert("Login Successful")
-            navigate("/maps")
+            navigate("/driver-maps")
         }
     },[status])
     navigator.geolocation.getCurrentPosition(

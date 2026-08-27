@@ -29,6 +29,7 @@ type GoogleMapsProps={
     selectedDriver:DriverProfile|null;
     onCloseDriverProfile:()=>void;
 }
+
 type MapControllerProps = {
     location: Location | null;
 };
@@ -36,6 +37,7 @@ type FitDriversProps = {
     location: Location | null;
     drivers: Driver[];
 };
+
 function MapController({ location }: MapControllerProps) {
     const map = useMap();
 
@@ -54,6 +56,7 @@ function MapController({ location }: MapControllerProps) {
 
     return null;
 }
+
 function FitDrivers({ drivers,location}:FitDriversProps) {
     const map = useMap();
     const mapsLibrary = useMapsLibrary("core");
@@ -81,7 +84,7 @@ function FitDrivers({ drivers,location}:FitDriversProps) {
   
     return null;
   }
-function GoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDriverProfile}:GoogleMapsProps){
+function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDriverProfile}:GoogleMapsProps){
     const defaultLocation={
         lat:19.0760,
         lng:72.8777
@@ -220,4 +223,4 @@ function GoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDriver
             </APIProvider>
         );
 }
-export default GoogleMap;
+export default UserGoogleMap;

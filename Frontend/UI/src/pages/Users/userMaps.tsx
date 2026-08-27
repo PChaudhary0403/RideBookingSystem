@@ -1,6 +1,7 @@
-import GoogleMap from "../components/userGoogleMap";
+import UserGoogleMap from "../../components/userGoogleMap";
 import { useState,useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import{ useNavigate } from 'react-router-dom'
+
 type DriverProfile = {
     driver_id: number;
     name: string;
@@ -26,7 +27,7 @@ const buttonStyle = {
     fontWeight: "600",
     margin: "8px",
   };
-function Maps() {
+  function UserMaps() {
     const[location,setLocation]=useState<{
         latitude:number;
         longitude:number;
@@ -89,12 +90,6 @@ function Maps() {
             setLogout(true)
         }
     }
-    function Switch_to_vehicle(){
-        navigate("/vehicle/register")
-      }
-    function display_vehicles(){
-        navigate("/driver/vehicles")
-    }
     useEffect(()=>{
         if(logoutstatus===true){
             navigate('/')
@@ -120,30 +115,20 @@ function Maps() {
             })  
         }
     }
-    return (
+    return(
         <div style={{width: "100%",height: "100vh",backgroundColor: "#F8FAFC"}}>
             <div style={{display:"flex",alignItems:"flex-start",backgroundColor: "#F8FAFC"}}>
             <button style={buttonStyle} onClick={logout}>Logout</button>
             </div>
             <div style={{border:"5px solid #2563EB",borderRadius:"12px",overflow: "hidden",boxShadow: "0 4px 12px rgba(37, 99, 235, 0.2)"}}>
-            <GoogleMap 
-            location={location}
-            drivers={driver}
-            onDriverSelect={getDriverProfile}
-            selectedDriver={selectedDriver}
-            onCloseDriverProfile={()=>setSelectedDriver(null)} />
+                <UserGoogleMap location={location}
+                    drivers={driver}
+                    onDriverSelect={getDriverProfile}
+                    selectedDriver={selectedDriver}
+                    onCloseDriverProfile={()=>setSelectedDriver(null)}></UserGoogleMap>
             </div>
-            {role==="user" &&(
             <button style={buttonStyle} onClick={getdrivers}>Get Drivers</button>
-            )
-}
-            {role==="driver" &&(
-                <>
-            <button style={buttonStyle} onClick={Switch_to_vehicle}>Register Vehicles(if any)</button>
-            <button style={buttonStyle} onClick={display_vehicles}>Display your vehicles</button>
-            </>
-        )}
         </div>
-    );
+    )
 }
-export default Maps
+export default UserMaps;
