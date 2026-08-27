@@ -52,7 +52,7 @@ function Maps() {
         })
         const data=await response.json()
         console.log(data)
-        console.log(data.drivers[0])
+        console.log(data.drivers)
         if(data.status===true){
             setDriver(data.drivers)
         }
