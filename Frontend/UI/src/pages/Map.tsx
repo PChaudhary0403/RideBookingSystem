@@ -15,6 +15,17 @@ type Driver = {
     longitude: number;
     distance_km: number;
 };
+const buttonStyle = {
+    backgroundColor: "#2563EB",
+    color: "white",
+    border: "none",
+    borderRadius: "8px",
+    padding: "10px 18px",
+    cursor: "pointer",
+    fontSize: "14px",
+    fontWeight: "600",
+    margin: "8px",
+  };
 function Maps() {
     const[location,setLocation]=useState<{
         latitude:number;
@@ -111,7 +122,7 @@ function Maps() {
     }
     return (
         <div style={{width: "100%",height: "100vh",backgroundColor: "#F8FAFC"}}>
-            <button onClick={logout}>Logout</button>
+            <button style={buttonStyle} onClick={logout}>Logout</button>
             <div style={{border:"5px solid #2563EB",borderRadius:"12px",overflow: "hidden",boxShadow: "0 4px 12px rgba(37, 99, 235, 0.2)"}}>
             <GoogleMap 
             location={location}
@@ -121,13 +132,13 @@ function Maps() {
             onCloseDriverProfile={()=>setSelectedDriver(null)} />
             </div>
             {role==="user" &&(
-            <button onClick={getdrivers}>Get Drivers</button>
+            <button style={buttonStyle} onClick={getdrivers}>Get Drivers</button>
             )
 }
             {role==="driver" &&(
                 <>
-            <button onClick={Switch_to_vehicle}>Register Vehicles(if any)</button>
-            <button onClick={display_vehicles}>Display your vehicles</button>
+            <button style={buttonStyle} onClick={Switch_to_vehicle}>Register Vehicles(if any)</button>
+            <button style={buttonStyle} onClick={display_vehicles}>Display your vehicles</button>
             </>
         )}
         </div>
