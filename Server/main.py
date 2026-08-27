@@ -27,4 +27,3 @@ def home():
 app.include_router(driver_router)
 app.include_router(vehicle_router)
 app.include_router(user_router)
-app.include_router(location_router)
