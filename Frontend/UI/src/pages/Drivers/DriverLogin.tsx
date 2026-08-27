@@ -34,6 +34,27 @@ async function Submit(e: FormEvent<HTMLFormElement>){
             navigate("/maps")
         }
     },[status])
+    navigator.geolocation.getCurrentPosition(
+        async (position) => {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+    
+            await fetch(
+                `${import.meta.env.VITE_API_URL}/drivers/location`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    credentials: "include",
+                    body: JSON.stringify({
+                        latitude,
+                        longitude
+                    })
+                }
+            );
+        }
+    );
     return(
         <>
         <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100vh"}}>

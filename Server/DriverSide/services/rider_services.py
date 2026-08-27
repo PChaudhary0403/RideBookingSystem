@@ -1,6 +1,7 @@
 from DriverSide.models.Driver import Rider
 from DriverSide.repositories.rider_repo import RiderRepository
 from DynamicDB.repositories.active_rider_repo import ActiveDriverRepository
+from DynamicDB.repositories.driver_location_repo import Driver_Location_Repository
 from datetime import datetime,timezone
 
 class RiderService:
@@ -64,4 +65,19 @@ class RiderService:
         return{
             "success":True,
             "driver":driver
+        }
+
+    def update_location(self,driver_id,latitude,longitude):
+        driver=Driver_Location_Repository.update_location(
+            driver_id=driver_id,
+            latitude=latitude,
+            longitude=longitude)
+        if driver is None:
+            return {
+                "success":False,
+                "error":"No driver Found"
+            }
+        return{
+            "success":True,
+            "message":f"Location updated at {datetime.utcnow()}"
         }

@@ -10,7 +10,7 @@ class Driver_Location_Repository:
                 DriverLocation.driver_id==driver_id
             ).first()
             if location is None:
-                location==DriverLocation(
+                location=DriverLocation(
                     driver_id=driver_id,
                     latitude=latitude,
                     longitude=longitude

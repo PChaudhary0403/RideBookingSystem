@@ -3,6 +3,7 @@ from schemas.driver_schema import DriverCreate,DriverLogin
 from DriverSide.services.rider_services import RiderService
 from DynamicDB.services.active_rider_services import ActiveRiderServices
 from schemas.DriveProfile import DriverProfileResponse
+from schemas.DriverLocation import LocationGenerate
 from auth.dependencies import  get_current_driver
 from datetime import datetime, timedelta
 import jwt
@@ -196,3 +197,21 @@ def get_profile(driver_id:int):
         "rating":rider.rating,
         "reviews":rider.total_reviews
     }
+
+# @router.post("/location")
+# def get_current_location(data:LocationRequest,driver:int=Depends(get_current_driver)):
+
+@router.post("/location")
+def update_location(
+    location:LocationGenerate,
+    driver_id:int =Depends(get_current_driver)):
+    result=service.update_location(driver_id,location.latitude,location.longitude)
+    if result is None:
+        return{
+            "message":"Driver not found"
+        }
+    return{
+        "status":True,
+        "driver_id":driver_id,
+        "message":f"location updated successfully at {datetime.utcnow()}"
+}
