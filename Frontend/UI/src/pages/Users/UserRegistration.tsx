@@ -10,6 +10,17 @@ function UserRegister(){
     const[status,setStatus]=useState(false)
     const payload={name,phone,emailID,password}
     const navigate=useNavigate()
+    const buttonStyle = {
+        backgroundColor: "#2563EB",
+        color: "white",
+        border: "none",
+        borderRadius: "8px",
+        padding: "10px 18px",
+        cursor: "pointer",
+        fontSize: "14px",
+        fontWeight: "600",
+        margin: "8px",
+      };
     async function Submit(e: FormEvent<HTMLFormElement>){
         e.preventDefault()
         if(check!=password){
@@ -41,14 +52,14 @@ function Switch(){
     return(
         <>
         <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100vh"}}>
-            <div>
+            <div style={{width: "100%",height: "100vh",backgroundColor: "#F8FAFC"}}>
                 <form onSubmit={Submit} style={{display:"flex",flexDirection:"column",gap:"2px"}}>
                     <input placeholder="name" value={name} onChange={(e)=>setName(e.target.value)}></input>
                     <input placeholder="phone" value={phone} onChange={(e)=>setPhone(e.target.value)}></input>
                     <input placeholder="email" value={emailID} onChange={(e)=>setEmail(e.target.value)}></input>
                     <input placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)}></input>
                     <input placeholder="confirm password" value={check} onChange={(e)=>setCheck(e.target.value)}></input>
-                    <button type="submit">Submit</button>
+                    <button style={buttonStyle} type="submit">Submit</button>
                 </form>
                 <button onClick={Switch}>Login</button>
             </div>
