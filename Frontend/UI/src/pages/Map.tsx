@@ -112,12 +112,14 @@ function Maps() {
     return (
         <div>
             <button onClick={logout}>Logout</button>
+            <div style={{border:"2px solid blue",borderRadius:"5px"}}>
             <GoogleMap 
             location={location}
             drivers={driver}
             onDriverSelect={getDriverProfile}
             selectedDriver={selectedDriver}
             onCloseDriverProfile={()=>setSelectedDriver(null)} />
+            </div>
             {role==="user" &&(
             <button onClick={getdrivers}>Get Drivers</button>
             )
