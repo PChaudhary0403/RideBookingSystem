@@ -201,7 +201,7 @@ function GoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDriver
                                 {selectedDriver.name}{" "}
                                 {selectedDriver.surname}
                             </h2>
-                            <h3>{selectedDriver.distance_km}</h3>
+                            <h3>{selectedDriver.distance_km}km</h3>
                             <p>
                                 ⭐ {selectedDriver.rating ?? "New Driver"}
                             </p>
