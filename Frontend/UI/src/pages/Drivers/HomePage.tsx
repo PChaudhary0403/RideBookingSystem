@@ -5,7 +5,7 @@ function HomePage() {
   return (
   <>
   <div style={{display:"flex",justifyContent:"center",alignItems:"center",height:"100vh"}}>
-  <div>
+  <div style={{width: "100%",height: "100vh",backgroundColor: "#F8FAFC"}}>
     <p>This is my App</p>
     <button onClick={()=>navigate("/driver/register")}>Click here to register as Driver</button>
     <button onClick={()=>navigate("/users/register")}>Click here to register as a user</button>
