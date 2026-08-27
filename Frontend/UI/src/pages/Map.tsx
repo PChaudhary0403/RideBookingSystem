@@ -43,6 +43,9 @@ function Maps() {
             }
         )
     }
+    useEffect(()=>{
+        getLocation()
+    },[])
     async function getdrivers(){
         const response=await fetch(`${import.meta.env.VITE_API_URL}/users/nearby-drivers`,{
             method:"POST",
@@ -108,7 +111,6 @@ function Maps() {
     }
     return (
         <div>
-            <button onClick={getLocation}>Get Location</button>
             <button onClick={logout}>Logout</button>
             <GoogleMap 
             location={location}
