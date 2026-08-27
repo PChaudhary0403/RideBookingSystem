@@ -121,7 +121,7 @@ function Maps() {
         }
     }
     return (
-        <div style={{width: "100vw",height: "100vh",backgroundColor: "#F8FAFC"}}>
+        <div style={{width: "100%",height: "100vh",backgroundColor: "#F8FAFC"}}>
             <div style={{display:"flex",alignItems:"flex-start",backgroundColor: "#F8FAFC"}}>
             <button style={buttonStyle} onClick={logout}>Logout</button>
             </div>
