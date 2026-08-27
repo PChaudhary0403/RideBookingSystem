@@ -112,7 +112,7 @@ function Maps() {
     return (
         <div>
             <button onClick={logout}>Logout</button>
-            <div style={{border:"2px solid blue",borderRadius:"5px"}}>
+            <div style={{border:"2px solid #2563EB",borderRadius:"5px"}}>
             <GoogleMap 
             location={location}
             drivers={driver}
