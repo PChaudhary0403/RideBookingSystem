@@ -12,6 +12,17 @@ function VehicleRegistration(){
     const[model,setModel]=useState("")
     const[color,setColor]=useState("")
     const[status,setStatus]=useState(false)
+    const buttonStyle = {
+        backgroundColor: "#2563EB",
+        color: "white",
+        border: "none",
+        borderRadius: "8px",
+        padding: "10px 18px",
+        cursor: "pointer",
+        fontSize: "14px",
+        fontWeight: "600",
+        margin: "8px",
+      };
     // const driver_id=Number(localStorage.getItem("driver_id"))
     const navigate=useNavigate()
     useEffect(()=>{
@@ -60,10 +71,10 @@ function VehicleRegistration(){
     }
 
 return(<>
-<div>
-    <div>
+<div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100vh"}}>
+    <div style={{width: "100%",height: "100vh",backgroundColor: "#F8FAFC"}}>
         <form onSubmit={Submit} style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",height:"100vh"}}>
-            <input placeholder="Name" value={name} onChange={(e)=>setName(e.target.value)}></input>
+            <input style={{border:"5px solid #2563EB",borderRadius:"12px"}} placeholder="Name" value={name} onChange={(e)=>setName(e.target.value)}></input>
             <select value={vehicle_type} onChange={(e) => setType(e.target.value)}>
                         <option value="">Select vehicle type</option>
                         <option value="Bike">Bike</option>
@@ -74,17 +85,17 @@ return(<>
                         <option value="Mini Bus">Mini Bus</option>
                         <option value="Bus">Bus</option>
             </select>
-            <input placeholder="Vehicle Number" value={registration_number} onChange={(e)=>setNumber(e.target.value)}></input>
-            <input placeholder="Licence No" value={associated_licence} onChange={(e)=>setLicence(e.target.value)}/>
-            <input placeholder="City" value={city} onChange={(e)=>setCity(e.target.value)}></input>
-            <input placeholder="State" value={state} onChange={(e)=>setState(e.target.value)}></input>
-            <input type="number" placeholder="Mileage" value={mileage} onChange={(e)=>setMileage(e.target.value)}></input>
-            <input placeholder="Company" value={parent_company} onChange={(e)=>setCompany(e.target.value)}></input>
-            <input placeholder="Model" value={model} onChange={(e)=>setModel(e.target.value)}></input>
-            <input placeholder="Color" value={color} onChange={(e)=>setColor(e.target.value)}></input>
-            <button type="button" onClick={Submit}>Submit</button>
+            <input style={{border:"5px solid #2563EB",borderRadius:"12px"}} placeholder="Vehicle Number" value={registration_number} onChange={(e)=>setNumber(e.target.value)}></input>
+            <input style={{border:"5px solid #2563EB",borderRadius:"12px"}} placeholder="Licence No" value={associated_licence} onChange={(e)=>setLicence(e.target.value)}/>
+            <input style={{border:"5px solid #2563EB",borderRadius:"12px"}} placeholder="City" value={city} onChange={(e)=>setCity(e.target.value)}></input>
+            <input style={{border:"5px solid #2563EB",borderRadius:"12px"}} placeholder="State" value={state} onChange={(e)=>setState(e.target.value)}></input>
+            <input style={{border:"5px solid #2563EB",borderRadius:"12px"}} type="number" placeholder="Mileage" value={mileage} onChange={(e)=>setMileage(e.target.value)}></input>
+            <input style={{border:"5px solid #2563EB",borderRadius:"12px"}} placeholder="Company" value={parent_company} onChange={(e)=>setCompany(e.target.value)}></input>
+            <input style={{border:"5px solid #2563EB",borderRadius:"12px"}} placeholder="Model" value={model} onChange={(e)=>setModel(e.target.value)}></input>
+            <input style={{border:"5px solid #2563EB",borderRadius:"12px"}} placeholder="Color" value={color} onChange={(e)=>setColor(e.target.value)}></input>
+            <button style={buttonStyle} type="button" onClick={Submit}>Submit</button>
         </form>
-        <button onClick={showVehicles}>Show registered vehicles</button>
+        <button style={buttonStyle} onClick={showVehicles}>Show registered vehicles</button>
     </div>
 </div>
 </>)
