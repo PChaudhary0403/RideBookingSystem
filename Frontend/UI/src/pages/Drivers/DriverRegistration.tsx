@@ -24,6 +24,7 @@ const buttonStyle = {
 useEffect(()=>{
     if(status==true){
         alert("Registered Sucessfully!!")
+        navigate("/driver/login")
     }
 },[status]);
 async function Submit(){
