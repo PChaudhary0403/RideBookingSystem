@@ -5,7 +5,6 @@ from routes.user_routes import router as user_router
 from fastapi.middleware.cors import CORSMiddleware
 from Trip.models.Trip import Trip
 from DataBase.Connection import Base, engine
-from routes.driver_location_routes import router as location_router
 from UserSide.models.user_location import UserLocation
 from schemas.trip_schema import CreateTrip
 app=FastAPI(
