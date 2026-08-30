@@ -135,7 +135,8 @@ const buttonStyle = {
             <button style={buttonStyle} onClick={logout}>Logout</button>
             </div>
             <div style={{border:"5px solid #2563EB",borderRadius:"12px",overflow: "hidden",boxShadow: "0 4px 12px rgba(37, 99, 235, 0.2)"}}>
-                <UserGoogleMap location={location}
+                <UserGoogleMap 
+                    location={location}
                     drivers={driver}
                     onDriverSelect={getDriverProfile}
                     selectedDriver={selectedDriver}
