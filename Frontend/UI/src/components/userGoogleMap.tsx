@@ -215,7 +215,9 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                 📝 {selectedDriver.total_reviews} reviews
                             </p>
         
-                            <button onClick={onRideRequest}>
+                            <button onClick={()=>{
+                                console.log("button clicked"),
+                                onRideRequest();}}>
                                 Request Ride
                             </button>
                         </div>
