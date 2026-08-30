@@ -11,6 +11,7 @@ services=TripRequestServices()
 @router.post("/",response_model=TripRequestResponse)
 def createRequest(data:TripRequestCreate,user_id:int=Depends(get_current_user)
 ):
+    print(data.driver_id)
     result=services.registerRequest(data.driver_id,user_id)
     return {
         "status":True,
