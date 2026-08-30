@@ -85,6 +85,9 @@ const buttonStyle = {
         if(!selectedDriver) return
         const response=await fetch(`${import.meta.env.VITE_API_URL}/ride-request/`,{
             method:"POST",
+            headers:{
+                'Content-Type':'application/json'
+            },
             credentials:"include",
             body: JSON.stringify({
                 driver_id: selectedDriver.driver_id
