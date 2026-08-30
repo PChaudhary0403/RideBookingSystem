@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 class DriverProfileResponse(BaseModel):
-    id:int
+    driver_id:int
     name:str
     surname:str
     rating:float|None=None
