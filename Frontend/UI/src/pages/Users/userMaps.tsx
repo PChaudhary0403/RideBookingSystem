@@ -78,6 +78,20 @@ const buttonStyle = {
             setDriver(data.drivers)
         }
     }
+    async function RideRequest(){
+        if(!selectedDriver) return
+        const response=await fetch(`${import.meta.env.VITE_API_URL}/ride-request`,{
+            method:"POST",
+            credentials:"include",
+            body: JSON.stringify({
+                driver_id: selectedDriver.driver_id
+            })
+        })
+        const data=await response.json()
+        if(response.ok && data.status!==false){
+            console.log("request sent")
+        }
+    }
     async function logout(){
         const url=role=="driver"?`${import.meta.env.VITE_API_URL}/drivers/logout`:`${import.meta.env.VITE_API_URL}/users/logout`
         console.log(url)
@@ -125,7 +139,9 @@ const buttonStyle = {
                     drivers={driver}
                     onDriverSelect={getDriverProfile}
                     selectedDriver={selectedDriver}
-                    onCloseDriverProfile={()=>setSelectedDriver(null)}></UserGoogleMap>
+                    onCloseDriverProfile={()=>setSelectedDriver(null)}
+                    onRideRequest={RideRequest}>
+                    </UserGoogleMap>
             </div>
             <button style={buttonStyle} onClick={getdrivers}>Get Drivers</button>
         </div>

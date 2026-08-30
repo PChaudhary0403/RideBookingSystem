@@ -20,6 +20,7 @@ class Rider(Base):
     location=relationship("DriverLocation",back_populates="rider",uselist=False)
     trips = relationship("Trip",back_populates="driver")
     active_status = relationship("ActiveDriver",back_populates="driver",uselist=False)
+    request=relationship("TripRequest",back_populates="driver")
 
 
 

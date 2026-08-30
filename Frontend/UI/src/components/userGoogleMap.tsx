@@ -28,6 +28,7 @@ type GoogleMapsProps={
     onDriverSelect:(driverId:number)=>void;
     selectedDriver:DriverProfile|null;
     onCloseDriverProfile:()=>void;
+    onRideRequest:()=>void;
 }
 
 type MapControllerProps = {
@@ -84,7 +85,8 @@ function FitDrivers({ drivers,location}:FitDriversProps) {
   
     return null;
   }
-function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDriverProfile}:GoogleMapsProps){
+
+function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDriverProfile,onRideRequest}:GoogleMapsProps){
     const defaultLocation={
         lat:19.0760,
         lng:72.8777
@@ -213,7 +215,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                 📝 {selectedDriver.total_reviews} reviews
                             </p>
         
-                            <button>
+                            <button onClick={onRideRequest}>
                                 Request Ride
                             </button>
                         </div>

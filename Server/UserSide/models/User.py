@@ -12,3 +12,4 @@ class User(Base):
     password=Column(String)
     location=relationship("UserLocation",back_populates="user",uselist=False)
     trips = relationship("Trip",back_populates="user")
+    request=relationship("TripRequest",back_populates="user")

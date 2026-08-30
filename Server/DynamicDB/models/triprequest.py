@@ -3,11 +3,13 @@ from sqlalchemy.orm import relationship
 from DataBase.Connection import Base
 from datetime import datetime
 
-class DriverLocation(Base):
-    __tablename__="driver_locations"
+class TripRequest(Base):
+    __tablename__="trip_requests"
     id=Column(Integer,primary_key=True,autoincrement=True)
     driver_id=Column(Integer,ForeignKey("riders.id"),nullable=False,unique=True)
-    latitude=Column(Float,nullable=False)
-    longitude=Column(Float,nullable=False)
+    user_id=Column(Integer,ForeignKey("users.id"),nullable=False,unique=True)
+    status=Column(String,default="pending")
+    created_at=Column(DateTime,nullable=False,dafault=datetime.utcnow)
     updated_at=Column(DateTime,nullable=False,default=datetime.utcnow,onupdate=datetime.utcnow)
-    rider=relationship("Rider",back_populates="location")
+    driver=relationship("Rider",back_populates="request")
+    user=relationship("User",back_populates="request")
