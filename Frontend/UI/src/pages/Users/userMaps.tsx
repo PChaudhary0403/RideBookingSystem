@@ -83,7 +83,7 @@ const buttonStyle = {
     }
     async function RideRequest(){
         if(!selectedDriver) return
-        const response=await fetch(`${import.meta.env.VITE_API_URL}/ride-request`,{
+        const response=await fetch(`${import.meta.env.VITE_API_URL}/ride-request/`,{
             method:"POST",
             credentials:"include",
             body: JSON.stringify({
