@@ -4,6 +4,7 @@ from routes.vehicle_routes import router as vehicle_router
 from routes.user_routes import router as user_router
 from fastapi.middleware.cors import CORSMiddleware
 from Trip.models.Trip import Trip
+from DynamicDB.models.triprequest import TripRequest
 from DataBase.Connection import Base, engine
 from UserSide.models.user_location import UserLocation
 from schemas.trip_schema import CreateTrip
