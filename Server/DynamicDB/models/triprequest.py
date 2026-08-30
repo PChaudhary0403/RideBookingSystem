@@ -9,7 +9,7 @@ class TripRequest(Base):
     driver_id=Column(Integer,ForeignKey("riders.id"),nullable=False,unique=True)
     user_id=Column(Integer,ForeignKey("users.id"),nullable=False,unique=True)
     status=Column(String,default="pending")
-    created_at=Column(DateTime,nullable=False,dafault=datetime.utcnow)
+    created_at=Column(DateTime,nullable=False,default=datetime.utcnow)
     updated_at=Column(DateTime,nullable=False,default=datetime.utcnow,onupdate=datetime.utcnow)
     driver=relationship("Rider",back_populates="request")
     user=relationship("User",back_populates="request")
