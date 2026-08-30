@@ -195,7 +195,7 @@ def get_profile(driver_id:int):
         "name":rider.name,
         "surname":rider.surname,
         "rating":rider.rating,
-        "reviews":rider.total_reviews
+        "total_reviews":rider.total_reviews
     }
 
 # @router.post("/location")
