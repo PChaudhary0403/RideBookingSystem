@@ -59,7 +59,7 @@ const buttonStyle = {
         getLocation()
     },[])
     useEffect(()=>{
-        alert("The driver is selected")
+        alert(`The driver is selected ${selectedDriver?.driver_id}`)
     },[selectedDriver])
     async function getdrivers(){
         const response=await fetch(`${import.meta.env.VITE_API_URL}/users/nearby-drivers`,{
