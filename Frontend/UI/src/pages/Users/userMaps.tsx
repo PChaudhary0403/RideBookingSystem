@@ -58,6 +58,9 @@ const buttonStyle = {
     useEffect(()=>{
         getLocation()
     },[])
+    useEffect(()=>{
+        alert("The driver is selected")
+    },[selectedDriver])
     async function getdrivers(){
         const response=await fetch(`${import.meta.env.VITE_API_URL}/users/nearby-drivers`,{
             method:"POST",
