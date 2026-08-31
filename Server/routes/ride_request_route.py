@@ -12,7 +12,7 @@ services=TripRequestServices()
 def createRequest(data:TripRequestCreate,user_id:int=Depends(get_current_user)
 ):
     print(data.driver_id)
-    result=services.registerRequest(data.driver_id,user_id)
+    result=services.registerRequest(data.driver_id,user_id,data.pickup_latitude,data.pickup_longitude,data.destination_latitude,data.destination_longitude)
     return {
         "status":True,
         "trip_id":result.id,
