@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from routes.driver_routes import router as driver_router
 from routes.vehicle_routes import router as vehicle_router
 from routes.user_routes import router as user_router
-from Server.routes.ride_request_route import router as request_router
+from routes.ride_request_route import router as request_router
 from fastapi.middleware.cors import CORSMiddleware
 from Trip.models.Trip import Trip
 from DynamicDB.models.triprequest import TripRequest
