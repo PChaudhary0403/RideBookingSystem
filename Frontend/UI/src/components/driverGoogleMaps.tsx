@@ -1,5 +1,5 @@
     import { APIProvider,Map,AdvancedMarker,useMap } from "@vis.gl/react-google-maps"
-    import { useEffect,useState } from 'react'
+    import { useEffect } from 'react'
     // import userImage from "../assets/user.png";
     import driverImage from "../assets/driver.jpg"
     type Location={
