@@ -1,5 +1,5 @@
 import { APIProvider,Map,AdvancedMarker,useMap,useMapsLibrary } from "@vis.gl/react-google-maps"
-import { useEffect } from 'react'
+import { useEffect,useState } from 'react'
 import userImage from "../assets/user.png";
 import driverImage from "../assets/driver.jpg"
 type Location={
@@ -29,6 +29,10 @@ type GoogleMapsProps={
     selectedDriver:DriverProfile|null;
     onCloseDriverProfile:()=>void;
     onRideRequest:()=>void;
+    onLocationsSelected: (
+        pickup: Location,
+        destination: Location
+    ) => void;
 }
 
 type MapControllerProps = {
@@ -86,7 +90,12 @@ function FitDrivers({ drivers,location}:FitDriversProps) {
     return null;
   }
 
-function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDriverProfile,onRideRequest}:GoogleMapsProps){
+function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDriverProfile,onRideRequest,onLocationsSelected}:GoogleMapsProps){
+    const [showLocationOptions, setShowLocationOptions] = useState(false);
+    type SelectionMode = "pickup" | "destination" | null;
+    const [selectionMode, setSelectionMode] =useState<SelectionMode>(null);
+    const[pickup,setPickup]=useState<Location|null>(null);
+    const[destination,setDestination]=useState<Location|null>(null);
     const defaultLocation={
         lat:19.0760,
         lng:72.8777
@@ -97,6 +106,11 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
             lng: location.longitude
         }
         : defaultLocation;
+    useEffect(() => {
+        if (pickup && destination) {
+            onLocationsSelected(pickup, destination);
+        }
+    }, [pickup, destination]);
         return (
             <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
         
@@ -115,6 +129,24 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                         style={{
                             width: "100%",
                             height: "100%"
+                        }}
+                        onClick={(event) => {
+                            const lat = event.detail.latLng?.lat;
+                            const lng = event.detail.latLng?.lng;
+                    
+                            if (lat === undefined || lng === undefined) return;
+                            const selectedLocation={
+                                latitude:lat,
+                                longitude:lng
+                            }
+                            if(selectionMode==="pickup"){
+                                setPickup(selectedLocation)
+                                setSelectionMode(null);
+                            }
+                            if(selectionMode==="destination"){
+                                setDestination(selectedLocation)
+                                setSelectionMode(null);
+                            }
                         }}
                     >
         
@@ -217,9 +249,21 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
         
                             <button onClick={()=>{
                                 console.log("button clicked"),
+                                setShowLocationOptions(true)
                                 onRideRequest();}}>
                                 Request Ride
                             </button>
+                            {showLocationOptions && (
+                                <>
+                                    <button onClick={() => setSelectionMode("pickup")}>
+                                        Select Pickup
+                                    </button>
+
+                                    <button onClick={() => setSelectionMode("destination")}>
+                                        Select Destination
+                                    </button>
+                                </>
+                            )}
                         </div>
                     )}
                 </div>

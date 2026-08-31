@@ -16,6 +16,10 @@ type Driver = {
     longitude: number;
     distance_km: number;
 };
+type Location = {
+    latitude: number;
+    longitude: number;
+};
 const buttonStyle = {
     backgroundColor: "#2563EB",
     color: "white",
@@ -28,10 +32,9 @@ const buttonStyle = {
     margin: "8px",
   };
   function UserMaps() {
-    const[location,setLocation]=useState<{
-        latitude:number;
-        longitude:number;
-    }|null>(null);
+    const [pickup, setPickup] = useState<Location | null>(null);
+    const [destination, setDestination] = useState<Location | null>(null);
+    const[location,setLocation]=useState<Location|null>(null);
     const [driver, setDriver] = useState<Driver[]>([]);
     const [selectedDriver, setSelectedDriver] =useState<DriverProfile | null>(null);
     const[logoutstatus,setLogout]=useState(false)
@@ -81,8 +84,15 @@ const buttonStyle = {
             setDriver(data.drivers)
         }
     }
+    function handleLocations(
+        pickupLocation: Location,
+        destinationLocation: Location
+    ) {
+        setPickup(pickupLocation);
+        setDestination(destinationLocation);
+    }
     async function RideRequest(){
-        if(!selectedDriver) return
+        if(!selectedDriver || !pickup || !destination) return
         const response=await fetch(`${import.meta.env.VITE_API_URL}/ride-request/`,{
             method:"POST",
             headers:{
@@ -147,7 +157,8 @@ const buttonStyle = {
                     onDriverSelect={getDriverProfile}
                     selectedDriver={selectedDriver}
                     onCloseDriverProfile={()=>setSelectedDriver(null)}
-                    onRideRequest={RideRequest}>
+                    onRideRequest={RideRequest}
+                    onLocationsSelected={handleLocations}>
                     </UserGoogleMap>
             </div>
             <button style={buttonStyle} onClick={getdrivers}>Get Drivers</button>
