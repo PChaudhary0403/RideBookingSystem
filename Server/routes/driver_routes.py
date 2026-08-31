@@ -1,9 +1,11 @@
 from fastapi import APIRouter,Response,Cookie,HTTPException,Depends
 from schemas.driver_schema import DriverCreate,DriverLogin
 from DriverSide.services.rider_services import RiderService
+from DynamicDB.services.trip_request_Services import TripRequestServices
 from DynamicDB.services.active_rider_services import ActiveRiderServices
 from schemas.DriveProfile import DriverProfileResponse
 from schemas.DriverLocation import LocationGenerate
+from schemas.trip_request_schema import DriverTripRequest,DriverRequestResponse
 from auth.dependencies import  get_current_driver
 from datetime import datetime, timedelta
 import jwt
@@ -215,3 +217,14 @@ def update_location(
         "driver_id":driver_id,
         "message":f"location updated successfully at {datetime.utcnow()}"
 }
+
+trip_services=TripRequestServices()
+@router.get("/get-request",response_model=DriverRequestResponse)
+def get_request(
+    driver_id:int=Depends(get_current_driver)):
+    result=trip_services.get_request(driver_id)
+    return {
+        "status":True,
+        "result":result,
+        "message":"Request Retrieved Successfully"
+    }

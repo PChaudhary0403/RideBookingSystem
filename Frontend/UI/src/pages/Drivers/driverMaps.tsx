@@ -1,6 +1,12 @@
 import DriverGoogleMap from "../../components/driverGoogleMaps";
 import { useState,useEffect } from 'react'
 import{ useNavigate } from 'react-router-dom'
+type DriverTripRequest = {
+    trip_id: number;
+    user_id: number;
+    status: string;
+    created_at: string;
+};
 const buttonStyle = {
     backgroundColor: "#2563EB",
     color: "white",
@@ -21,6 +27,7 @@ const buttonStyle = {
     const navigate=useNavigate()
     const role=localStorage.getItem("role")
     console.log(role)
+    const [requests,setRequests]=useState<DriverTripRequest[]>([])
     function getLocation(){
         
         navigator.geolocation.getCurrentPosition(
@@ -40,6 +47,19 @@ const buttonStyle = {
     }
     useEffect(()=>{
         getLocation()
+    },[])
+    async function get_requests(){
+        const result=await fetch(`${import.meta.env.VITE_API_URL}/drivers/get-request`,{
+            method:"GET",
+            credentials:"include"
+        })
+        const data=await result.json()
+        if(data.status===true && result.ok){
+            setRequests(data.result)
+        }
+    }
+    useEffect(()=>{
+        get_requests()
     },[])
     async function logout(){
         const url=role=="driver"?`${import.meta.env.VITE_API_URL}/drivers/logout`:`${import.meta.env.VITE_API_URL}/users/logout`
@@ -70,7 +90,7 @@ const buttonStyle = {
             <button style={buttonStyle} onClick={logout}>Logout</button>
             </div>
             <div style={{border:"5px solid #2563EB",borderRadius:"12px",overflow: "hidden",boxShadow: "0 4px 12px rgba(37, 99, 235, 0.2)"}}>
-                <DriverGoogleMap location={location}></DriverGoogleMap>
+                <DriverGoogleMap location={location} requests={requests}></DriverGoogleMap>
             </div>
             <button style={buttonStyle} onClick={Switch_to_vehicle}>Register Vehicles(if any)</button>
             <button style={buttonStyle} onClick={display_vehicles}>Display your vehicles</button>

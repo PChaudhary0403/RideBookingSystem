@@ -8,3 +8,6 @@ class TripRequestServices:
         )
         TripRequestRepository.add(request)
         return request
+
+    def get_request(self,driver_id):
+        return TripRequestRepository.get_requests(driver_id=driver_id)

@@ -1,5 +1,5 @@
     import { APIProvider,Map,AdvancedMarker,useMap } from "@vis.gl/react-google-maps"
-    import { useEffect } from 'react'
+    import { useEffect,useState } from 'react'
     // import userImage from "../assets/user.png";
     import driverImage from "../assets/driver.jpg"
     type Location={
@@ -22,16 +22,25 @@
     //     total_reviews: number;
     //     distance_km: number;
     // };
+    type DriverTripRequest = {
+        trip_id: number;
+        user_id: number;
+        status: string;
+        created_at: string;
+    };
+    
+    type GoogleMapsProps = {
+        location: Location | null;
+        requests: DriverTripRequest[];
+    };
 
-    type GoogleMapsProps={
-        location:Location|null;
-    }
     type MapControllerProps = {
         location: Location | null;
     };
     // type FitDriversProps = {
     //     location: Location | null;
     // };
+    const [requests, setRequests] = useState<DriverTripRequest[]>([]);
     function MapController({ location }: MapControllerProps) {
         const map = useMap();
 
@@ -129,6 +138,86 @@
                                 </AdvancedMarker>
                             )}
                         </Map>
+                        <div
+    style={{
+        position: "absolute",
+        top: "20px",
+        right: "20px",
+        width: "300px",
+        maxHeight: "400px",
+        overflowY: "auto",
+        backgroundColor: "white",
+        borderRadius: "12px",
+        padding: "16px",
+        boxShadow: "0 4px 15px rgba(0,0,0,0.25)",
+        zIndex: 10
+    }}
+>
+    <h3>Ride Requests</h3>
+
+    {requests.length === 0 ? (
+        <p>No pending ride requests</p>
+    ) : (
+        requests.map((request) => (
+            <div
+                key={request.trip_id}
+                style={{
+                    border: "1px solid #ddd",
+                    borderRadius: "10px",
+                    padding: "12px",
+                    marginBottom: "10px",
+                    backgroundColor: "#F8FAFC"
+                }}
+            >
+                <h4>
+                    New Ride Request
+                </h4>
+
+                <p>
+                    User ID: {request.user_id}
+                </p>
+
+                <p>
+                    Status: {request.status}
+                </p>
+
+                <p>
+                    Requested:{" "}
+                    {new Date(request.created_at).toLocaleTimeString()}
+                </p>
+
+                <div>
+                    <button
+                        style={{
+                            backgroundColor: "#16A34A",
+                            color: "white",
+                            border: "none",
+                            borderRadius: "6px",
+                            padding: "8px 12px",
+                            marginRight: "8px",
+                            cursor: "pointer"
+                        }}
+                    >
+                        Accept
+                    </button>
+
+                    <button
+                        style={{
+                            backgroundColor: "#DC2626",
+                            color: "white",
+                            border: "none",
+                            borderRadius: "6px",
+                            padding: "8px 12px",
+                            cursor: "pointer"
+                        }}
+                    >
+                        Reject
+                    </button>
+                </div>
+            </div>
+        ))
+    )}
+                            </div>
                         </div>
                 </APIProvider>
             )
