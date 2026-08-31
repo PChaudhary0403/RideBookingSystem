@@ -100,7 +100,11 @@ const buttonStyle = {
             },
             credentials:"include",
             body: JSON.stringify({
-                driver_id: selectedDriver.driver_id
+                driver_id: selectedDriver.driver_id,
+                pickup_lat:pickup.latitude,
+                pickup_long:pickup.longitude,
+                dest_lat:destination.latitude,
+                dest_long:destination.longitude
             })
         })
         const data=await response.json()
