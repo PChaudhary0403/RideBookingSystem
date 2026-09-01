@@ -1,4 +1,4 @@
-import { APIProvider,Map,AdvancedMarker,useMap,useMapsLibrary } from "@vis.gl/react-google-maps"
+import { APIProvider,Map,AdvancedMarker,useMap,useMapsLibrary,Polyline } from "@vis.gl/react-google-maps"
 import { useEffect,useState } from 'react'
 import userImage from "../assets/user.png";
 import driverImage from "../assets/driver.jpg"
@@ -21,7 +21,10 @@ type DriverProfile = {
     total_reviews: number;
     distance_km: number;
 };
-
+type RoutePoint = {
+    lat: number;
+    lng: number;
+};
 type GoogleMapsProps={
     location:Location|null;
     drivers:Driver[];
@@ -87,6 +90,7 @@ function FitDrivers({ drivers,location}:FitDriversProps) {
   
     return null;
   }
+
 function Route({
     pickup,
     destination
@@ -94,6 +98,7 @@ function Route({
     pickup: Location | null;
     destination: Location | null;
 }) {
+    const [routePath, setRoutePath] =useState<RoutePoint[]>([]);
     const map = useMap();
     const routesLibrary = useMapsLibrary("routes");
 
@@ -127,14 +132,35 @@ function Route({
                     "durationMillis"
                 ]
             });
-            console.log("Route result:", result);
-        }
+            const route = result.routes?.[0];
+
+            if (!route) {
+                setRoutePath([]);
+                return;
+            }
+
+            setRoutePath(
+                route.path.map((point: { lat: number; lng: number }) => ({
+                    lat: point.lat,
+                    lng: point.lng
+                }))
+            );
+                    }
 
         calculateRoute();
 
     }, [map, routesLibrary, pickup, destination]);
 
-    return null;
+    return <>
+            {routePath.length > 0 && (
+            <Polyline
+                path={routePath}
+                strokeColor="#2563EB"
+                strokeOpacity={0.8}
+                strokeWeight={5}
+            />
+            )}
+    </>;
 }
 function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDriverProfile,onRideRequest,onLocationsSelected}:GoogleMapsProps){
     const [showLocationOptions, setShowLocationOptions] = useState(false);
