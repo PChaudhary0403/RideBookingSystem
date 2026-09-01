@@ -1,4 +1,4 @@
-import { APIProvider,Map,AdvancedMarker,useMap,useMapsLibrary } from "@vis.gl/react-google-maps"
+import { APIProvider,Map,AdvancedMarker,useMap,useMapsLibrary,Polyline } from "@vis.gl/react-google-maps"
 import { useEffect,useState } from 'react'
 import userImage from "../assets/user.png";
 import driverImage from "../assets/driver.jpg"
@@ -45,7 +45,6 @@ type FitDriversProps = {
 
 function MapController({ location }: MapControllerProps) {
     const map = useMap();
-
     useEffect(() => {
         if (!map || !location) return;
 
@@ -61,7 +60,6 @@ function MapController({ location }: MapControllerProps) {
 
     return null;
 }
-
 function FitDrivers({ drivers,location}:FitDriversProps) {
     const map = useMap();
     const mapsLibrary = useMapsLibrary("core");
@@ -89,7 +87,55 @@ function FitDrivers({ drivers,location}:FitDriversProps) {
   
     return null;
   }
+function Route({
+    pickup,
+    destination
+}: {
+    pickup: Location | null;
+    destination: Location | null;
+}) {
+    const map = useMap();
+    const routesLibrary = useMapsLibrary("routes");
 
+    useEffect(() => {
+
+        if (!map || !routesLibrary || !pickup || !destination) {
+            return;
+        }
+        const pickupLocation=pickup
+        const destinationLocation=destination
+        async function calculateRoute() {
+
+            const { Route } = routesLibrary;
+
+            const result = await Route.computeRoutes({
+                origin: {
+                    lat: pickupLocation.latitude,
+                    lng: pickupLocation.longitude
+                },
+
+                destination: {
+                    lat: destinationLocation.latitude,
+                    lng: destinationLocation.longitude
+                },
+
+                travelMode: "DRIVING",
+
+                fields: [
+                    "path",
+                    "distanceMeters",
+                    "durationMillis"
+                ]
+            });
+            console.log("Route result:", result);
+        }
+
+        calculateRoute();
+
+    }, [map, routesLibrary, pickup, destination]);
+
+    return null;
+}
 function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDriverProfile,onRideRequest,onLocationsSelected}:GoogleMapsProps){
     const [showLocationOptions, setShowLocationOptions] = useState(false);
     type SelectionMode = "pickup" | "destination" | null;
@@ -151,7 +197,10 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                     >
         
                         <MapController location={location} />
-        
+                        <Route
+                            pickup={pickup}
+                            destination={destination}
+                        />
                         <FitDrivers
                             drivers={drivers}
                             location={location}
@@ -201,7 +250,44 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                 />
                             </AdvancedMarker>
                         ))}
-        
+                        {pickup && (
+                            <AdvancedMarker
+                                position={{
+                                    lat: pickup.latitude,
+                                    lng: pickup.longitude
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        width: "18px",
+                                        height: "18px",
+                                        backgroundColor: "green",
+                                        borderRadius: "50%",
+                                        border: "3px solid white",
+                                        boxShadow: "0 2px 6px rgba(0,0,0,0.3)"
+                                    }}
+                                />
+                            </AdvancedMarker>
+                        )}
+                        {destination && (
+                            <AdvancedMarker
+                                position={{
+                                    lat: destination.latitude,
+                                    lng: destination.longitude
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        width: "18px",
+                                        height: "18px",
+                                        backgroundColor: "red",
+                                        borderRadius: "50%",
+                                        border: "3px solid white",
+                                        boxShadow: "0 2px 6px rgba(0,0,0,0.3)"
+                                    }}
+                                />
+                            </AdvancedMarker>
+                        )}
                     </Map>
         
                     {/* Driver Profile Card */}
@@ -248,10 +334,14 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                             </p>
         
                             <button onClick={()=>{
-                                console.log("button clicked"),
+                                if(!showLocationOptions){
                                 setShowLocationOptions(true)
-                                onRideRequest();}}>
-                                Request Ride
+                                return
+                                }
+                                if(pickup&&destination){
+                                onRideRequest();
+                            }}}>
+                                {pickup&&destination ? "Confirm Ride" : "Request Ride"}
                             </button>
                             {showLocationOptions && (
                                 <>
