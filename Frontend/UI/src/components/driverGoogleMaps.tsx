@@ -2,6 +2,19 @@
     import { useEffect } from "react";
     // import userImage from "../assets/user.png";
     import driverImage from "../assets/driver.jpg"
+    import type { DriverTripRequest } from "../types/trip"
+    import type { Dispatch, SetStateAction } from "react";
+    const buttonStyle = {
+        backgroundColor: "#2563EB",
+        color: "white",
+        border: "none",
+        borderRadius: "8px",
+        padding: "10px 18px",
+        cursor: "pointer",
+        fontSize: "14px",
+        fontWeight: "600",
+        margin: "8px",
+      };
     type Location={
         latitude:number,
         longitude:number
@@ -22,20 +35,12 @@
     //     total_reviews: number;
     //     distance_km: number;
     // };
-    type DriverTripRequest = {
-        trip_id: number;
-        user_id: number;
-        pickup_lat:number;
-        pickup_long:number;
-        dest_lat:number;
-        dest_long:number;
-        status: string;
-        created_at: string;
-    };
     
     type GoogleMapsProps = {
         location: Location | null;
+        requests: DriverTripRequest[];
         selectedRequest: DriverTripRequest | null;
+        setSelectedRequest: Dispatch<SetStateAction<DriverTripRequest | null>>;
     };
 
     type MapControllerProps = {
@@ -89,7 +94,7 @@
     
     //     return null;
     //   }
-    function DriverGoogleMap({location,selectedRequest}:GoogleMapsProps){
+    function DriverGoogleMap({location,requests,selectedRequest,setSelectedRequest}:GoogleMapsProps){
         const defaultLocation={
             lat:19.0760,
             lng:72.8777
@@ -177,6 +182,84 @@
                     </>
                 )}
                         </Map>
+                        <div
+                style={{
+                    position: "absolute",
+                    top: "20px",
+                    right: "20px",
+                    width: "320px",
+                    maxHeight: "450px",
+                    overflowY: "auto",
+                    backgroundColor: "white",
+                    borderRadius: "12px",
+                    padding: "16px",
+                    boxShadow: "0 4px 15px rgba(0,0,0,0.25)",
+                    zIndex: 10
+                }}
+            >
+                <h3>Ride Requests</h3>
+
+                {requests.length === 0 ? (
+                    <p>No pending ride requests</p>
+                ) : (
+                    requests.map((request) => (
+                        <div
+                            key={request.trip_id}
+                            style={{
+                                border: "1px solid #ddd",
+                                borderRadius: "10px",
+                                padding: "12px",
+                                marginBottom: "10px",
+                                backgroundColor: "#F8FAFC"
+                            }}
+                        >
+                            <h4>New Ride Request</h4>
+
+                            <p>
+                                User ID: {request.user_id}
+                            </p>
+
+                            <p>
+                                Status: {request.status}
+                            </p>
+
+                            <p>
+                                Requested:{" "}
+                                {new Date(
+                                    request.created_at
+                                ).toLocaleTimeString()}
+                            </p>
+
+                            <button
+                                style={buttonStyle}
+                                onClick={() =>
+                                    setSelectedRequest(request)
+                                }
+                            >
+                                View Route
+                            </button>
+
+                            <button
+                                style={{
+                                    ...buttonStyle,
+                                    backgroundColor: "#16A34A"
+                                }}
+                            >
+                                Accept
+                            </button>
+
+                            <button
+                                style={{
+                                    ...buttonStyle,
+                                    backgroundColor: "#DC2626"
+                                }}
+                            >
+                                Reject
+                            </button>
+                        </div>
+                    ))
+                )}
+            </div>
                         </div>
                 </APIProvider>
             )
