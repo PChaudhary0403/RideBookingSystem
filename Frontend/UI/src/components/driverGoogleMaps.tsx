@@ -186,9 +186,6 @@
                     </>
                 )}
                         </Map>
-                        <button onClick={closeRequest}>
-                            ✕
-                        </button>
                         <div
                 style={{
                     position: "absolute",
@@ -204,6 +201,9 @@
                     zIndex: 10
                 }}
             >
+                <button onClick={closeRequest}>
+                    ✕
+                </button>
                 <h3>Ride Requests</h3>
 
                 {requests.length === 0 ? (
