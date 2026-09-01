@@ -187,6 +187,28 @@
                     </>
                 )}
                         </Map>
+                    {!showRequests && (
+                    <button
+                        onClick={() => setShowRequests(true)}
+                        style={{
+                            position: "absolute",
+                            top: "20px",
+                            right: "20px",
+                            zIndex: 10,
+                            backgroundColor: "#2563EB",
+                            color: "white",
+                            border: "none",
+                            borderRadius: "8px",
+                            padding: "10px 16px",
+                            cursor: "pointer",
+                            fontWeight: "600"
+                        }}
+                    >
+                        Show Requests
+                    </button>
+                    )}
+
+                    {showRequests&&(
                         <div
                 style={{
                     position: "absolute",
@@ -281,7 +303,7 @@
                         </div>
                     ))
                 )}
-            </div>
+            </div>)}
                         </div>
                 </APIProvider>
             )
