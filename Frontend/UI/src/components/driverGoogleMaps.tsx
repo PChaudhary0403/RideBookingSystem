@@ -1,5 +1,5 @@
     import { APIProvider,Map,AdvancedMarker,useMap } from "@vis.gl/react-google-maps"
-    import { useEffect } from "react";
+    import { useEffect,useState } from "react";
     // import userImage from "../assets/user.png";
     import driverImage from "../assets/driver.jpg"
     import type { DriverTripRequest } from "../types/trip"
@@ -96,6 +96,7 @@
     //   }
 
     function DriverGoogleMap({location,requests,selectedRequest,setSelectedRequest}:GoogleMapsProps){
+        const [showRequests, setShowRequests] = useState(true);
         const defaultLocation={
             lat:19.0760,
             lng:72.8777
@@ -201,6 +202,20 @@
                     zIndex: 10
                 }}
             >
+                    <button
+                        onClick={() => setShowRequests(false)}
+                        style={{
+                            position: "absolute",
+                            top: "10px",
+                            right: "10px",
+                            border: "none",
+                            background: "transparent",
+                            fontSize: "20px",
+                            cursor: "pointer"
+                        }}
+                    >
+                        ✕
+                    </button>
                 <h3>Ride Requests</h3>
 
                 {requests.length === 0 ? (
