@@ -4,6 +4,10 @@ import{ useNavigate } from 'react-router-dom'
 type DriverTripRequest = {
     trip_id: number;
     user_id: number;
+    pickup_lat:number;
+    pickup_long:number;
+    dest_lat:number;
+    dest_long:number;
     status: string;
     created_at: string;
 };
@@ -19,6 +23,7 @@ const buttonStyle = {
     margin: "8px",
   };
   function DriverMaps() {
+    
     const[location,setLocation]=useState<{
         latitude:number;
         longitude:number;
@@ -28,6 +33,7 @@ const buttonStyle = {
     const role=localStorage.getItem("role")
     console.log(role)
     const [requests,setRequests]=useState<DriverTripRequest[]>([])
+    const [selectedRequest, setSelectedRequest] =useState<DriverTripRequest | null>(null);
     function getLocation(){
         
         navigator.geolocation.getCurrentPosition(
@@ -90,7 +96,7 @@ const buttonStyle = {
             <button style={buttonStyle} onClick={logout}>Logout</button>
             </div>
             <div style={{border:"5px solid #2563EB",borderRadius:"12px",overflow: "hidden",boxShadow: "0 4px 12px rgba(37, 99, 235, 0.2)"}}>
-                <DriverGoogleMap location={location} requests={requests}></DriverGoogleMap>
+                <DriverGoogleMap location={location} selectedRequest={selectedRequest}></DriverGoogleMap>
             </div>
             <button style={buttonStyle} onClick={Switch_to_vehicle}>Register Vehicles(if any)</button>
             <button style={buttonStyle} onClick={display_vehicles}>Display your vehicles</button>
