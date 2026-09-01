@@ -201,9 +201,6 @@
                     zIndex: 10
                 }}
             >
-                <button onClick={closeRequest}>
-                    ✕
-                </button>
                 <h3>Ride Requests</h3>
 
                 {requests.length === 0 ? (
@@ -220,6 +217,9 @@
                                 backgroundColor: "#F8FAFC"
                             }}
                         >
+                        <button onClick={closeRequest}>
+                            ✕
+                        </button>
                             <h4>New Ride Request</h4>
 
                             <p>
