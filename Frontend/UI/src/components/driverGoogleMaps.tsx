@@ -94,6 +94,7 @@
     
     //     return null;
     //   }
+
     function DriverGoogleMap({location,requests,selectedRequest,setSelectedRequest}:GoogleMapsProps){
         const defaultLocation={
             lat:19.0760,
@@ -105,6 +106,9 @@
                 lng: location.longitude
             }
             : defaultLocation;
+            function closeRequest() {
+                setSelectedRequest(null);
+            }
             return (
                 <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
             
@@ -182,6 +186,9 @@
                     </>
                 )}
                         </Map>
+                        <button onClick={closeRequest}>
+                            ✕
+                        </button>
                         <div
                 style={{
                     position: "absolute",
