@@ -1,4 +1,4 @@
-    import { APIProvider,Map,AdvancedMarker,useMap } from "@vis.gl/react-google-maps"
+    import { APIProvider,Map,AdvancedMarker,useMap,useMapsLibrary,Polyline } from "@vis.gl/react-google-maps"
     import { useEffect,useState } from "react";
     // import userImage from "../assets/user.png";
     import driverImage from "../assets/driver.jpg"
@@ -19,7 +19,10 @@
         latitude:number,
         longitude:number
     }
-
+    type RoutePoint = {
+        lat: number;
+        lng: number;
+    };
     // type Driver = {
     //     driver_id: number;
     //     latitude: number;
@@ -94,6 +97,77 @@
     
     //     return null;
     //   }
+
+function Route({
+    pickup,
+    destination
+}: {
+    pickup: Location | null;
+    destination: Location | null;
+}) {
+    const [routePath, setRoutePath] =useState<RoutePoint[]>([]);
+    const map = useMap();
+    const routesLibrary = useMapsLibrary("routes");
+
+    useEffect(() => {
+
+        if (!map || !routesLibrary || !pickup || !destination) {
+            return;
+        }
+        const pickupLocation=pickup
+        const destinationLocation=destination
+        async function calculateRoute() {
+
+            const { Route } = routesLibrary;
+
+            const result = await Route.computeRoutes({
+                origin: {
+                    lat: pickupLocation.latitude,
+                    lng: pickupLocation.longitude
+                },
+
+                destination: {
+                    lat: destinationLocation.latitude,
+                    lng: destinationLocation.longitude
+                },
+
+                travelMode: "DRIVING",
+
+                fields: [
+                    "path",
+                    "distanceMeters",
+                    "durationMillis"
+                ]
+            });
+            const route = result.routes?.[0];
+
+            if (!route) {
+                setRoutePath([]);
+                return;
+            }
+
+            setRoutePath(
+                route.path.map((point: { lat: number; lng: number }) => ({
+                    lat: point.lat,
+                    lng: point.lng
+                }))
+            );
+                    }
+
+        calculateRoute();
+
+    }, [map, routesLibrary, pickup, destination]);
+    return <>
+            {routePath.length > 0 && (
+            <Polyline
+                path={routePath}
+                strokeColor="#2563EB"
+                strokeOpacity={0.8}
+                strokeWeight={5}
+            />
+            )}
+            </>;
+}
 
     function DriverGoogleMap({location,requests,selectedRequest,setSelectedRequest}:GoogleMapsProps){
         const [showRequests, setShowRequests] = useState(true);
