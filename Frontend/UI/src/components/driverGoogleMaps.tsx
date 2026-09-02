@@ -112,6 +112,7 @@ function Route({
     useEffect(() => {
 
         if (!map || !routesLibrary || !pickup || !destination) {
+            setRoutePath([]);
             return;
         }
         const pickupLocation=pickup

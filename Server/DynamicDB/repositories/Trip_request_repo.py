@@ -16,6 +16,6 @@ class TripRequestRepository:
             return db.query(TripRequest).filter(
                 TripRequest.driver_id==driver_id,
                 TripRequest.status=="pending"
-            ).all()
+            ).order_by(TripRequest.created_at.desc()).all()
         finally:
             db.close()
