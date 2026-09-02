@@ -206,6 +206,19 @@ function Route({
                         >
             
                             <MapController location={location} />
+
+                        {selectedRequest && (
+                        <Route
+                            pickup={{
+                                latitude: selectedRequest.pickup_lat,
+                                longitude: selectedRequest.pickup_long
+                            }}
+                            destination={{
+                                latitude: selectedRequest.dest_lat,
+                                longitude: selectedRequest.dest_long
+                            }}
+                        />
+                        )}
             
                         {/* User Marker */}
                         {location && (
