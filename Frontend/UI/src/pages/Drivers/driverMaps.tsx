@@ -81,6 +81,49 @@ const buttonStyle = {
             navigate('/')
         }
     },[logoutstatus,navigate])
+    const [driver_id, setDriverId] = useState<number | null>(null);
+    useEffect(()=>{
+        async function getDriverId() {
+            const response = await fetch(
+                `${import.meta.env.VITE_API_URL}/driver/me`,
+                {
+                    credentials: "include"
+                }
+            );
+    
+            const data = await response.json();
+    
+            setDriverId(data.driver_id);
+        }
+    
+        getDriverId();
+    },[])
+    useEffect(()=>{
+        if(!driver_id) return
+        const socket=new WebSocket(`${import.meta.env.VITE_WS_URL}/ws/driver/${driver_id}`)
+        socket.onopen=()=>{
+            console.log("Driver websocket Connected")
+        }
+        socket.onmessage=(event)=>{
+            const data=JSON.parse(event.data)
+            console.log("Websocket message:",data)
+            if(data.type==="new_request"){
+                setRequests((prev)=>[
+                    data.request,
+                    ...prev
+                ])
+            }
+        };
+        socket.onclose=()=>{
+            console.log("Driver Socket Disconnected")
+        }
+        socket.onerror=(error)=>{
+            console.log("socket error",error)
+        }
+        return ()=>{
+            socket.close()
+        }
+    },[driver_id])
     return(
         <div style={{width: "100%",height: "100vh",backgroundColor: "#F8FAFC"}}>
             <div style={{display:"flex",alignItems:"flex-start",backgroundColor: "#F8FAFC"}}>

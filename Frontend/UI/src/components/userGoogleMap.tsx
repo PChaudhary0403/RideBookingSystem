@@ -150,7 +150,7 @@ function Route({
         calculateRoute();
 
     }, [map, routesLibrary, pickup, destination]);
-
+    
     return <>
             {routePath.length > 0 && (
             <Polyline
