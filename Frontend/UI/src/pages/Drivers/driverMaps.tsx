@@ -90,9 +90,7 @@ const buttonStyle = {
                     credentials: "include"
                 }
             );
-    
             const data = await response.json();
-    
             setDriverId(data.driver_id);
         }
     
@@ -107,7 +105,7 @@ const buttonStyle = {
         socket.onmessage=(event)=>{
             const data=JSON.parse(event.data)
             console.log("Websocket message:",data)
-            if(data.type==="new_request"){
+            if(data.type==="new request"){
                 setRequests((prev)=>[
                     data.request,
                     ...prev
