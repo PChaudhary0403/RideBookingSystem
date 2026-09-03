@@ -85,7 +85,7 @@ const buttonStyle = {
     useEffect(()=>{
         async function getDriverId() {
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/driver/me`,
+                `${import.meta.env.VITE_API_URL}/drivers/me`,
                 {
                     credentials: "include"
                 }
