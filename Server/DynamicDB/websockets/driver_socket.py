@@ -13,5 +13,6 @@ async def driver_websocket(
     try:
         while True:
             await websocket.receive_text()
+            print("websocket loaded")
     except WebSocketDisconnect:
         manager.disconnect(driver_id)
