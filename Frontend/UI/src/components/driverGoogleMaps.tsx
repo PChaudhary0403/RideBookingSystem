@@ -42,6 +42,9 @@
     type GoogleMapsProps = {
         location: Location | null;
         requests: DriverTripRequest[];
+        setRequests: React.Dispatch<
+        React.SetStateAction<DriverTripRequest[]>
+        >;
         selectedRequest: DriverTripRequest | null;
         setSelectedRequest: Dispatch<SetStateAction<DriverTripRequest | null>>;
     };
@@ -170,7 +173,7 @@ function Route({
             </>;
 }
 
-    function DriverGoogleMap({location,requests,selectedRequest,setSelectedRequest}:GoogleMapsProps){
+    function DriverGoogleMap({location,requests,setRequests,selectedRequest,setSelectedRequest}:GoogleMapsProps){
         const [showRequests, setShowRequests] = useState(true);
         const defaultLocation={
             lat:19.0760,
@@ -182,7 +185,11 @@ function Route({
                 lng: location.longitude
             }
             : defaultLocation;
-            function closeRequest() {
+            function closeRequest(tripId: number) {
+                setRequests((prev) =>
+                    prev.filter((request) => request.trip_id !== tripId)
+                );
+            
                 setSelectedRequest(null);
             }
             return (
@@ -342,7 +349,7 @@ function Route({
                                 backgroundColor: "#F8FAFC"
                             }}
                         >
-                        <button onClick={closeRequest}>
+                        <button onClick={()=>closeRequest(request.trip_id)}>
                             ✕
                         </button>
                             <h4>New Ride Request</h4>
