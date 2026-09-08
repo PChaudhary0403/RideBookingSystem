@@ -186,9 +186,18 @@ function Route({
             }
             : defaultLocation;
             function closeRequest(tripId: number) {
-                setRequests((prev) =>
-                    prev.filter((request) => request.trip_id !== tripId)
-                );
+                console.log("Deleting:", tripId);
+                setRequests((prev) => {
+                    console.log("Before:", prev);
+            
+                    const updated = prev.filter(
+                        (request) => request.trip_id !== tripId
+                    );
+            
+                    console.log("After:", updated);
+            
+                    return updated;
+                });
             
                 setSelectedRequest(null);
             }
