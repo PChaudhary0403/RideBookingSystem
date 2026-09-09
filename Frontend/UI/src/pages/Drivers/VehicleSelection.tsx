@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import hondaShine from "../../assets/vehicles/HondaShine.png";
-import bajajRE from "../../assets/vehicles/Bajaj-re.png";
+import bajajRE from "../../assets/vehicles/Bajaj_re.png";
 import swift from "../../assets/vehicles/Swift.png";
 import creta from "../../assets/vehicles/Creta.png";
 import eeco from "../../assets/vehicles/Eco.png";
