@@ -25,7 +25,6 @@ async def createRequest(data:TripRequestCreate,user_id:int=Depends(get_current_u
         {
             "type":"new request",
             "request":{
-                "trip_id":result.id,
                 "user_id":user_id,
                 "driver_id":data.driver_id,
                 "pickup_lat":data.pickup_lat,
