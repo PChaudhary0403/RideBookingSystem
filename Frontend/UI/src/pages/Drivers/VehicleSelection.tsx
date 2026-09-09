@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom'
-import hondaShine from "../assets/vehicles/HondaShine.png";
-import bajajRE from "../assets/vehicles/Bajaj-re.png";
-import swift from "../assets/vehicles/Swift.png";
-import creta from "../assets/vehicles/Creta.png";
-import eeco from "../assets/vehicles/Eco.png";
-import forceTraveller from "../assets/vehicles/ForceTraveller.png";
-import tataStarbus from "../assets/vehicles/Tata_Starbus.png";
+import hondaShine from "../../assets/vehicles/HondaShine.png";
+import bajajRE from "../../assets/vehicles/Bajaj-re.png";
+import swift from "../../assets/vehicles/Swift.png";
+import creta from "../../assets/vehicles/Creta.png";
+import eeco from "../../assets/vehicles/Eco.png";
+import forceTraveller from "../../assets/vehicles/ForceTraveller.png";
+import tataStarbus from "../../assets/vehicles/Tata_Starbus.png";
 type Vehicle={
     id:string;
     type:string;
