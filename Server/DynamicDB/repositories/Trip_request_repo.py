@@ -36,7 +36,7 @@ class TripRequestRepository:
         finally:
             db.close()
 
-    def dismiss_request(self, trip_id: int, driver_id: int):
+    def dismiss_request(trip_id: int, driver_id: int):
 
         db = SessionLocal()
         try:
