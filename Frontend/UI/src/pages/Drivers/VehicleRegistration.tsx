@@ -2,14 +2,11 @@ import { useState,useEffect } from 'react'
 import { useNavigate,useLocation } from "react-router-dom"
 function VehicleRegistration(){
     const[name,setName]=useState("")
-    const[vehicle_type,setType]=useState("")
     const[registration_number,setNumber]=useState("")
     const[associated_licence,setLicence]=useState("")
     const[city,setCity]=useState("")
     const[state,setState]=useState("")
     const[mileage,setMileage]=useState("")
-    const[parent_company,setCompany]=useState("")
-    const[model,setModel]=useState("")
     const[color,setColor]=useState("")
     const[status,setStatus]=useState(false)
     const buttonStyle = {
