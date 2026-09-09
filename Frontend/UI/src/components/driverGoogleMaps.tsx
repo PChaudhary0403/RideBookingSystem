@@ -185,22 +185,29 @@ function Route({
                 lng: location.longitude
             }
             : defaultLocation;
-            function closeRequest(tripId: number) {
-                console.log("Deleting:", tripId);
-                setRequests((prev) => {
-                    console.log("Before:", prev);
+            async function closeRequest(tripId: number) {
+                const response = await fetch(
+                    `${import.meta.env.VITE_API_URL}/drivers/dismiss-request/${tripId}`,
+                    {
+                        method: "PATCH",
+                        credentials: "include"
+                    }
+                );
             
-                    const updated = prev.filter(
-                        (request) => request.trip_id !== tripId
+                const data = await response.json();
+            
+                if (response.ok && data.status === true) {
+            
+                    setRequests((prev) =>
+                        prev.filter(
+                            (request) => request.trip_id !== tripId
+                        )
                     );
             
-                    console.log("After:", updated);
-            
-                    return updated;
-                });
-            
-                setSelectedRequest(null);
+                    setSelectedRequest(null);
+                }
             }
+            
             return (
                 <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
             

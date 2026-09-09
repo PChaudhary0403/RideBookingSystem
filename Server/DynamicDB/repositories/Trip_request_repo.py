@@ -35,3 +35,24 @@ class TripRequestRepository:
     ]
         finally:
             db.close()
+
+    def dismiss_request(self, trip_id: int, driver_id: int):
+
+        db = SessionLocal()
+        try:
+            request = (
+                db.query(TripRequest)
+                .filter(
+                    TripRequest.id == trip_id,
+                    TripRequest.driver_id == driver_id,
+                    TripRequest.status == "pending"
+                )
+                .first()
+            )
+            if not request:
+                return None
+            request.status = "dismissed"
+            db.commit()
+            return request
+        finally:
+            db.close()

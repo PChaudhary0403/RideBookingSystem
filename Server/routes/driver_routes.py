@@ -229,6 +229,27 @@ def get_request(
         "message":"Request Retrieved Successfully"
     }
 
+@router.patch("/dismiss-request/{trip_id}")
+def dismiss_request(
+    trip_id: int,
+    driver_id: int = Depends(get_current_driver)
+):
+
+    result = trip_services.dismiss_request(
+        trip_id,
+        driver_id
+    )
+
+    if not result:
+        return {
+            "status": False,
+            "message": "Request not found"
+        }
+
+    return {
+        "status": True,
+        "message": "Request dismissed successfully"
+    }
 @router.get("/me")
 def get_driverId(driver_id:int=Depends(get_current_driver)):
     return{

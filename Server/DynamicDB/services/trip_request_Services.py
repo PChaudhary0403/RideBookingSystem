@@ -15,3 +15,6 @@ class TripRequestServices:
 
     def get_request(self,driver_id):
         return TripRequestRepository.get_requests(driver_id=driver_id)
+
+    def dismiss_request(self,trip_id,driver_id):
+        return TripRequestRepository.dismiss_request(trip_id=trip_id,driver_id=driver_id)
