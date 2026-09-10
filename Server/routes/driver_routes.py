@@ -235,6 +235,10 @@ async def update_status(
     trip_id:int,
     driver_id:int=Depends(get_current_driver),
 ):
+    print("UPDATE STATUS ROUTE HIT")
+    print("TRIP ID:", trip_id)
+    print("DRIVER ID:", driver_id)
+    print("STATUS:", data.status)
     update=trip_services.update_request(
         data.status,
         trip_id,
