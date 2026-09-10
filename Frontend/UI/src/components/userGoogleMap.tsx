@@ -36,6 +36,11 @@ type GoogleMapsProps={
         pickup: Location,
         destination: Location
     ) => void;
+    driverResponse: {
+        status: string;
+        driver_id: number;
+        trip_id: number;
+    } | null;
 }
 
 type MapControllerProps = {
@@ -162,12 +167,13 @@ function Route({
             )}
     </>;
 }
-function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDriverProfile,onRideRequest,onLocationsSelected}:GoogleMapsProps){
+function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDriverProfile,onRideRequest,onLocationsSelected,driverResponse}:GoogleMapsProps){
     const [showLocationOptions, setShowLocationOptions] = useState(false);
     type SelectionMode = "pickup" | "destination" | null;
     const [selectionMode, setSelectionMode] =useState<SelectionMode>(null);
     const[pickup,setPickup]=useState<Location|null>(null);
     const[destination,setDestination]=useState<Location|null>(null);
+    
     const defaultLocation={
         lat:19.0760,
         lng:72.8777
@@ -183,6 +189,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
             onLocationsSelected(pickup, destination);
         }
     }, [pickup, destination]);
+
         return (
             <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
         
@@ -381,6 +388,75 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                 </>
                             )}
                         </div>
+                    )}
+                    {driverResponse?.status === "accepted" && (
+                        <div
+                            style={{
+                                position: "absolute",
+                                bottom: "30px",
+                                left: "50%",
+                                transform: "translateX(-50%)",
+                                backgroundColor: "white",
+                                padding: "20px",
+                                borderRadius: "12px",
+                                boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
+                                zIndex: 10,
+                                minWidth: "300px",
+                                textAlign: "center"
+                            }}
+                        >
+                            <h3>Ride Accepted 🎉</h3>
+
+                            <p>
+                                Driver {driverResponse.driver_id} has accepted your ride.
+                            </p>
+
+                            <p>
+                                Trip ID: {driverResponse.trip_id}
+                            </p>
+                        </div>
+                    )}
+                    {driverResponse?.status === "rejected" &&
+                    driverResponse.driver_id === selectedDriver?.driver_id && (
+                        <div
+                            style={{
+                                position: "absolute",
+                                bottom: "30px",
+                                left: "50%",
+                                transform: "translateX(-50%)",
+                                backgroundColor: "white",
+                                padding: "20px",
+                                borderRadius: "12px",
+                                boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
+                                zIndex: 10,
+                                minWidth: "300px",
+                                textAlign: "center"
+                            }}
+                        >
+                            <h3>Let's find another ride</h3>
+
+                            <p>
+                                This driver isn't available for your trip right now.
+                            </p>
+
+                            <p>
+                                You can choose another nearby driver.
+                            </p>
+
+                        <button
+                                style={{
+                                backgroundColor: "#2563EB",
+                                color: "white",
+                                border: "none",
+                                borderRadius: "8px",
+                                padding: "10px 18px",
+                                cursor: "pointer",
+                                fontWeight: "600"
+                                }}
+                            >
+                            Find Another Driver
+                        </button>
+                    </div>
                     )}
                 </div>
         

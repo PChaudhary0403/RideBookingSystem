@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from datetime import datetime
+from enum import Enum
 
 class TripRequestResponse(BaseModel):
     trip_id: int
@@ -27,3 +28,13 @@ class DriverRequestResponse(BaseModel):
     status:bool
     result:list[DriverTripRequest]
     message:str
+
+class TripStatus(str,Enum):
+    pending="pending"
+    accepted="accepted"
+    rejected="rejected"
+    completed="completed"
+    dismiss="dismiss"
+
+class TripRequestUpdate(BaseModel):
+    status:TripStatus

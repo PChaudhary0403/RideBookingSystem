@@ -4,15 +4,15 @@ router=APIRouter(
     prefix="/ws",
     tags=["websocket"]
 )
-@router.websocket("/driver/{driver_id}")
-async def driver_websocket(
+@router.websocket("/user/{user_id}")
+async def user_websocket(
     websocket:WebSocket,
-    driver_id:int
+    user_id:int
 ):
-    await manager.connect("driver",driver_id,websocket)
+    await manager.connect("user",user_id,websocket)
     try:
         while True:
             await websocket.receive_text()
             print("websocket loaded")
     except WebSocketDisconnect:
-        manager.disconnect("driver",driver_id,websocket)
+        manager.disconnect("user",user_id,websocket)

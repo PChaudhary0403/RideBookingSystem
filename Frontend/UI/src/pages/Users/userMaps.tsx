@@ -40,6 +40,7 @@ const buttonStyle = {
     const[logoutstatus,setLogout]=useState(false)
     const navigate=useNavigate()
     const role=localStorage.getItem("role")
+    const [userId, setUserId] = useState<number | null>(null);
     console.log(role)
     function getLocation(){
         
@@ -61,9 +62,65 @@ const buttonStyle = {
     useEffect(()=>{
         getLocation()
     },[])
-    useEffect(()=>{
-        alert(`The driver is selected ${selectedDriver?.driver_id}`)
-    },[selectedDriver])
+    // useEffect(()=>{
+    //     alert(`The driver is selected ${selectedDriver?.driver_id}`)
+    // },[selectedDriver])
+        useEffect(()=>{
+        async function getUserId() {
+            const response = await fetch(
+                `${import.meta.env.VITE_API_URL}/Users/me`,
+                {
+                    credentials: "include"
+                }
+            );
+            const data = await response.json();
+            setUserId(data.user_id);
+        }
+    
+        getUserId();
+    },[])
+    const [driverResponse, setDriverResponse] = useState<{
+        status: string;
+        driver_id: number;
+        trip_id: number;
+    } | null>(null);
+    useEffect(() => {
+        if (!userId) return;
+    
+        const socket = new WebSocket(
+            `${import.meta.env.VITE_WS_URL}/ws/user/${userId}`
+        );
+    
+        socket.onopen = () => {
+            console.log("User WebSocket connected");
+        };
+    
+        socket.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+    
+            console.log("Driver response:", data);
+    
+            if (data.type === "driver_response") {
+                console.log(data.status);
+                setDriverResponse({
+                    status: data.status,
+                    driver_id: data.driver_id,
+                    trip_id: data.trip_id
+                });
+        
+                // accepted or rejected
+            }
+        };
+    
+        socket.onclose = () => {
+            console.log("User WebSocket disconnected");
+        };
+    
+        return () => {
+            socket.close();
+        };
+    
+    }, [userId]);
     async function getdrivers(){
         const response=await fetch(`${import.meta.env.VITE_API_URL}/users/nearby-drivers`,{
             method:"POST",
@@ -162,7 +219,9 @@ const buttonStyle = {
                     selectedDriver={selectedDriver}
                     onCloseDriverProfile={()=>setSelectedDriver(null)}
                     onRideRequest={RideRequest}
-                    onLocationsSelected={handleLocations}>
+                    onLocationsSelected={handleLocations}
+                    driverResponse={driverResponse}
+                    >
                     </UserGoogleMap>
             </div>
             <button style={buttonStyle} onClick={getdrivers}>Get Drivers</button>

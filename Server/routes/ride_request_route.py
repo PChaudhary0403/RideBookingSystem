@@ -20,7 +20,8 @@ async def createRequest(data:TripRequestCreate,user_id:int=Depends(get_current_u
         data.pickup_long,
         data.dest_lat,
         data.dest_long)
-    await manager.send_to_driver(
+    await manager.send(
+        "driver",
         data.driver_id,
         {
             "type":"new request",

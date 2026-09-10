@@ -2,6 +2,7 @@ from fastapi import APIRouter,Response,Cookie,HTTPException,Depends
 from schemas.user_schema import UserCreate,UserLogin
 from UserSide.services.user_services import UserService
 from schemas.nearby_drivers import NearbyDriversRequest
+from schemas.trip_request_schema import TripRequestResponse
 from auth.dependencies import  get_current_user
 from datetime import datetime, timedelta
 import jwt
@@ -195,4 +196,10 @@ def nearby_drivers(
         }
         for driver in drivers
     ]
+    }
+
+@router.get("/me")
+def me(user_id:int=Depends(get_current_user)):
+    return{
+        "user_id":user_id
     }

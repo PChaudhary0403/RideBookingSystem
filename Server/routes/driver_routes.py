@@ -5,7 +5,8 @@ from DynamicDB.services.trip_request_Services import TripRequestServices
 from DynamicDB.services.active_rider_services import ActiveRiderServices
 from schemas.DriveProfile import DriverProfileResponse
 from schemas.DriverLocation import LocationGenerate
-from schemas.trip_request_schema import DriverTripRequest,DriverRequestResponse
+from DynamicDB.websockets.manager import manager
+from schemas.trip_request_schema import DriverTripRequest,DriverRequestResponse,TripRequestUpdate
 from auth.dependencies import  get_current_driver
 from datetime import datetime, timedelta
 import jwt
@@ -228,7 +229,35 @@ def get_request(
         "result":result,
         "message":"Request Retrieved Successfully"
     }
-
+@router.patch("/update-status/{trip_id}")
+async def update_status(
+    data:TripRequestUpdate,
+    trip_id:int,
+    driver_id:int=Depends(get_current_driver),
+):
+    update=trip_services.update_request(
+        data.status,
+        trip_id,
+        driver_id
+    )
+    if not update:
+        return{
+            "status":False,
+            "message":"Failed to update request status"
+        }
+    await manager.send(
+    "user",
+    update.user_id,
+    {
+        "type": "driver_response",
+        "trip_id": update.id,
+        "status": update.status
+    }
+    )
+    return{
+        "status":True,
+        "message":"Request Updated Successfully"
+    }
 @router.patch("/dismiss-request/{trip_id}")
 def dismiss_request(
     trip_id: int,

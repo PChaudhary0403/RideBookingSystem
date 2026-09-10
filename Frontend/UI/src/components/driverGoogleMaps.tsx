@@ -175,6 +175,7 @@ function Route({
 
     function DriverGoogleMap({location,requests,setRequests,selectedRequest,setSelectedRequest}:GoogleMapsProps){
         const [showRequests, setShowRequests] = useState(true);
+        const [agreement,setAgreement]=useState("")
         const defaultLocation={
             lat:19.0760,
             lng:72.8777
@@ -207,7 +208,29 @@ function Route({
                     setSelectedRequest(null);
                 }
             }
-            
+            async function get_agreement(tripId:number,agreement:string){
+                const status=await fetch(`${import.meta.env.VITE_WS_URL}/drivers/update-status/${tripId}`,{
+                    method:"POST",
+                    credentials:"include",
+                    headers:{
+                        "Content-Type":"application/json"
+                    },
+                    body:JSON.stringify({
+                        agreement
+                    })
+                })
+                const data=await status.json()
+                if(data.status){
+                    console.log("Request accepted")
+                }
+        }
+        useEffect(()=>{
+            if(agreement!==""){
+                if(selectedRequest?.trip_id){
+                get_agreement(selectedRequest?.trip_id,agreement)
+                }
+            }
+        },[agreement])
             return (
                 <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
             
@@ -365,7 +388,7 @@ function Route({
                                 backgroundColor: "#F8FAFC"
                             }}
                         >
-                        <button onClick={()=>closeRequest(request.trip_id)}>
+                        <button onClick={()=>{closeRequest(request.trip_id),setAgreement("declined")}}>
                             ✕
                         </button>
                             <h4>New Ride Request</h4>
@@ -399,6 +422,7 @@ function Route({
                                     ...buttonStyle,
                                     backgroundColor: "#16A34A"
                                 }}
+                                onClick={()=>setAgreement("accepted")}
                             >
                                 Accept
                             </button>
@@ -408,6 +432,7 @@ function Route({
                                     ...buttonStyle,
                                     backgroundColor: "#DC2626"
                                 }}
+                                onClick={()=>setAgreement("rejected")}
                             >
                                 Reject
                             </button>

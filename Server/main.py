@@ -3,7 +3,8 @@ from routes.driver_routes import router as driver_router
 from routes.vehicle_routes import router as vehicle_router
 from routes.user_routes import router as user_router
 from routes.ride_request_route import router as request_router
-from DynamicDB.websockets.driver_socket import router as websocket_router
+from DynamicDB.websockets.driver_socket import router as driver_ws_router
+from DynamicDB.websockets.user_socket import router as user_ws_router
 from fastapi.middleware.cors import CORSMiddleware
 from Trip.models.Trip import Trip
 from DynamicDB.models.triprequest import TripRequest
@@ -31,4 +32,5 @@ app.include_router(driver_router)
 app.include_router(vehicle_router)
 app.include_router(user_router)
 app.include_router(request_router)
-app.include_router(websocket_router)
+app.include_router(driver_ws_router)
+app.include_router(user_ws_router)

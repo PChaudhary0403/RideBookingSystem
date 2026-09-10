@@ -56,3 +56,23 @@ class TripRequestRepository:
             return request
         finally:
             db.close()
+
+    def update_request(status,trip_id:int,driver_id:int):
+        db=SessionLocal()
+        try:
+            request=(
+                db.query(TripRequest).filter(
+                    TripRequest.trip_id==trip_id,
+                    TripRequest.driver_id==driver_id,
+                    TripRequest.status == "pending"
+                )
+            )
+            if not request:
+                return None
+            request.status=status
+            db.commit()
+            db.refresh(request)
+            return request
+        finally:
+            db.close()
+
