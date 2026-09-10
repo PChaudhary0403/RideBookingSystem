@@ -121,6 +121,7 @@ const buttonStyle = {
         };
     
     }, [userId]);
+    console.log(driverResponse)
     async function getdrivers(){
         const response=await fetch(`${import.meta.env.VITE_API_URL}/users/nearby-drivers`,{
             method:"POST",
