@@ -200,7 +200,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                         height: "500px"
                     }}
                 >
-        
+                    <pre>{JSON.stringify(driverResponse, null, 2)}</pre>
                     <Map
                         defaultCenter={mapLocation}
                         defaultZoom={14}
