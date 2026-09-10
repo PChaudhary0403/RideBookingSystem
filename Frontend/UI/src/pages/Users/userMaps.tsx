@@ -68,7 +68,7 @@ const buttonStyle = {
         useEffect(()=>{
         async function getUserId() {
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/Users/me`,
+                `${import.meta.env.VITE_API_URL}/users/me`,
                 {
                     credentials: "include"
                 }
