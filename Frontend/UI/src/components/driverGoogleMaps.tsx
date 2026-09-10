@@ -208,7 +208,7 @@ function Route({
                     setSelectedRequest(null);
                 }
             }
-            async function get_agreement(tripId:number,agreement:string){
+            async function get_agreement(tripId:number){
                 const status=await fetch(`${import.meta.env.VITE_WS_URL}/drivers/update-status/${tripId}`,{
                     method:"POST",
                     credentials:"include",
@@ -227,7 +227,7 @@ function Route({
         useEffect(()=>{
             if(agreement!==""){
                 if(selectedRequest?.trip_id){
-                get_agreement(selectedRequest?.trip_id,agreement)
+                get_agreement(selectedRequest?.trip_id)
                 }
             }
             alert(`Request ${agreement}`)
