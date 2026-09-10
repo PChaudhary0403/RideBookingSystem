@@ -230,6 +230,7 @@ function Route({
                 get_agreement(selectedRequest?.trip_id,agreement)
                 }
             }
+            alert(`Request ${agreement}`)
         },[agreement])
             return (
                 <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
