@@ -101,7 +101,7 @@ const buttonStyle = {
             console.log("Driver response:", data);
     
             if (data.type === "driver_response") {
-                console.log(data.status);
+                console.log("status updated",data.status);
                 setDriverResponse({
                     status: data.status,
                     driver_id: data.driver_id,
