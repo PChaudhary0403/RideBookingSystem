@@ -9,10 +9,13 @@ async def user_websocket(
     websocket:WebSocket,
     user_id:int
 ):
+    print("Use ws connecting...",user_id)
     await manager.connect("user",user_id,websocket)
+    print("USER WEBSOCKET CONNECTED:", user_id)
     try:
         while True:
             await websocket.receive_text()
             print("websocket loaded")
     except WebSocketDisconnect:
         manager.disconnect("user",user_id,websocket)
+        print("USER WEBSOCKET DISCONNECTED:", user_id)
