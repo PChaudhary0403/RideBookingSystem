@@ -221,7 +221,7 @@ function Route({
                 })
                 const data=await status.json()
                 if(data.status){
-                    console.log("data sent",agreement)
+                    alert(`data sent ${agreement}`)
                     console.log("Request accepted")
                 }
         }
