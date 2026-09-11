@@ -64,14 +64,15 @@ class TripRequestRepository:
                 db.query(TripRequest).filter(
                     TripRequest.id==trip_id,
                     TripRequest.driver_id==driver_id,
-                    TripRequest.status == "pending"
                 ).first()
             )
-            if not request:
+            if request is None:
+                print("No request Found")
                 return None
             request.status=status
             db.commit()
             db.refresh(request)
+            print("Updated request status",request)
             return request
         finally:
             db.close()
