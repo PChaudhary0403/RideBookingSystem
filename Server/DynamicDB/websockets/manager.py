@@ -12,28 +12,35 @@ class ConnectionManager:
 
 
     async def connect(
-        self,
-        role: str,
-        client_id: int,
-        websocket: WebSocket
-    ):
-        await websocket.accept()
-        print("CONNECT CALLED")
-        print("BEFORE CONNECT:", self.connections)
-        role_connections = self.connections[role]
+            self,
+            role: str,
+            client_id: int,
+            websocket: WebSocket
+        ):
+            print("CONNECT CALLED")
+            print("ROLE:", role)
+            print("CLIENT ID:", client_id)
 
-        if client_id not in role_connections:
-            role_connections[client_id] = set()
+            await websocket.accept()
 
-        role_connections[client_id].add(websocket)
-        print("AFTER CONNECT:", self.connections)
+            role_connections = self.connections[role]
+
+            if client_id not in role_connections:
+                role_connections[client_id] = set()
+
+            role_connections[client_id].add(websocket)
+
+            print("AFTER CONNECT:", self.connections)
 
     def disconnect(
         self,
         role: str,
         client_id: int,
         websocket: WebSocket
-    ):
+        ):
+        print("DISCONNECT CALLED")
+        print("BEFORE DISCONNECT:", self.connections)
+
         role_connections = self.connections.get(role)
 
         if not role_connections:
@@ -49,6 +56,7 @@ class ConnectionManager:
         if not connections:
             role_connections.pop(client_id, None)
 
+        print("AFTER DISCONNECT:", self.connections)
 
     async def send(
         self,
