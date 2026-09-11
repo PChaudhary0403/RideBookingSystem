@@ -209,7 +209,7 @@ function Route({
                 }
             }
             async function get_agreement(tripId:number){
-                const status=await fetch(`${import.meta.env.VITE_WS_URL}/drivers/update-status/${tripId}`,{
+                const response=await fetch(`${import.meta.env.VITE_WS_URL}/drivers/update-status/${tripId}`,{
                     method:"POST",
                     credentials:"include",
                     headers:{
@@ -219,8 +219,8 @@ function Route({
                         agreement
                     })
                 })
-                const data=await status.json()
-                if(data.status){
+                const data=await response.json()
+                if(data.status===true){
                     alert(`data sent ${agreement}`)
                     console.log("Request accepted")
                 }
