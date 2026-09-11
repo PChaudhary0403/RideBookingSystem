@@ -58,7 +58,7 @@ class ConnectionManager:
         print("SEND CALLED")
         print("ROLE:", role)
         print("USER ID:", client_id)
-        print("ACTIVE CONNECTIONS:", self.active_connections)
+        print("ACTIVE CONNECTIONS:", self.connections)
         role_connections = self.connections.get(role)
 
         if not role_connections:
