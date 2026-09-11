@@ -209,8 +209,8 @@ function Route({
                 }
             }
             async function get_agreement(tripId:number){
-                const response=await fetch(`${import.meta.env.VITE_WS_URL}/drivers/update-status/${tripId}`,{
-                    method:"POST",
+                const response=await fetch(`${import.meta.env.VITE_API_URL}/drivers/update-status/${tripId}`,{
+                    method:"PATCH",
                     credentials:"include",
                     headers:{
                         "Content-Type":"application/json"
@@ -226,13 +226,13 @@ function Route({
                 }
         }
         useEffect(()=>{
-            if(agreement!==""){
-                if(selectedRequest?.trip_id){
-                get_agreement(selectedRequest?.trip_id)
-                }
+            if(!agreement || !selectedRequest?.trip_id){
+                return
             }
-            alert(`Request ${agreement}`)
-        },[agreement])
+                get_agreement(selectedRequest?.trip_id)
+                alert(`Request ${agreement}`)
+            })
+        ,[agreement]
             return (
                 <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
             
