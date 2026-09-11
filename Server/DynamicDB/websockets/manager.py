@@ -55,23 +55,33 @@ class ConnectionManager:
         client_id: int,
         data: dict
     ):
+        print("SEND CALLED")
+        print("ROLE:", role)
+        print("USER ID:", client_id)
+        print("ACTIVE CONNECTIONS:", self.active_connections)
         role_connections = self.connections.get(role)
 
         if not role_connections:
+            print("NO CONNECTIONS FOUND FOR ROLE:", role)
             return
 
         connections = role_connections.get(
             client_id,
             set()
         )
-
+        if not connections:
+            print(f"NO ACTIVE WEBSOCKET FOR {role} {client_id}")
+            return
         disconnected = []
 
         for websocket in connections.copy():
             try:
+                print("SENDING DATA:", data)
                 await websocket.send_json(data)
+                print("MESSAGE SENT SUCCESSFULLY")
 
-            except Exception:
+            except Exception as e:
+                print("WEBSOCKET SEND ERROR:", e)
                 disconnected.append(websocket)
 
         for websocket in disconnected:
