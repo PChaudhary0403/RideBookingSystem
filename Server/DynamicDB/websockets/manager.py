@@ -25,7 +25,8 @@ class ConnectionManager:
             role_connections[client_id] = set()
 
         role_connections[client_id].add(websocket)
-
+        print("SOCKET STORED")
+        print("CONNECTIONS AFTER CONNECT:", self.connections)
 
     def disconnect(
         self,
