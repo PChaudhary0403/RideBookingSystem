@@ -65,7 +65,7 @@ class TripRequestRepository:
                     TripRequest.id==trip_id,
                     TripRequest.driver_id==driver_id,
                     TripRequest.status == "pending"
-                )
+                ).first()
             )
             if not request:
                 return None
