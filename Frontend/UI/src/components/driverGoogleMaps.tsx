@@ -216,7 +216,7 @@ function Route({
                         "Content-Type":"application/json"
                     },
                     body:JSON.stringify({
-                        agreementStatus
+                        status:agreementStatus
                     })
                 })
                 const data=await response.json()
