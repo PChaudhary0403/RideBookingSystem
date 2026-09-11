@@ -1,5 +1,5 @@
 from fastapi import WebSocket
-
+import os
 
 class ConnectionManager:
 
@@ -20,9 +20,10 @@ class ConnectionManager:
             print("CONNECT CALLED")
             print("ROLE:", role)
             print("CLIENT ID:", client_id)
+            print("PROCESS ID CONNECT:", os.getpid())
 
             await websocket.accept()
-
+            print("MANAGER ID CONNECT:", id(self))
             role_connections = self.connections[role]
 
             if client_id not in role_connections:
@@ -68,8 +69,9 @@ class ConnectionManager:
         print("ROLE:", role)
         print("USER ID:", client_id)
         print("ACTIVE CONNECTIONS:", self.connections)
+        print("PROCESS ID SEND:", os.getpid())
         role_connections = self.connections.get(role)
-
+        print("MANAGER ID SEND:", id(self))
         if not role_connections:
             print("NO CONNECTIONS FOUND FOR ROLE:", role)
             return
