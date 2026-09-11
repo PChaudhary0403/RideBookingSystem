@@ -62,7 +62,7 @@ class TripRequestRepository:
         try:
             request=(
                 db.query(TripRequest).filter(
-                    TripRequest.trip_id==trip_id,
+                    TripRequest.id==trip_id,
                     TripRequest.driver_id==driver_id,
                     TripRequest.status == "pending"
                 )
