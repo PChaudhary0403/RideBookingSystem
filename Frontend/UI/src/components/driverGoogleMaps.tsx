@@ -225,14 +225,6 @@ function Route({
                     console.log("Request accepted")
                 }
         }
-        useEffect(()=>{
-            if(!agreement || !selectedRequest?.trip_id){
-                return
-            }
-                get_agreement(selectedRequest.trip_id)
-                alert(`Request ${agreement}`)
-            })
-        ,[agreement]
             return (
                 <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
             
@@ -424,7 +416,7 @@ function Route({
                                     ...buttonStyle,
                                     backgroundColor: "#16A34A"
                                 }}
-                                onClick={()=>setAgreement("accepted")}
+                                onClick={()=>{setAgreement("accepted"),get_agreement(request.trip_id)}}
                             >
                                 Accept
                             </button>
@@ -434,7 +426,7 @@ function Route({
                                     ...buttonStyle,
                                     backgroundColor: "#DC2626"
                                 }}
-                                onClick={()=>setAgreement("rejected")}
+                                onClick={()=>{setAgreement("rejected"),get_agreement(request.trip_id)}}
                             >
                                 Reject
                             </button>
