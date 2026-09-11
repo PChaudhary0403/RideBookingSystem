@@ -229,7 +229,7 @@ function Route({
             if(!agreement || !selectedRequest?.trip_id){
                 return
             }
-                get_agreement(selectedRequest?.trip_id)
+                get_agreement(selectedRequest.trip_id)
                 alert(`Request ${agreement}`)
             })
         ,[agreement]
