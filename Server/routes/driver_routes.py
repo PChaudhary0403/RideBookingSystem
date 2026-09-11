@@ -249,6 +249,7 @@ async def update_status(
             "status":False,
             "message":"Failed to update request status"
         }
+    print("sending to websockets")
     await manager.send(
     "user",
     update.user_id,
@@ -258,6 +259,7 @@ async def update_status(
         "status": update.status
     }
     )
+    print("send to users websockets successfully")
     return{
         "status":True,
         "message":"Request Updated Successfully"
