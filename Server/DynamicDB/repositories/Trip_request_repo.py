@@ -36,6 +36,7 @@ class TripRequestRepository:
         finally:
             db.close()
 
+    @staticmethod
     def dismiss_request(trip_id: int, driver_id: int):
 
         db = SessionLocal()
@@ -57,6 +58,7 @@ class TripRequestRepository:
         finally:
             db.close()
 
+    @staticmethod
     def update_request(status,trip_id:int,driver_id:int):
         db=SessionLocal()
         try:
