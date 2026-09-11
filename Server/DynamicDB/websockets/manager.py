@@ -18,15 +18,15 @@ class ConnectionManager:
         websocket: WebSocket
     ):
         await websocket.accept()
-
+        print("CONNECT CALLED")
+        print("BEFORE CONNECT:", self.connections)
         role_connections = self.connections[role]
 
         if client_id not in role_connections:
             role_connections[client_id] = set()
 
         role_connections[client_id].add(websocket)
-        print("SOCKET STORED")
-        print("CONNECTIONS AFTER CONNECT:", self.connections)
+        print("AFTER CONNECT:", self.connections)
 
     def disconnect(
         self,
