@@ -86,9 +86,10 @@ const buttonStyle = {
     } | null>(null);
     useEffect(() => {
         if (!userId) return;
-    
+        const wsURL=`${import.meta.env.VITE_WS_URL}/ws/user/${userId}`
+        console.log(wsURL)
         const socket = new WebSocket(
-            `${import.meta.env.VITE_WS_URL}/ws/user/${userId}`
+            wsURL
         );
     
         socket.onopen = () => {
