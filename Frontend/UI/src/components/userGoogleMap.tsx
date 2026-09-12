@@ -416,7 +416,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                             </p>
                         </div>
                     )}
-                    {driverResponse?.status === "reject" &&
+                    {driverResponse?.status === "rejected" &&
                     driverResponse.driver_id === selectedDriver?.driver_id && (
                         <div
                             style={{
