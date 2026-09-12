@@ -125,7 +125,10 @@ const buttonStyle = {
         get_driver_response()
     }, [userId]);
     console.log("driverResponse=====>",driverResponse)
-    async function getdrivers(){
+    async function getDrivers(
+        latitude: number,
+        longitude: number,
+        radius_km: number = 30){
         const response=await fetch(`${import.meta.env.VITE_API_URL}/users/nearby-drivers`,{
             method:"POST",
             headers:{
@@ -133,9 +136,9 @@ const buttonStyle = {
             },
             credentials:"include",
             body:JSON.stringify({
-                latitude:location?.latitude,
-                longitude:location?.longitude,
-                radius_km:30
+                latitude,
+                longitude,
+                radius_km
             })
         })
         const data=await response.json()
@@ -228,7 +231,7 @@ const buttonStyle = {
                     >
                     </UserGoogleMap>
             </div>
-            <button style={buttonStyle} onClick={getdrivers}>Get Drivers</button>
+            <button style={buttonStyle} onClick={()=>{if (!location) return; getDrivers(location?.latitude,location?.longitude)}}>Get Drivers</button>
         </div>
     )
 }

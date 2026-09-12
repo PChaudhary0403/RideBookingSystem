@@ -1,5 +1,6 @@
 import { APIProvider,Map,AdvancedMarker,useMap,useMapsLibrary,Polyline } from "@vis.gl/react-google-maps"
 import { useEffect,useState } from 'react'
+import getDrivers from "../pages/Users/userMaps"
 import userImage from "../assets/user.png";
 import driverImage from "../assets/driver.jpg"
 type Location={
@@ -452,6 +453,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                 cursor: "pointer",
                                 fontWeight: "600"
                                 }}
+                            onClick={()=>getDrivers()}
                             >
                             Find Another Driver
                         </button>
