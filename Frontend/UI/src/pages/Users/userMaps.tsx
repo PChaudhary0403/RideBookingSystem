@@ -145,18 +145,18 @@ export async function getDrivers(
     useEffect(() => {
         get_driver_response()
     }, [userId]);
-    // async function handleGetDrivers() {
+    async function handleGetDrivers() {
 
-    //     if (!location) return;
+        if (!location) return;
 
-    //     const data = await getDrivers(
-    //         location.latitude,
-    //         location.longitude
-    //     );
-    //     if(data.status===true){
-    //         setDriver(data.drivers)
-    //     }
-    // }
+        const data = await getDrivers(
+            location.latitude,
+            location.longitude
+        );
+        if(data.status===true){
+            setDriver(data.drivers)
+        }
+    }
     console.log("driverResponse=====>",driverResponse)
     function handleLocations(
         pickupLocation: Location,
@@ -241,7 +241,7 @@ export async function getDrivers(
                     >
                     </UserGoogleMap>
             </div>
-            <button style={buttonStyle} onClick={()=>{if (!location) return; getDrivers(location?.latitude,location?.longitude)}}>Get Drivers</button>
+            <button style={buttonStyle} onClick={handleGetDrivers}>Get Drivers</button>
         </div>
     )
 }
