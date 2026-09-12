@@ -154,7 +154,7 @@ export async function getDrivers(
             location.longitude
         );
         if(data.status===true){
-            setDriver()
+            setDriver(data.drivers)
         }
     }
     console.log("driverResponse=====>",driverResponse)
