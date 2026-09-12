@@ -84,7 +84,7 @@ const buttonStyle = {
         driver_id: number;
         trip_id: number;
     } | null>(null);
-    useEffect(() => {
+    async function get_driver_response(){
         if (!userId) return;
         const wsURL=`${import.meta.env.VITE_WS_URL}/ws/user/${userId}`
         console.log(wsURL)
@@ -120,7 +120,9 @@ const buttonStyle = {
         return () => {
             socket.close();
         };
-    
+    }
+    useEffect(() => {
+        get_driver_response()
     }, [userId]);
     console.log("driverResponse=====>",driverResponse)
     async function getdrivers(){
