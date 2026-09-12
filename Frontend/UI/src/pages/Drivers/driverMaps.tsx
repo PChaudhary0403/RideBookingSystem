@@ -96,7 +96,7 @@ const buttonStyle = {
     
         getDriverId();
     },[])
-    useEffect(()=>{
+    async function send_response(){
         if(!driver_id) return
         const socket=new WebSocket(`${import.meta.env.VITE_WS_URL}/ws/driver/${driver_id}`)
         socket.onopen=()=>{
@@ -121,6 +121,9 @@ const buttonStyle = {
         return ()=>{
             socket.close()
         }
+    }
+    useEffect(()=>{
+        send_response()
     },[driver_id])
     return(
         <div style={{width: "100%",height: "100vh",backgroundColor: "#F8FAFC"}}>
