@@ -31,6 +31,27 @@ const buttonStyle = {
     fontWeight: "600",
     margin: "8px",
   };
+export async function getDrivers(
+    latitude: number,
+    longitude: number,
+    radius_km: number = 30){
+    const response=await fetch(`${import.meta.env.VITE_API_URL}/users/nearby-drivers`,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+        },
+        credentials:"include",
+        body:JSON.stringify({
+            latitude,
+            longitude,
+            radius_km
+        })
+    })
+    const data=await response.json()
+    console.log(data)
+    console.log(data)
+    return data
+}
   function UserMaps() {
     const [pickup, setPickup] = useState<Location | null>(null);
     const [destination, setDestination] = useState<Location | null>(null);
@@ -124,30 +145,19 @@ const buttonStyle = {
     useEffect(() => {
         get_driver_response()
     }, [userId]);
+    // async function handleGetDrivers() {
+
+    //     if (!location) return;
+
+    //     const data = await getDrivers(
+    //         location.latitude,
+    //         location.longitude
+    //     );
+    //     if(data.status===true){
+    //         setDriver(data.drivers)
+    //     }
+    // }
     console.log("driverResponse=====>",driverResponse)
-    async function getDrivers(
-        latitude: number,
-        longitude: number,
-        radius_km: number = 30){
-        const response=await fetch(`${import.meta.env.VITE_API_URL}/users/nearby-drivers`,{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json",
-            },
-            credentials:"include",
-            body:JSON.stringify({
-                latitude,
-                longitude,
-                radius_km
-            })
-        })
-        const data=await response.json()
-        console.log(data)
-        console.log(data)
-        if(data.status===true){
-            setDriver(data.drivers)
-        }
-    }
     function handleLocations(
         pickupLocation: Location,
         destinationLocation: Location
