@@ -174,6 +174,10 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
     const [selectionMode, setSelectionMode] =useState<SelectionMode>(null);
     const[pickup,setPickup]=useState<Location|null>(null);
     const[destination,setDestination]=useState<Location|null>(null);
+    const [showFindAnother, setShowFindAnother] = useState(false);
+    if(driverResponse?.status!=="accepted"){
+        setShowFindAnother(true)
+    }
     
     const defaultLocation={
         lat:19.0760,
@@ -416,7 +420,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                             </p>
                         </div>
                     )}
-                    {driverResponse?.status === "rejected" && (
+                    {showFindAnother && (
                         <div
                             style={{
                                 position: "absolute",
@@ -452,7 +456,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                 cursor: "pointer",
                                 fontWeight: "600"
                                 }}
-                            onClick={()=>{if(!location) return;getDrivers(location?.latitude,location?.longitude)}}
+                            onClick={()=>{if(!location) return;getDrivers(location?.latitude,location?.longitude),setShowFindAnother(false)}}
                             >
                             Find Another Driver
                         </button>
