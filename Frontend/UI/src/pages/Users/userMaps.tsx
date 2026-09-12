@@ -203,6 +203,12 @@ export async function getDrivers(
             navigate('/')
         }
     },[logoutstatus,navigate])
+    async function handleFindAnotherDriver() {
+        await handleGetDrivers();
+    
+        setDriverResponse(null);
+        setSelectedDriver(null);
+    }
     async function getDriverProfile(driverId: number) {
         console.log("Clicked driver:", driverId);
         const clickedDriver = driver.find(
@@ -238,6 +244,7 @@ export async function getDrivers(
                     onRideRequest={RideRequest}
                     onLocationsSelected={handleLocations}
                     driverResponse={driverResponse}
+                    onFindAnotherDriver={handleFindAnotherDriver}
                     >
                     </UserGoogleMap>
             </div>

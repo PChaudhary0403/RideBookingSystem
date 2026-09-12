@@ -42,6 +42,7 @@ type GoogleMapsProps={
         driver_id: number;
         trip_id: number;
     } | null;
+    onFindAnotherDriver: () => void;
 }
 
 type MapControllerProps = {
@@ -168,7 +169,7 @@ function Route({
             )}
     </>;
 }
-function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDriverProfile,onRideRequest,onLocationsSelected,driverResponse}:GoogleMapsProps){
+function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDriverProfile,onRideRequest,onLocationsSelected,driverResponse,onFindAnotherDriver}:GoogleMapsProps){
     const [showLocationOptions, setShowLocationOptions] = useState(false);
     type SelectionMode = "pickup" | "destination" | null;
     const [selectionMode, setSelectionMode] =useState<SelectionMode>(null);
@@ -453,7 +454,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                 cursor: "pointer",
                                 fontWeight: "600"
                                 }}
-                            onClick={()=>{if(!location) return;getDrivers(location?.latitude,location?.longitude)}}
+                            onClick={onFindAnotherDriver}
                             >
                             Find Another Driver
                         </button>

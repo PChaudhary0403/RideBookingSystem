@@ -81,6 +81,7 @@ const buttonStyle = {
             navigate('/')
         }
     },[logoutstatus,navigate])
+
     const [driver_id, setDriverId] = useState<number | null>(null);
     useEffect(()=>{
         async function getDriverId() {
