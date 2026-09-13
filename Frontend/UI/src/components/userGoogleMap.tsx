@@ -2,6 +2,17 @@ import { APIProvider,Map,AdvancedMarker,useMap,useMapsLibrary,Polyline } from "@
 import { useEffect,useState } from 'react'
 import userImage from "../assets/user.png";
 import driverImage from "../assets/driver.jpg"
+const buttonStyle = {
+    backgroundColor: "#2563EB",
+    color: "white",
+    border: "none",
+    borderRadius: "8px",
+    padding: "10px 18px",
+    cursor: "pointer",
+    fontSize: "14px",
+    fontWeight: "600",
+    margin: "8px",
+  };
 type Location={
     latitude:number,
     longitude:number
@@ -169,7 +180,7 @@ function Route({
     </>;
 }
 function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDriverProfile,onRideRequest,onLocationsSelected,driverResponse,onFindAnotherDriver}:GoogleMapsProps){
-    const [showLocationOptions, setShowLocationOptions] = useState(false);
+    const [showLocationOptions, setShowLocationOptions] = useState(true);
     type SelectionMode = "pickup" | "destination" | null;
     const [selectionMode, setSelectionMode] =useState<SelectionMode>(null);
     const[pickup,setPickup]=useState<Location|null>(null);
@@ -377,17 +388,6 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                             }}}>
                                 {pickup&&destination ? "Confirm Ride" : "Request Ride"}
                             </button>
-                            {showLocationOptions && (
-                                <>
-                                    <button onClick={() => setSelectionMode("pickup")}>
-                                        Select Pickup
-                                    </button>
-
-                                    <button onClick={() => setSelectionMode("destination")}>
-                                        Select Destination
-                                    </button>
-                                </>
-                            )}
                         </div>
                     )}
                     {driverResponse?.status === "accepted" && (
@@ -459,6 +459,17 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                         </button>
                     </div>
                     )}
+                    {showLocationOptions && (
+                            <>
+                                <button style={buttonStyle} onClick={() => setSelectionMode("pickup")}>
+                                    Select Pickup
+                                </button>
+
+                                <button onClick={() => setSelectionMode("destination")}>
+                                    Select Destination
+                                </button>
+                            </>
+                        )}
                 </div>
         
             </APIProvider>
