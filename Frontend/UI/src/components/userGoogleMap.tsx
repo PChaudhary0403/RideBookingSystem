@@ -460,15 +460,13 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                     </div>
                     )}
                     
-                <>
                     <button style={buttonStyle} onClick={() => setSelectionMode("pickup")}>
                         Select Pickup
                     </button>
 
-                    <button onClick={() => setSelectionMode("destination")}>
+                    <button style={buttonStyle} onClick={() => setSelectionMode("destination")}>
                         Select Destination
                     </button>
-                </>
                         
                 </div>
         
