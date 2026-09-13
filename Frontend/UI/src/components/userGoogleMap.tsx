@@ -337,8 +337,8 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                     <div
                     style={{
                         position: "absolute",
-                        top: "20px",
-                        left: "20px",
+                        bottom: "20px",
+                        right: "20px",
                         zIndex: 20,
                         display: "flex",
                         gap: "10px"
