@@ -334,13 +334,30 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                             </AdvancedMarker>
                         )}
                     </Map>
-                    <button style={buttonStyle} onClick={() => setSelectionMode("pickup")}>
+                    <div
+                    style={{
+                        position: "absolute",
+                        top: "20px",
+                        left: "20px",
+                        zIndex: 20,
+                        display: "flex",
+                        gap: "10px"
+                    }}
+                    >
+                    <button
+                        style={buttonStyle}
+                        onClick={() => setSelectionMode("pickup")}
+                    >
                         Select Pickup
                     </button>
 
-                    <button style={buttonStyle} onClick={() => setSelectionMode("destination")}>
+                    <button
+                        style={buttonStyle}
+                        onClick={() => setSelectionMode("destination")}
+                    >
                         Select Destination
                     </button>
+                    </div>
                     {/* Driver Profile Card */}
                     {selectedDriver && (
                         <div
