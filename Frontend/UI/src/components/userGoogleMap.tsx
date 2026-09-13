@@ -459,17 +459,17 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                         </button>
                     </div>
                     )}
-                    {showLocationOptions && (
-                            <>
-                                <button style={buttonStyle} onClick={() => setSelectionMode("pickup")}>
-                                    Select Pickup
-                                </button>
+                    
+                <>
+                    <button style={buttonStyle} onClick={() => setSelectionMode("pickup")}>
+                        Select Pickup
+                    </button>
 
-                                <button onClick={() => setSelectionMode("destination")}>
-                                    Select Destination
-                                </button>
-                            </>
-                        )}
+                    <button onClick={() => setSelectionMode("destination")}>
+                        Select Destination
+                    </button>
+                </>
+                        
                 </div>
         
             </APIProvider>
