@@ -2,7 +2,8 @@ from fastapi import APIRouter,Response,Cookie,HTTPException,Depends
 from schemas.user_schema import UserCreate,UserLogin
 from UserSide.services.user_services import UserService
 from schemas.nearby_drivers import NearbyDriversRequest
-from schemas.trip_request_schema import TripRequestResponse
+from DynamicDB.services.trip_request_Services import TripRequestServices
+from schemas.trip_request_schema import TripRequestResponse,TripRequestUpdate
 from auth.dependencies import  get_current_user
 from datetime import datetime, timedelta
 import jwt
@@ -202,4 +203,12 @@ def nearby_drivers(
 def me(user_id:int=Depends(get_current_user)):
     return{
         "user_id":user_id
+    }
+
+trip_request=TripRequestServices()
+@router.get("/driver-response")
+def gte_driver_response(trip_id:int,user_id:int=Depends(get_current_user)):
+    response=trip_request.get_driver_response(trip_id,user_id)
+    return{
+        "status":response.status
     }

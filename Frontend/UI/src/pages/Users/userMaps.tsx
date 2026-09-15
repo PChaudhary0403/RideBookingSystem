@@ -106,6 +106,19 @@ export async function getDrivers(
         trip_id: number;
     } | null>(null);
     async function get_driver_response(){
+        const response=await fetch(`${import.meta.env.VITE_API_URL}/driver-response`,{
+            method:"PATCH",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                trip_id:driverResponse?.trip_id
+            })
+        })
+        const data=await response.json()
+        console.log(data.status)
+    }
+    useEffect(() => {
         if (!userId) return;
         const wsURL=`${import.meta.env.VITE_WS_URL}/ws/user/${userId}`
         console.log(wsURL)
@@ -113,8 +126,9 @@ export async function getDrivers(
             wsURL
         );
     
-        socket.onopen = () => {
+        socket.onopen = async() => {
             console.log("User WebSocket connected");
+            await get_driver_response()
         };
     
         socket.onmessage = (event) => {
@@ -141,9 +155,6 @@ export async function getDrivers(
         return () => {
             socket.close();
         };
-    }
-    useEffect(() => {
-        get_driver_response()
     }, [userId]);
     async function handleGetDrivers() {
 

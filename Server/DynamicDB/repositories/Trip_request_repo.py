@@ -79,3 +79,19 @@ class TripRequestRepository:
         finally:
             db.close()
 
+    def get_driver_response(trip_id:int,user_id:int):
+        db=SessionLocal()
+        try:
+            request=(
+                db.query(TripRequest).filter(
+                    TripRequest.id==trip_id,
+                    TripRequest.user_id==user_id,
+                ).first()
+            )
+            if request is None:
+                return None
+            return{
+                "status":request.status
+            }
+        finally:
+            db.close()

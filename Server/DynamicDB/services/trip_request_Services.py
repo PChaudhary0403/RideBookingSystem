@@ -21,3 +21,6 @@ class TripRequestServices:
 
     def update_request(self,status,trip_id,driver_id):
         return TripRequestRepository.update_request(status=status,trip_id=trip_id,driver_id=driver_id)
+
+    def get_driver_response(self,trip_id,user_id):
+        return TripRequestRepository.get_driver_response(trip_id=trip_id,user_id=user_id)
