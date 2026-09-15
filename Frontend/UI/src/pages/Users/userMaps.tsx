@@ -111,6 +111,7 @@ export async function getDrivers(
             headers:{
                 "Content-Type":"application/json"
             },
+            credentials:"include",
             body:JSON.stringify({
                 trip_id:driverResponse?.trip_id
             })
