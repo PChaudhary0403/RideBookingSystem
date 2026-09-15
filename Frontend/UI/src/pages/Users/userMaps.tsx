@@ -106,7 +106,7 @@ export async function getDrivers(
         trip_id: number;
     } | null>(null);
     async function get_driver_response(){
-        const response=await fetch(`${import.meta.env.VITE_API_URL}/driver-response`,{
+        const response=await fetch(`${import.meta.env.VITE_API_URL}/users/driver-response`,{
             method:"PATCH",
             headers:{
                 "Content-Type":"application/json"
