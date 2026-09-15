@@ -107,6 +107,7 @@ export async function getDrivers(
     } | null>(null);
     async function get_driver_response(){
         const tripId=driverResponse?.trip_id
+        if(!tripId) return
         const response=await fetch(`${import.meta.env.VITE_API_URL}/users/driver-response/${tripId}`,{
             method:"PATCH",
             credentials:"include",
