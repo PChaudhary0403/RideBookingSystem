@@ -206,7 +206,7 @@ def me(user_id:int=Depends(get_current_user)):
     }
 
 trip_request=TripRequestServices()
-@router.patch("/driver-response")
+@router.patch("/driver-response/{trip_id}")
 def get_driver_response(trip_id:int,user_id:int=Depends(get_current_user)):
     response=trip_request.get_driver_response(trip_id,user_id)
     return{
