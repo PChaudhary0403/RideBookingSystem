@@ -50,26 +50,29 @@
     };
 
     type MapControllerProps = {
-        location: Location | null;
+        location?: Location | null;
+        pickup?: Location | null;
     };
     // type FitDriversProps = {
     //     location: Location | null;
     // };
-    function MapController({ location }: MapControllerProps) {
+    function MapController({ location,pickup }: MapControllerProps) {
         const map = useMap();
 
         useEffect(() => {
-            if (!map || !location) return;
+            if (!map) return;
+            const target=pickup??location
+            if(!target) return
 
             const position = {
-                lat: location.latitude,
-                lng: location.longitude
+                lat: target.latitude,
+                lng: target.longitude
             };
 
             map.panTo(position);
             map.setZoom(18);
 
-        }, [map, location]);
+        }, [map, location,pickup]);
 
         return null;
     }
@@ -246,7 +249,10 @@ function Route({
                             }}
                         >
             
-                            <MapController location={location} />
+                            <MapController location={location} pickup={selectedRequest?{
+                                latitude:selectedRequest.pickup_lat,
+                                longitude:selectedRequest.pickup_long
+                            }:null} />
 
                         {selectedRequest && (
                         <Route
