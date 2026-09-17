@@ -186,7 +186,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
     const[pickup,setPickup]=useState<Location|null>(null);
     const[destination,setDestination]=useState<Location|null>(null);
     // const [showFindAnother, setShowFindAnother] = useState(true);
-    
+    const[showResponseCard,setOpenResponseCard]=useState(false)
     const defaultLocation={
         lat:19.0760,
         lng:72.8777
@@ -197,6 +197,11 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
             lng: location.longitude
         }
         : defaultLocation;
+        useEffect(() => {
+            if (driverResponse) {
+                setOpenResponseCard(true);
+            }
+        }, [driverResponse]);
     useEffect(() => {
         if (pickup && destination) {
             onLocationsSelected(pickup, destination);
@@ -413,7 +418,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                             </button>
                         </div>
                     )}
-                    {driverResponse?.status === "accepted" && (
+                    {driverResponse?.status === "accepted" && showResponseCard &&(
                         <div
                             style={{
                                 position: "absolute",
@@ -429,6 +434,23 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                 textAlign: "center"
                             }}
                         >
+                                    {/* Close button */}
+                        <button
+                            onClick={() => setOpenResponseCard(false)}
+                            style={{
+                                position: "absolute",
+                                top: "8px",
+                                right: "10px",
+                                border: "none",
+                                background: "transparent",
+                                fontSize: "22px",
+                                fontWeight: "bold",
+                                cursor: "pointer",
+                                color: "#555"
+                            }}
+                        >
+                            ×
+                        </button>
                             <h3>Ride Accepted 🎉</h3>
 
                             <p>
@@ -438,9 +460,10 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                             <p>
                                 Trip ID: {driverResponse.trip_id}
                             </p>
+                            <button style={buttonStyle}>Call the driver to pickup point</button>
                         </div>
                     )}
-                    {driverResponse?.status === "rejected" && (
+                    {driverResponse?.status === "rejected" && showResponseCard && (
                         <div
                             style={{
                                 position: "absolute",
@@ -456,6 +479,23 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                 textAlign: "center"
                             }}
                         >
+                                {/* Close button */}
+                        <button
+                            onClick={() => setOpenResponseCard(false)}
+                            style={{
+                                position: "absolute",
+                                top: "8px",
+                                right: "10px",
+                                border: "none",
+                                background: "transparent",
+                                fontSize: "22px",
+                                fontWeight: "bold",
+                                cursor: "pointer",
+                                color: "#555"
+                            }}
+                        >
+                            ×
+                        </button>
                             <h3>Let's find another ride</h3>
 
                             <p>
