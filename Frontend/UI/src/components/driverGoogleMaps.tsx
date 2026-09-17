@@ -211,7 +211,13 @@ function Route({
                     setSelectedRequest(null);
                 }
             }
-            async function get_agreement(tripId:number,agreementStatus:string){
+            type TripStatus =
+                | "pending"
+                | "accepted"
+                | "rejected"
+                | "completed"
+                | "dismiss";
+            async function get_agreement(tripId:number,agreementStatus:TripStatus){
                 const response=await fetch(`${import.meta.env.VITE_API_URL}/drivers/update-status/${tripId}`,{
                     method:"PATCH",
                     credentials:"include",
@@ -422,7 +428,9 @@ function Route({
                                     ...buttonStyle,
                                     backgroundColor: "#16A34A"
                                 }}
-                                onClick={(e)=>{e.stopPropagation();setAgreement("accepted");get_agreement(request.trip_id,"accepted")}}
+                                onClick={(e)=>{e.stopPropagation();
+                                    setAgreement("accepted");
+                                    get_agreement(request.trip_id,"accepted")}}
                             >
                                 Accept
                             </button>
@@ -432,7 +440,9 @@ function Route({
                                     ...buttonStyle,
                                     backgroundColor: "#DC2626"
                                 }}
-                                onClick={()=>{setAgreement("rejected"),get_agreement(request.trip_id,"rejected")}}
+                                onClick={(e)=>{e.stopPropagation();
+                                    setAgreement("rejected");
+                                    get_agreement(request.trip_id,"rejected")}}
                             >
                                 Reject
                             </button>
