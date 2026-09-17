@@ -79,6 +79,7 @@ class TripRequestRepository:
         finally:
             db.close()
 
+    @staticmethod
     def get_driver_response(trip_req_id:int,user_id:int):
         db=SessionLocal()
         try:
@@ -96,6 +97,7 @@ class TripRequestRepository:
         finally:
             db.close()
 
+    @staticmethod
     def call_driver(trip_req_id:int,user_id:int):
         db=SessionLocal()
         try:
