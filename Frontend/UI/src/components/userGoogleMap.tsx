@@ -415,7 +415,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                 📝 {selectedDriver.total_reviews} reviews
                             </p>
         
-                            <button onClick={()=>{
+                            <button style={buttonStyle} onClick={()=>{
                                 if(!showLocationOptions){
                                 setShowLocationOptions(true)
                                 return
@@ -425,7 +425,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                             }}}>
                                 {pickup&&destination ? "Confirm Ride" : "Request Ride"}
                             </button>
-                            {!pickup&&!destination?<p>please choose pickup and destination point first</p>:""}
+                            {!pickup&&!destination?<p>Please choose pickup and destination point to request ride</p>:""}
                         </div>
                     )}
                     {driverResponse?.status === "accepted" && showResponseCard &&(
