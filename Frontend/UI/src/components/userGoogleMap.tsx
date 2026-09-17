@@ -343,7 +343,8 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                     style={{
                         position: "absolute",
                         bottom: "20px",
-                        right: "20px",
+                        left: "50%",
+                        transform:"translateX(-50%)",
                         zIndex: 20,
                         display: "flex",
                         gap: "10px"
