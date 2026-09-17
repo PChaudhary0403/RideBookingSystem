@@ -286,7 +286,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                 }}
                                 onClick={() =>{
                                     onDriverSelect(driver.driver_id);
-                                    setShowCard(false)
+                                    setShowCard(false);
                                 }
                                 }
                             >
@@ -386,7 +386,9 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                             }}
                         >
                             <button
-                                onClick={(e)=>{e.stopPropagation();onCloseDriverProfile()}}
+                                onClick={(e)=>{e.stopPropagation();
+                                    onCloseDriverProfile()
+                                    setShowCard(true)}}
                                 style={{
                                     position: "absolute",
                                     right: "10px",
@@ -420,6 +422,9 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                 }
                                 if(pickup&&destination){
                                 onRideRequest();
+                                if(!pickup&&!destination){
+                                    alert("Please choose pickup and drop locations")
+                                }
                             }}}>
                                 {pickup&&destination ? "Confirm Ride" : "Request Ride"}
                             </button>
