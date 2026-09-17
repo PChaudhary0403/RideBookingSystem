@@ -95,3 +95,17 @@ class TripRequestRepository:
             }
         finally:
             db.close()
+
+    def call_driver(trip_req_id:int,user_id:int):
+        db=SessionLocal()
+        try:
+            request=(
+                db.query(TripRequest).filter(
+                    TripRequest.id==trip_req_id,
+                    TripRequest.user_id==user_id,
+                    TripRequest.status=="accepted"
+                ).first()
+            )
+            return request
+        finally:
+            db.close()

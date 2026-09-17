@@ -24,3 +24,6 @@ class TripRequestServices:
 
     def get_driver_response(self,trip_req_id,user_id):
         return TripRequestRepository.get_driver_response(trip_req_id=trip_req_id,user_id=user_id)
+
+    def call_driver(self,trip_req_id,user_id):
+        return TripRequestRepository.call_driver(trip_req_id=trip_req_id,user_id=user_id)

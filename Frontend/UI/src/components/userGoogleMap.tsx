@@ -210,6 +210,21 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
         }
     }, [pickup, destination]);
 
+    const trip_req_ID=driverResponse?.trip_req_id
+    async function callDriverToLocation(){
+        const response=await fetch(`${import.meta.env.VITE_API_URL}/users/call_from_user/${trip_req_ID}`,{
+            "method":"POST",
+            "credentials":"include",
+        })
+        const data=await response.json()
+        if(data.status==true){
+            alert("Driver has been called to your location")
+        }
+        else{
+            alert("Failed to call the driver")
+        }
+    }
+
         return (
             <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
         
@@ -470,7 +485,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                             <p>
                                 Trip ID: {driverResponse.trip_req_id}
                             </p>
-                            <button style={buttonStyle}>Call the driver to pickup point</button>
+                            <button style={buttonStyle} onClick={callDriverToLocation}>Call the driver to pickup point</button>
                         </div>
                     )}
                     {driverResponse?.status === "rejected" && showResponseCard && (

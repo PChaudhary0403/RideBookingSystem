@@ -35,6 +35,7 @@ class TripStatus(str,Enum):
     rejected="rejected"
     completed="completed"
     dismiss="dismiss"
+    cancelled="cancelled"
 
 class TripRequestUpdate(BaseModel):
     status:TripStatus

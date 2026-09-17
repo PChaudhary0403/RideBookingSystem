@@ -5,6 +5,7 @@ from schemas.nearby_drivers import NearbyDriversRequest
 from DynamicDB.services.trip_request_Services import TripRequestServices
 from schemas.trip_request_schema import TripRequestResponse,TripRequestUpdate
 from auth.dependencies import  get_current_user
+from DynamicDB.websockets.manager import manager
 from datetime import datetime, timedelta
 import jwt
 import os
@@ -211,4 +212,28 @@ def get_driver_response(trip_req_id:int,user_id:int=Depends(get_current_user)):
     response=trip_request.get_driver_response(trip_req_id,user_id)
     return{
         "status":response
+    }
+
+@router.post("/call_from_user/{trip_req_id}")
+async def get_call(trip_req_id:int,user_id:int=Depends(get_current_user)):
+    trip=trip_request.call_driver(trip_req_id,user_id)
+    if not trip:
+        return {
+            "status": False,
+            "message": "Trip not found"
+        }
+    await manager.send(
+        "driver",
+        trip.driver_id,
+        {
+            "type": "user_called",
+            "trip_id": trip.id,
+            "user_id": trip.user_id,
+            "pickup_lat": trip.pickup_lat,
+            "pickup_long": trip.pickup_long
+        }
+    )
+    return{
+        "status":True,
+        "message":"Driver called to pickup location"
     }

@@ -216,7 +216,8 @@ function Route({
                 | "accepted"
                 | "rejected"
                 | "completed"
-                | "dismiss";
+                | "dismiss"
+                | "cancelled";
             async function get_agreement(tripId:number,agreementStatus:TripStatus){
                 const response=await fetch(`${import.meta.env.VITE_API_URL}/drivers/update-status/${tripId}`,{
                     method:"PATCH",
