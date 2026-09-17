@@ -187,6 +187,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
     const[destination,setDestination]=useState<Location|null>(null);
     // const [showFindAnother, setShowFindAnother] = useState(true);
     const[showResponseCard,setOpenResponseCard]=useState(false)
+    const[showLocationSelectCard,setShowCard]=useState(true)
     const defaultLocation={
         lat:19.0760,
         lng:72.8777
@@ -200,6 +201,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
         useEffect(() => {
             if (driverResponse) {
                 setOpenResponseCard(true);
+                setShowCard(false)
             }
         }, [driverResponse]);
     useEffect(() => {
@@ -282,8 +284,10 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                     lat: driver.latitude,
                                     lng: driver.longitude
                                 }}
-                                onClick={() =>
-                                    onDriverSelect(driver.driver_id)
+                                onClick={() =>{
+                                    onDriverSelect(driver.driver_id);
+                                    setShowCard(false)
+                                }
                                 }
                             >
                                 <img
@@ -339,9 +343,9 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                             </AdvancedMarker>
                         )}
                     </Map>
+                    {showLocationSelectCard &&(
                     <div
                     style={{
-                        backgroundColor:"white",
                         position: "absolute",
                         bottom: "20px",
                         left: "50%",
@@ -365,6 +369,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                         Select Destination
                     </button>
                     </div>
+                    )}
                     {/* Driver Profile Card */}
                     {selectedDriver && (
                         <div
