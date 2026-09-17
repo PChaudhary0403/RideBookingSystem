@@ -237,7 +237,7 @@ async def update_status(
 ):
     update=trip_services.update_request(
         data.status,
-        trip__req_id,
+        trip_req_id,
         driver_id
     )
     print("UPDATE RESULT:", update)
