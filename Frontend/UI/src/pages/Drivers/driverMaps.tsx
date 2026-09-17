@@ -83,6 +83,7 @@ const buttonStyle = {
     },[logoutstatus,navigate])
 
     const [driver_id, setDriverId] = useState<number | null>(null);
+    const [call,setCall]=useState(false)
     useEffect(()=>{
         async function getDriverId() {
             const response = await fetch(
@@ -112,6 +113,9 @@ const buttonStyle = {
                     ...prev
                 ])
             }
+            if(data.type==="user_called"){
+                setCall(true)
+            }
         };
         socket.onclose=()=>{
             console.log("Driver Socket Disconnected")
@@ -132,7 +136,13 @@ const buttonStyle = {
             <button style={buttonStyle} onClick={logout}>Logout</button>
             </div>
             <div style={{border:"5px solid #2563EB",borderRadius:"12px",overflow: "hidden",boxShadow: "0 4px 12px rgba(37, 99, 235, 0.2)"}}>
-                <DriverGoogleMap location={location} requests={requests}  setRequests={setRequests} selectedRequest={selectedRequest} setSelectedRequest={setSelectedRequest}></DriverGoogleMap>
+                <DriverGoogleMap 
+                location={location} 
+                requests={requests}
+                setRequests={setRequests}
+                selectedRequest={selectedRequest}
+                setSelectedRequest={setSelectedRequest}
+                Call={call}></DriverGoogleMap>
             </div>
             <button style={buttonStyle} onClick={Switch_to_vehicle}>Register Vehicles(if any)</button>
             <button style={buttonStyle} onClick={display_vehicles}>Display your vehicles</button>

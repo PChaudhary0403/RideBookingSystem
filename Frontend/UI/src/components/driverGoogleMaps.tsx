@@ -46,7 +46,8 @@
         React.SetStateAction<DriverTripRequest[]>
         >;
         selectedRequest: DriverTripRequest | null;
-        setSelectedRequest: Dispatch<SetStateAction<DriverTripRequest | null>>;
+        setSelectedRequest: Dispatch<SetStateAction<DriverTripRequest | null>>
+        Call:boolean;
     };
 
     type MapControllerProps = {
@@ -176,7 +177,7 @@ function Route({
             </>;
 }
 
-    function DriverGoogleMap({location,requests,setRequests,selectedRequest,setSelectedRequest}:GoogleMapsProps){
+    function DriverGoogleMap({location,requests,setRequests,selectedRequest,setSelectedRequest,Call}:GoogleMapsProps){
         const [showRequests, setShowRequests] = useState(true);
         const [agreement,setAgreement]=useState("")
         const defaultLocation={
@@ -291,7 +292,7 @@ function Route({
                                 />
                             </AdvancedMarker>
                         )}
-                                        {/* Selected Request */}
+                {/* Selected Request */}
                 {selectedRequest && (
                     <>
                         {/* Pickup */}
@@ -328,6 +329,47 @@ function Route({
                     </>
                 )}
                         </Map>
+
+                    {Call && (
+                        <div
+                            style={{
+                                position: "absolute",
+                                top: "20px",
+                                left: "50%",
+                                transform: "translateX(-50%)",
+                                zIndex: 20,
+                                width: "360px",
+                                backgroundColor: "white",
+                                borderRadius: "12px",
+                                padding: "18px",
+                                boxShadow: "0 4px 15px rgba(0,0,0,0.25)",
+                                textAlign: "center"
+                            }}
+                        >
+                            <h3 style={{ margin: "0 0 8px" }}>
+                                Ride Confirmation
+                            </h3>
+
+                            <p style={{ margin: "0 0 16px", color: "#555" }}>
+                                The passenger has confirmed the ride and is ready
+                                for pickup.
+                            </p>
+
+                            <button
+                                style={{
+                                    backgroundColor: "#2563EB",
+                                    color: "white",
+                                    border: "none",
+                                    borderRadius: "8px",
+                                    padding: "10px 18px",
+                                    cursor: "pointer",
+                                    fontWeight: "600"
+                                }}
+                            >
+                                Proceed to Pickup
+                            </button>
+                        </div>
+                    )}
                     {!showRequests && (
                     <button
                         onClick={() => setShowRequests(true)}
