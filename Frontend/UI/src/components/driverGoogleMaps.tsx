@@ -410,9 +410,9 @@ function Route({
 
                             <button
                                 style={buttonStyle}
-                                onClick={() =>
-                                    setSelectedRequest(request)
-                                }
+                                onClick={(e) =>{e.stopPropagation();
+                                    setSelectedRequest(request);
+                                }}
                             >
                                 View Route
                             </button>
@@ -422,7 +422,7 @@ function Route({
                                     ...buttonStyle,
                                     backgroundColor: "#16A34A"
                                 }}
-                                onClick={()=>{setAgreement("accepted"),get_agreement(request.trip_id,"accepted")}}
+                                onClick={(e)=>{e.stopPropagation();setAgreement("accepted");get_agreement(request.trip_id,"accepted")}}
                             >
                                 Accept
                             </button>
