@@ -21,7 +21,7 @@ class TripRequestRepository:
             )
             return [
         {
-            "trip_id": request.id,
+            "trip_req_id": request.id,
             "driver_id": request.driver_id,
             "user_id": request.user_id,
             "pickup_lat": request.pickup_lat,
@@ -37,14 +37,14 @@ class TripRequestRepository:
             db.close()
 
     @staticmethod
-    def dismiss_request(trip_id: int, driver_id: int):
+    def dismiss_request(trip_req_id: int, driver_id: int):
 
         db = SessionLocal()
         try:
             request = (
                 db.query(TripRequest)
                 .filter(
-                    TripRequest.id == trip_id,
+                    TripRequest.id == trip_req_id,
                     TripRequest.driver_id == driver_id,
                     TripRequest.status == "pending"
                 )
@@ -59,12 +59,12 @@ class TripRequestRepository:
             db.close()
 
     @staticmethod
-    def update_request(status,trip_id:int,driver_id:int):
+    def update_request(status,trip_req_id:int,driver_id:int):
         db=SessionLocal()
         try:
             request=(
                 db.query(TripRequest).filter(
-                    TripRequest.id==trip_id,
+                    TripRequest.id==trip_req_id,
                     TripRequest.driver_id==driver_id,
                 ).first()
             )
@@ -79,12 +79,12 @@ class TripRequestRepository:
         finally:
             db.close()
 
-    def get_driver_response(trip_id:int,user_id:int):
+    def get_driver_response(trip_req_id:int,user_id:int):
         db=SessionLocal()
         try:
             request=(
                 db.query(TripRequest).filter(
-                    TripRequest.id==trip_id,
+                    TripRequest.id==trip_req_id,
                     TripRequest.user_id==user_id,
                 ).first()
             )

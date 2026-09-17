@@ -229,15 +229,15 @@ def get_request(
         "result":result,
         "message":"Request Retrieved Successfully"
     }
-@router.patch("/update-status/{trip_id}")
+@router.patch("/update-status/{trip_req_id}")
 async def update_status(
     data:TripRequestUpdate,
-    trip_id:int,
+    trip__req_id:int,
     driver_id:int=Depends(get_current_driver),
 ):
     update=trip_services.update_request(
         data.status,
-        trip_id,
+        trip__req_id,
         driver_id
     )
     print("UPDATE RESULT:", update)
@@ -253,7 +253,7 @@ async def update_status(
     update.user_id,
     {
         "type": "driver_response",
-        "trip_id": update.id,
+        "trip_req_id": update.id,
         "status": update.status
     }
     )
@@ -262,14 +262,14 @@ async def update_status(
         "status":True,
         "message":"Request Updated Successfully"
     }
-@router.patch("/dismiss-request/{trip_id}")
+@router.patch("/dismiss-request/{trip_req_id}")
 def dismiss_request(
-    trip_id: int,
+    trip_req_id: int,
     driver_id: int = Depends(get_current_driver)
 ):
 
     result = trip_services.dismiss_request(
-        trip_id,
+        trip_req_id,
         driver_id
     )
 

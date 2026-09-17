@@ -16,11 +16,11 @@ class TripRequestServices:
     def get_request(self,driver_id):
         return TripRequestRepository.get_requests(driver_id=driver_id)
 
-    def dismiss_request(self,trip_id,driver_id):
-        return TripRequestRepository.dismiss_request(trip_id=trip_id,driver_id=driver_id)
+    def dismiss_request(self,trip_req_id,driver_id):
+        return TripRequestRepository.dismiss_request(trip_req_id=trip_req_id,driver_id=driver_id)
 
-    def update_request(self,status,trip_id,driver_id):
-        return TripRequestRepository.update_request(status=status,trip_id=trip_id,driver_id=driver_id)
+    def update_request(self,status,trip_req_id,driver_id):
+        return TripRequestRepository.update_request(status=status,trip_req_id=trip_req_id,driver_id=driver_id)
 
-    def get_driver_response(self,trip_id,user_id):
-        return TripRequestRepository.get_driver_response(trip_id=trip_id,user_id=user_id)
+    def get_driver_response(self,trip_req_id,user_id):
+        return TripRequestRepository.get_driver_response(trip_req_id=trip_req_id,user_id=user_id)

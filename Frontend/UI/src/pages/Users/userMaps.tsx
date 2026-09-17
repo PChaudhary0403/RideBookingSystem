@@ -103,10 +103,10 @@ export async function getDrivers(
     const [driverResponse, setDriverResponse] = useState<{
         status: string;
         driver_id: number;
-        trip_id: number;
+        trip_req_id: number;
     } | null>(null);
     async function get_driver_response(){
-        const tripId=driverResponse?.trip_id
+        const tripId=driverResponse?.trip_req_id
         if(!tripId) return
         const response=await fetch(`${import.meta.env.VITE_API_URL}/users/driver-response/${tripId}`,{
             method:"PATCH",
@@ -138,7 +138,7 @@ export async function getDrivers(
                 setDriverResponse({
                     status: data.status,
                     driver_id: data.driver_id,
-                    trip_id: data.trip_id
+                    trip_req_id: data.trip_req_id
                 });
         
                 // accepted or rejected

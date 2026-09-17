@@ -50,7 +50,7 @@ type GoogleMapsProps={
     driverResponse: {
         status: string;
         driver_id: number;
-        trip_id: number;
+        trip_req_id: number;
     } | null;
     onFindAnotherDriver: () => void;
 }
@@ -468,7 +468,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                             </p>
 
                             <p>
-                                Trip ID: {driverResponse.trip_id}
+                                Trip ID: {driverResponse.trip_req_id}
                             </p>
                             <button style={buttonStyle}>Call the driver to pickup point</button>
                         </div>

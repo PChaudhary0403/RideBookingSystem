@@ -14,7 +14,7 @@ class TripRequestCreate(BaseModel):
     dest_long:float
 
 class DriverTripRequest(BaseModel):
-    trip_id:int
+    trip_req_id:int
     driver_id:int
     user_id:int
     pickup_lat: float

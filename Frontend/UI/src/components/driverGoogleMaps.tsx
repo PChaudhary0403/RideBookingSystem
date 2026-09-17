@@ -204,7 +204,7 @@ function Route({
             
                     setRequests((prev) =>
                         prev.filter(
-                            (request) => request.trip_id !== tripId
+                            (request) => request.trip_req_id !== tripId
                         )
                     );
             
@@ -385,7 +385,7 @@ function Route({
                 ) : (
                     requests.map((request) => (
                         <div
-                            key={request.trip_id}
+                            key={request.trip_req_id}
                             style={{
                                 border: "1px solid #ddd",
                                 borderRadius: "10px",
@@ -394,7 +394,7 @@ function Route({
                                 backgroundColor: "#F8FAFC"
                             }}
                         >
-                        <button onClick={()=>{closeRequest(request.trip_id),setAgreement("declined")}}>
+                        <button onClick={()=>{closeRequest(request.trip_req_id),setAgreement("declined")}}>
                             ✕
                         </button>
                             <h4>New Ride Request</h4>
@@ -430,7 +430,7 @@ function Route({
                                 }}
                                 onClick={(e)=>{e.stopPropagation();
                                     setAgreement("accepted");
-                                    get_agreement(request.trip_id,"accepted")}}
+                                    get_agreement(request.trip_req_id,"accepted")}}
                             >
                                 Accept
                             </button>
@@ -442,7 +442,7 @@ function Route({
                                 }}
                                 onClick={(e)=>{e.stopPropagation();
                                     setAgreement("rejected");
-                                    get_agreement(request.trip_id,"rejected")}}
+                                    get_agreement(request.trip_req_id,"rejected")}}
                             >
                                 Reject
                             </button>
