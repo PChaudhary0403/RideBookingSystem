@@ -422,12 +422,10 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                 }
                                 if(pickup&&destination){
                                 onRideRequest();
-                                if(!pickup&&!destination){
-                                    alert("Please choose pickup and drop locations")
-                                }
                             }}}>
                                 {pickup&&destination ? "Confirm Ride" : "Request Ride"}
                             </button>
+                            {!pickup&&!destination?<p>please choose pickup and destination point first</p>:""}
                         </div>
                     )}
                     {driverResponse?.status === "accepted" && showResponseCard &&(
