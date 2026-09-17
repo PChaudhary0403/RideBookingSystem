@@ -165,6 +165,7 @@ export async function getDrivers(
             setDriver(data.drivers)
         }
     }
+    
     console.log("driverResponse=====>",driverResponse)
     function handleLocations(
         pickupLocation: Location,
