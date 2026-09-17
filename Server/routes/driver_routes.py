@@ -232,7 +232,7 @@ def get_request(
 @router.patch("/update-status/{trip_req_id}")
 async def update_status(
     data:TripRequestUpdate,
-    trip__req_id:int,
+    trip_req_id:int,
     driver_id:int=Depends(get_current_driver),
 ):
     update=trip_services.update_request(
