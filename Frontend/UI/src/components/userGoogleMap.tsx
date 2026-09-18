@@ -359,7 +359,18 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                             </AdvancedMarker>
                         )}
                     </Map>
+                    <div 
+                    style={{
+                        position: "absolute",
+                        bottom: "20px",
+                        left: "20px",
+                        transform:"translateX(-50%)",
+                        zIndex: 20,
+                        display: "flex",
+                        gap: "10px"
+                    }}>
                     <button style={buttonStyle} onClick={handleGetDrivers}>Get Drivers</button>
+                    </div>
                     {showLocationSelectCard &&(
                     <div
                     style={{
