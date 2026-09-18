@@ -362,7 +362,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                     <div 
                     style={{
                         position: "absolute",
-                        bottom: "20px",
+                        bottom: "60px",
                         right: "20px",
                         zIndex: 20,
                     }}>
@@ -389,7 +389,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                     <div
                     style={{
                         position: "absolute",
-                        bottom: "20px",
+                        bottom: "60px",
                         left: "50%",
                         transform:"translateX(-50%)",
                         zIndex: 20,
