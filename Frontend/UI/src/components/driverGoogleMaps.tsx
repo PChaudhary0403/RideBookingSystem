@@ -376,7 +376,7 @@ function Route({
                         style={{
                             position: "absolute",
                             top: "20px",
-                            right: "20px",
+                            right: "40px",
                             zIndex: 10,
                             backgroundColor: "#2563EB",
                             color: "white",
