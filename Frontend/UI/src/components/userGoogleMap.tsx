@@ -363,7 +363,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                     style={{
                         position: "absolute",
                         bottom: "20px",
-                        left: "20px",
+                        right: "20px",
                         transform:"translateX(-50%)",
                         zIndex: 20,
                         display: "flex",
