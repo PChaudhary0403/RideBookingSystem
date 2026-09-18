@@ -197,6 +197,12 @@ const buttonStyle = {
                                 border: "1px solid #E5E7EB"
                             }}
                         >
+                            <button style={menuItemStyle} onClick={Switch_to_vehicle}>
+                                Register Vehicles(if any)
+                            </button>
+                            <button style={menuItemStyle} onClick={display_vehicles}>
+                                Display your vehicles
+                            </button>
                             <button style={menuItemStyle}>
                                 Transactions
                             </button>
@@ -245,8 +251,6 @@ const buttonStyle = {
                 setSelectedRequest={setSelectedRequest}
                 Call={call}></DriverGoogleMap>
             </div>
-            <button style={buttonStyle} onClick={Switch_to_vehicle}>Register Vehicles(if any)</button>
-            <button style={buttonStyle} onClick={display_vehicles}>Display your vehicles</button>
         </div>
     )
 }
