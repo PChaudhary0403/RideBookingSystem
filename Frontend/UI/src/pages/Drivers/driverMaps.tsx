@@ -25,6 +25,16 @@ const buttonStyle = {
     console.log(role)
     const [requests,setRequests]=useState<DriverTripRequest[]>([])
     const [selectedRequest, setSelectedRequest] =useState<DriverTripRequest | null>(null);
+    const [menuOpen, setMenuOpen] = useState(false);
+    const menuItemStyle = {
+        width: "100%",
+        padding: "12px 16px",
+        border: "none",
+        backgroundColor: "transparent",
+        textAlign: "left" as const,
+        cursor: "pointer",
+        fontSize: "15px"
+    };
     function getLocation(){
         
         navigator.geolocation.getCurrentPosition(
@@ -131,9 +141,100 @@ const buttonStyle = {
         send_response()
     },[driver_id])
     return(
-        <div style={{width: "100%",height: "100vh",backgroundColor: "#F8FAFC"}}>
-            <div style={{display:"flex",alignItems:"flex-start",backgroundColor: "#F8FAFC"}}>
-            <button style={buttonStyle} onClick={logout}>Logout</button>
+        <div
+            style={{
+                width: "100%",
+                height: "100vh",
+                backgroundColor: "#F8FAFC"
+            }}
+        >
+            {/* Top Toolbar */}
+            <div
+                style={{
+                    width: "100%",
+                    height: "64px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "0 20px",
+                    boxSizing: "border-box",
+                    backgroundColor: "white",
+                    borderBottom: "1px solid #E5E7EB",
+                    position: "relative",
+                    zIndex: 100
+                }}
+            >
+
+                {/* Left - Menu */}
+                <div style={{ position: "relative" }}>
+
+                    <button
+                        style={{
+                            width: "42px",
+                            height: "42px",
+                            border: "none",
+                            borderRadius: "8px",
+                            backgroundColor: "#F1F5F9",
+                            cursor: "pointer",
+                            fontSize: "22px"
+                        }}
+                        onClick={() => setMenuOpen(!menuOpen)}
+                    >
+                        ☰
+                    </button>
+
+                    {menuOpen && (
+                        <div
+                            style={{
+                                position: "absolute",
+                                top: "50px",
+                                left: "0",
+                                width: "220px",
+                                backgroundColor: "white",
+                                borderRadius: "10px",
+                                boxShadow: "0 5px 20px rgba(0,0,0,0.15)",
+                                padding: "8px 0",
+                                border: "1px solid #E5E7EB"
+                            }}
+                        >
+                            <button style={menuItemStyle}>
+                                💳 Transactions
+                            </button>
+
+                            <button style={menuItemStyle}>
+                                🚗 Trip History
+                            </button>
+
+                            <button style={menuItemStyle}>
+                                📋 Request History
+                            </button>
+                        </div>
+                    )}
+                </div>
+
+
+                {/* Center - Future Navigation */}
+                <div
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "30px",
+                        flex: 1
+                    }}
+                >
+                    {/* Future navigation items go here */}
+                </div>
+
+
+                {/* Right - Logout */}
+                <button
+                    style={buttonStyle}
+                    onClick={logout}
+                >
+                    Logout
+                </button>
+
             </div>
             <div style={{border:"5px solid #2563EB",borderRadius:"12px",overflow: "hidden",boxShadow: "0 4px 12px rgba(37, 99, 235, 0.2)"}}>
                 <DriverGoogleMap 
