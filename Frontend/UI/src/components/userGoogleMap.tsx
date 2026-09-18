@@ -364,12 +364,26 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                         position: "absolute",
                         bottom: "20px",
                         right: "20px",
-                        transform:"translateX(-50%)",
                         zIndex: 20,
-                        display: "flex",
-                        gap: "10px"
                     }}>
-                    <button style={buttonStyle} onClick={handleGetDrivers}>Get Drivers</button>
+                    <button
+                        title="Find nearby drivers"
+                        style={{
+                            width: "58px",
+                            height: "58px",
+                            borderRadius: "50%",
+                            border: "none",
+                            backgroundColor: "#0F766E",
+                            color: "white",
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "24px",
+                            boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
+                            transition: "all 0.2s ease"
+                        }}
+                     onClick={handleGetDrivers}>Get Drivers</button>
                     </div>
                     {showLocationSelectCard &&(
                     <div
