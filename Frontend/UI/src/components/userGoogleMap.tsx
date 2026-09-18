@@ -361,6 +361,8 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                     {showLocationSelectCard &&(
                     <div
                     style={{
+                        width:"100%",
+                        backgroundColor:"#F8FAFC",
                         position: "absolute",
                         bottom: "20px",
                         left: "50%",
