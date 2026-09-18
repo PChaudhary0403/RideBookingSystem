@@ -260,7 +260,6 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                     &&pickup.latitude==lat
                                     &&pickup.longitude==lng){
                                         setPickup(null)
-                                        setSelectionMode(null)
                                         return
                                     }
                                 setPickup(selectedLocation)
@@ -272,7 +271,6 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                     &&destination.longitude==lng
                                 ){
                                     setDestination(null)
-                                    setSelectionMode(null)
                                     return
                                 }
                                 setDestination(selectedLocation)
