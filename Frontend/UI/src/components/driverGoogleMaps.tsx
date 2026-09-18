@@ -253,7 +253,7 @@ function Route({
                             mapId={import.meta.env.VITE_GOOGLE_MAPS_MAP_ID}
                             style={{
                                 width: "100%",
-                                height: "100vh"
+                                height: "100%"
                             }}
                         >
             
