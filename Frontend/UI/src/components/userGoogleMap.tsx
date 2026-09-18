@@ -233,7 +233,9 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                     style={{
                         position: "relative",
                         width: "100%",
-                        height: "100vh"
+                        height: "100%",
+                        minWidth: 0,
+                        minHeight: 0
                     }}
                 >
                     <Map
@@ -283,6 +285,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                     style={{
                                         width: "45px",
                                         height: "45px",
+                                        display:"block",
                                         borderRadius: "50%",
                                         objectFit: "cover",
                                         border: "3px solid white",
@@ -312,6 +315,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                     style={{
                                         width: "45px",
                                         height: "45px",
+                                        display:"block",
                                         borderRadius: "50%",
                                         border: "3px solid white",
                                         boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
@@ -362,8 +366,8 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                     <div 
                     style={{
                         position: "absolute",
-                        bottom: "500px",
-                        right: "20px",
+                        bottom: "clamp(180px, 35vh, 500px)",
+                        right: "clamp(12px, 3vw, 20px)",
                         zIndex: 20,
                     }}>
                     <button
@@ -371,6 +375,8 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                         style={{
                             width: "58px",
                             height: "58px",
+                            minWidth: "58px",
+                            minHeight: "58px",
                             borderRadius: "50%",
                             border: "none",
                             backgroundColor: "#0F766E",
@@ -389,11 +395,15 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                     <div
                     style={{
                         position: "absolute",
-                        bottom: "150px",
+                        bottom: "clamp(20px, 12vh, 150px)",
                         left: "50%",
                         transform:"translateX(-50%)",
+                        width: "min(500px, calc(100% - 24px))",
+                        boxSizing: "border-box",
                         zIndex: 20,
                         display: "flex",
+                        justifyContent: "center",
+                        flexWrap: "wrap",
                         gap: "10px"
                     }}
                     >
@@ -417,14 +427,17 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                         <div
                             style={{
                                 position: "absolute",
-                                bottom: "20px",
-                                left: "20px",
-                                width: "280px",
+                                bottom: "clamp(12px, 3vh, 20px)",
+                                left: "clamp(12px, 3vw, 20px)",
+                                width: "min(280px, calc(100% - 24px))",
+                                maxHeight: "calc(100% - 24px)",
+                                boxSizing:"border-box",
                                 background: "white",
                                 borderRadius: "15px",
                                 padding: "16px",
                                 boxShadow: "0 4px 15px rgba(0,0,0,0.25)",
-                                zIndex: 10
+                                zIndex: 10,
+                                overflowY:"auto"
                             }}
                         >
                             <button
@@ -435,16 +448,27 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                     position: "absolute",
                                     right: "10px",
                                     top: "8px",
+                                    width: "32px",
+                                    height: "32px",
                                     border: "none",
                                     backgroundColor: "red",
+                                    color: "white",
                                     fontSize: "18px",
-                                    cursor: "pointer"
+                                    cursor: "pointer",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    padding: 0
                                 }}
                             >
                                 ×
                             </button>
         
-                            <h2>
+                            <h2 
+                            style={{
+                                overflowWrap: "anywhere",
+                                paddingRight: "25px"
+                            }}>
                                 {selectedDriver.name}{" "}
                                 {selectedDriver.surname}
                             </h2>
@@ -474,15 +498,16 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                         <div
                             style={{
                                 position: "absolute",
-                                bottom: "30px",
+                                bottom: "clamp(12px, 4vh, 30px)",
                                 left: "50%",
                                 transform: "translateX(-50%)",
+                                width: "min(400px, calc(100% - 24px))",
+                                boxSizing: "border-box",                    
                                 backgroundColor: "white",
                                 padding: "20px",
                                 borderRadius: "12px",
                                 boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
                                 zIndex: 10,
-                                minWidth: "300px",
                                 textAlign: "center"
                             }}
                         >
@@ -493,12 +518,19 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                 position: "absolute",
                                 top: "8px",
                                 right: "10px",
+                                width: "32px",
+                                height: "32px",
                                 border: "none",
+                                borderRadius: "50%",
                                 background: "transparent",
                                 fontSize: "22px",
                                 fontWeight: "bold",
                                 cursor: "pointer",
-                                color: "#555"
+                                color: "#555",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                padding: 0
                             }}
                         >
                             ×
@@ -519,15 +551,16 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                         <div
                             style={{
                                 position: "absolute",
-                                bottom: "30px",
+                                bottom: "clamp(12px, 4vh, 30px)",
                                 left: "50%",
                                 transform: "translateX(-50%)",
+                                width: "min(400px, calc(100% - 24px))",
+                                boxSizing: "border-box",
                                 backgroundColor: "white",
-                                padding: "20px",
+                                padding: "clamp(16px, 4vw, 20px)",
                                 borderRadius: "12px",
                                 boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
                                 zIndex: 10,
-                                minWidth: "300px",
                                 textAlign: "center"
                             }}
                         >
@@ -538,12 +571,19 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                 position: "absolute",
                                 top: "8px",
                                 right: "10px",
+                                width: "32px",
+                                height: "32px",
                                 border: "none",
+                                borderRadius: "50%",
                                 background: "transparent",
                                 fontSize: "22px",
                                 fontWeight: "bold",
                                 cursor: "pointer",
-                                color: "#555"
+                                color: "#555",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                padding: 0
                             }}
                         >
                             ×
@@ -560,13 +600,16 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
 
                         <button
                                 style={{
-                                backgroundColor: "#2563EB",
-                                color: "white",
-                                border: "none",
-                                borderRadius: "8px",
-                                padding: "10px 18px",
-                                cursor: "pointer",
-                                fontWeight: "600"
+                                    width: "100%",
+                                    maxWidth: "260px",
+                                    backgroundColor: "#2563EB",
+                                    color: "white",
+                                    border: "none",
+                                    borderRadius: "8px",
+                                    padding: "10px 18px",
+                                    cursor: "pointer",
+                                    fontWeight: "600",
+                                    boxSizing: "border-box"
                                 }}
                             onClick={onFindAnotherDriver}
                             >
