@@ -366,7 +366,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                     <div 
                     style={{
                         position: "absolute",
-                        bottom: "clamp(180px, 35vh, 300px)",
+                        bottom: "clamp(180px, 35vh, 200px)",
                         right: "clamp(12px, 3vw, 20px)",
                         zIndex: 20,
                     }}>
