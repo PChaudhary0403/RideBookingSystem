@@ -425,14 +425,24 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                     }}
                     >
                     <button
-                        style={buttonStyle}
+                        style={{...buttonStyle,
+                            backgroundColor:
+                            selectionMode === "pickup"
+                            ? "#1D4ED8"
+                            : "#2563EB"
+                        }}
                         onClick={() => setSelectionMode("pickup")}
                     >
                         Select Pickup
                     </button>
 
                     <button
-                        style={buttonStyle}
+                            style={{...buttonStyle,
+                            backgroundColor:
+                            selectionMode === "destination"
+                            ? "#1D4ED8"
+                            : "#2563EB"
+                        }}
                         onClick={() =>setSelectionMode("destination")}
                     >
                         Select Destination
