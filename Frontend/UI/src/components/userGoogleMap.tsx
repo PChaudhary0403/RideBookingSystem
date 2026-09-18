@@ -264,7 +264,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                         return
                                     }
                                 setPickup(selectedLocation)
-                                setSelectionMode(null);
+                                setSelectionMode("pickup");
                             }
                             if(selectionMode==="destination"){
                                 if(destination
@@ -276,7 +276,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                     return
                                 }
                                 setDestination(selectedLocation)
-                                setSelectionMode(null);
+                                setSelectionMode("destination");
                             }
                         }}
                     >
