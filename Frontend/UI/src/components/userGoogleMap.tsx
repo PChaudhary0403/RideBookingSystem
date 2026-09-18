@@ -488,7 +488,12 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                 }
                                 if(pickup&&destination){
                                 onRideRequest();
-                            }}}>
+                            }
+                            else{
+                                onCloseDriverProfile()
+                                setShowCard(true)
+                            }
+                            }}>
                                 {pickup&&destination ? "Confirm Ride" : "Request Ride"}
                             </button>
                             {!pickup&&!destination?<p>Please choose pickup and destination point to request ride</p>:""}
