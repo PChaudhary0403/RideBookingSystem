@@ -198,15 +198,15 @@ const buttonStyle = {
                             }}
                         >
                             <button style={menuItemStyle}>
-                                💳 Transactions
+                                Transactions
                             </button>
 
                             <button style={menuItemStyle}>
-                                🚗 Trip History
+                                Trip History
                             </button>
 
                             <button style={menuItemStyle}>
-                                📋 Request History
+                                Request History
                             </button>
                         </div>
                     )}
