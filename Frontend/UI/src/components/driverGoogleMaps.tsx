@@ -375,8 +375,8 @@ function Route({
                         onClick={() => setShowRequests(true)}
                         style={{
                             position: "absolute",
-                            top: "70px",
-                            left: "20px",
+                            top: "65px",
+                            right: "10px",
                             zIndex: 10,
                             backgroundColor: "#2563EB",
                             color: "white",
