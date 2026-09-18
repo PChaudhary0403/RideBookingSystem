@@ -251,13 +251,13 @@ export async function getDrivers(
                     selectedDriver={selectedDriver}
                     onCloseDriverProfile={()=>setSelectedDriver(null)}
                     onRideRequest={RideRequest}
+                    handleGetDrivers={handleGetDrivers}
                     onLocationsSelected={handleLocations}
                     driverResponse={driverResponse}
                     onFindAnotherDriver={handleFindAnotherDriver}
                     >
                     </UserGoogleMap>
             </div>
-            <button style={buttonStyle} onClick={handleGetDrivers}>Get Drivers</button>
         </div>
     )
 }

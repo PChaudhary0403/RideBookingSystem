@@ -43,6 +43,7 @@ type GoogleMapsProps={
     selectedDriver:DriverProfile|null;
     onCloseDriverProfile:()=>void;
     onRideRequest:()=>void;
+    handleGetDrivers:()=>void;
     onLocationsSelected: (
         pickup: Location,
         destination: Location
@@ -179,7 +180,7 @@ function Route({
             )}
     </>;
 }
-function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDriverProfile,onRideRequest,onLocationsSelected,driverResponse,onFindAnotherDriver}:GoogleMapsProps){
+function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDriverProfile,onRideRequest,handleGetDrivers,onLocationsSelected,driverResponse,onFindAnotherDriver}:GoogleMapsProps){
     const [showLocationOptions, setShowLocationOptions] = useState(true);
     type SelectionMode = "pickup" | "destination" | null;
     const [selectionMode, setSelectionMode] =useState<SelectionMode>(null);
@@ -358,6 +359,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                             </AdvancedMarker>
                         )}
                     </Map>
+                    <button style={buttonStyle} onClick={handleGetDrivers}>Get Drivers</button>
                     {showLocationSelectCard &&(
                     <div
                     style={{
