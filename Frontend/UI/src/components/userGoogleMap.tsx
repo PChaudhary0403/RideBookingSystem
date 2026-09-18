@@ -256,10 +256,25 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                                 longitude:lng
                             }
                             if(selectionMode==="pickup"){
+                                if(pickup
+                                    &&pickup.latitude==lat
+                                    &&pickup.longitude==lng){
+                                        setPickup(null)
+                                        setSelectionMode(null)
+                                        return
+                                    }
                                 setPickup(selectedLocation)
                                 setSelectionMode(null);
                             }
                             if(selectionMode==="destination"){
+                                if(destination
+                                    &&destination.latitude==lat
+                                    &&destination.longitude==lng
+                                ){
+                                    setDestination(null)
+                                    setSelectionMode(null)
+                                    return
+                                }
                                 setDestination(selectedLocation)
                                 setSelectionMode(null);
                             }
@@ -409,24 +424,14 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                     >
                     <button
                         style={buttonStyle}
-                        onClick={() => {
-                            if(selectionMode==="pickup"){
-                                setPickup(null)
-                                setSelectionMode(null)
-                            }
-                            setSelectionMode("pickup")}}
+                        onClick={() => setSelectionMode("pickup")}
                     >
                         Select Pickup
                     </button>
 
                     <button
                         style={buttonStyle}
-                        onClick={() => {
-                            if(selectionMode==="destination"){
-                                setDestination(null)
-                                setSelectionMode(null)
-                            }
-                            setSelectionMode("destination")}}
+                        onClick={() =>setSelectionMode("destination")}
                     >
                         Select Destination
                     </button>
