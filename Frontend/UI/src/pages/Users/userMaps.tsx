@@ -344,7 +344,7 @@ export async function getDrivers(
                     Logout
                 </button>
             </div>
-            <div style={{border:"5px solid #2563EB",borderRadius:"12px",overflow: "hidden",boxShadow: "0 4px 12px rgba(37, 99, 235, 0.2)"}}>
+            <div style={{flex:1,height:"100vh",border:"5px solid #2563EB",borderRadius:"12px",overflow: "hidden",boxShadow: "0 4px 12px rgba(37, 99, 235, 0.2)"}}>
                 <UserGoogleMap 
                     location={location}
                     drivers={driver}

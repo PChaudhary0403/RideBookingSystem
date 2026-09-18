@@ -233,7 +233,7 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                     style={{
                         position: "relative",
                         width: "100%",
-                        height: "500px"
+                        height: "100vh"
                     }}
                 >
                     <Map
