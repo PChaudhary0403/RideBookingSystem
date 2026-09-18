@@ -362,7 +362,6 @@ function UserGoogleMap({location,drivers,onDriverSelect,selectedDriver,onCloseDr
                     <div
                     style={{
                         width:"100%",
-                        height:"100vh",
                         backgroundColor:"#F8FAFC",
                         position: "absolute",
                         bottom: "20px",
