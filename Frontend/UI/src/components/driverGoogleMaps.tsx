@@ -53,27 +53,33 @@
     type MapControllerProps = {
         location?: Location | null;
         pickup?: Location | null;
+        navigateToPickup:boolean;
     };
     // type FitDriversProps = {
     //     location: Location | null;
     // };
-    function MapController({ location,pickup }: MapControllerProps) {
+    function MapController({ location,pickup,navigateToPickup }: MapControllerProps) {
         const map = useMap();
 
         useEffect(() => {
             if (!map) return;
-            const target=pickup??location
-            if(!target) return
+            if(navigateToPickup&&pickup){
+                map.panTo({
+                    lat: pickup.latitude,
+                    lng: pickup.longitude
+                });
+                map.setZoom(18);
+                return;
+            }
 
-            const position = {
-                lat: target.latitude,
-                lng: target.longitude
-            };
-
-            map.panTo(position);
-            map.setZoom(18);
-
-        }, [map, location,pickup]);
+            if (location) {
+                map.panTo({
+                    lat: location.latitude,
+                    lng: location.longitude
+                });
+                map.setZoom(14);
+            }
+        }, [map, location,pickup,navigateToPickup]);
 
         return null;
     }
@@ -180,6 +186,7 @@ function Route({
     function DriverGoogleMap({location,requests,setRequests,selectedRequest,setSelectedRequest,Call}:GoogleMapsProps){
         const [showRequests, setShowRequests] = useState(true);
         const [agreement,setAgreement]=useState("")
+        const [navigateToPickup, setNavigateToPickup] = useState(false);
         const defaultLocation={
             lat:19.0760,
             lng:72.8777
@@ -259,8 +266,8 @@ function Route({
             
                             <MapController location={location} pickup={selectedRequest?{
                                 latitude:selectedRequest.pickup_lat,
-                                longitude:selectedRequest.pickup_long
-                            }:null} />
+                                longitude:selectedRequest.pickup_long,
+                            }:null} navigateToPickup={navigateToPickup} />
 
                         {selectedRequest && (
                         <Route
@@ -364,6 +371,9 @@ function Route({
                                     padding: "10px 18px",
                                     cursor: "pointer",
                                     fontWeight: "600"
+                                }}
+                                onClick={(e) =>{e.stopPropagation();
+                                    setNavigateToPickup(true)
                                 }}
                             >
                                 Proceed to Pickup
