@@ -198,9 +198,11 @@ function Route({
                 lng: location.longitude
             }
             : defaultLocation;
-            if(Call){
-                setCall(true)
-            }
+            useEffect(() => {
+                if (Call === true) {
+                    setCall(true);
+                }
+            }, [Call]);
             async function closeRequest(tripId: number) {
                 const response = await fetch(
                     `${import.meta.env.VITE_API_URL}/drivers/dismiss-request/${tripId}`,
