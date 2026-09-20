@@ -359,7 +359,7 @@ function Route({
                                 textAlign: "center"
                             }}
                         >
-                            <button
+                            {/* <button
                                 onClick={() => setCall(false)}
                                 style={{
                                     position: "absolute",
@@ -372,7 +372,7 @@ function Route({
                                 }}
                             >
                                 ✕
-                            </button>
+                            </button> */}
                             <h3 style={{ margin: "0 0 8px" }}>
                                 Ride Confirmation
                             </h3>
@@ -394,6 +394,7 @@ function Route({
                                 }}
                                 onClick={(e) =>{e.stopPropagation();
                                     setNavigateToPickup(true)
+                                    setCall(false)
                                 }}
                             >
                                 Proceed to Pickup
