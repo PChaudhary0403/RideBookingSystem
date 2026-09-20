@@ -357,6 +357,20 @@ function Route({
                                 textAlign: "center"
                             }}
                         >
+                            <button
+                                onClick={() => setCall(false)}
+                                style={{
+                                    position: "absolute",
+                                    top: "10px",
+                                    right: "10px",
+                                    border: "none",
+                                    background: "transparent",
+                                    fontSize: "20px",
+                                    cursor: "pointer"
+                                }}
+                            >
+                                ✕
+                            </button>
                             <h3 style={{ margin: "0 0 8px" }}>
                                 Ride Confirmation
                             </h3>
@@ -378,7 +392,6 @@ function Route({
                                 }}
                                 onClick={(e) =>{e.stopPropagation();
                                     setNavigateToPickup(true)
-                                    setCall(false)
                                 }}
                             >
                                 Proceed to Pickup
