@@ -379,7 +379,6 @@ function Route({
                                 onClick={(e) =>{e.stopPropagation();
                                     setNavigateToPickup(true)
                                     setCall(false)
-                                    setShowRequests(false)
                                 }}
                             >
                                 Proceed to Pickup
