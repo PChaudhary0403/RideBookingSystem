@@ -187,6 +187,7 @@ function Route({
         const [showRequests, setShowRequests] = useState(true);
         const [agreement,setAgreement]=useState("")
         const [navigateToPickup, setNavigateToPickup] = useState(false);
+        const [callCard,setCall]=useState(false)
         const defaultLocation={
             lat:19.0760,
             lng:72.8777
@@ -197,6 +198,9 @@ function Route({
                 lng: location.longitude
             }
             : defaultLocation;
+            if(Call){
+                setCall(true)
+            }
             async function closeRequest(tripId: number) {
                 const response = await fetch(
                     `${import.meta.env.VITE_API_URL}/drivers/dismiss-request/${tripId}`,
@@ -337,7 +341,7 @@ function Route({
                 )}
                         </Map>
 
-                    {Call && (
+                    {callCard && (
                         <div
                             style={{
                                 position: "absolute",
@@ -374,6 +378,8 @@ function Route({
                                 }}
                                 onClick={(e) =>{e.stopPropagation();
                                     setNavigateToPickup(true)
+                                    setCall(false)
+                                    setShowRequests(false)
                                 }}
                             >
                                 Proceed to Pickup
