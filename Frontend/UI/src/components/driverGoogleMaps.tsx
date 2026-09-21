@@ -64,7 +64,8 @@
         useEffect(() => {
             if (!map) return;
             console.log("This is  the pickup point",pickup)
-            if(navigateToPickup&&pickup){
+            if(navigateToPickup){
+                if(!pickup) return
                 map.panTo({
                     lat: pickup.latitude,
                     lng: pickup.longitude
@@ -72,7 +73,13 @@
                 map.setZoom(18);
                 return;
             }
-
+            if(pickup){
+                map.panTo({
+                    lat: pickup.latitude,
+                    lng: pickup.longitude
+                });
+                map.setZoom(18);
+            }
             if (location) {
                 map.panTo({
                     lat: location.latitude,
@@ -274,11 +281,10 @@ function Route({
                                 height: "100%"
                             }}
                         >
-            
-                            <MapController location={location} pickup={selectedRequest?{
-                                latitude:selectedRequest.pickup_lat,
-                                longitude:selectedRequest.pickup_long
-                            }:null} navigateToPickup={navigateToPickup} />
+                        <MapController location={location} pickup={selectedRequest?{
+                            latitude:selectedRequest.pickup_lat,
+                            longitude:selectedRequest.pickup_long
+                        }:null} navigateToPickup={navigateToPickup} />
 
                         {selectedRequest && (
                         <Route
@@ -346,7 +352,7 @@ function Route({
                         </AdvancedMarker>
                     </>
                 )}
-                        </Map>
+                    </Map>
 
                     {callCard && (
                         <div
@@ -427,7 +433,7 @@ function Route({
                     </button>
                     )}
 
-                    {showRequests&&(
+                {showRequests&&(
                         <div
                 style={{
                     position: "absolute",
