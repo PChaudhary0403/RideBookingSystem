@@ -60,7 +60,7 @@
     // };
     function MapController({ location,pickup,navigateToPickup }: MapControllerProps) {
         const map = useMap();
-
+        console.log("Pickup Point before useEffect:",pickup)
         useEffect(() => {
             if (!map) return;
             console.log("This is  the pickup point",pickup)
