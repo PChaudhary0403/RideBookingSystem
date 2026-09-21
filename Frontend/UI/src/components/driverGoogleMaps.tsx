@@ -396,6 +396,7 @@ function Route({
                                     fontWeight: "600"
                                 }}
                                 onClick={(e) =>{e.stopPropagation();
+                                    console.log("CLICKED PROCEED TO PICKUP");
                                     setNavigateToPickup(true)
                                     setCall(false)
                                 }}
