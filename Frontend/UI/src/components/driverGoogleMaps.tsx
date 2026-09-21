@@ -61,7 +61,7 @@
     function MapController({ location,pickup,navigateToPickup }: MapControllerProps) {
         const map = useMap();
         useEffect(() => {
-            console.log("Pickup Point before useEffect:",pickup)
+            console.log("Pickup Point:",pickup)
             console.log("Navigate to pickup:", navigateToPickup);
             if (!map) return;
             if(navigateToPickup&&pickup){
