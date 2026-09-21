@@ -234,6 +234,10 @@ function Route({
                 | "dismiss"
                 | "cancelled";
             async function get_agreement(tripId:number,agreementStatus:TripStatus){
+                if(agreementStatus===null){
+                    console.log("The agreementStatus is null")
+                    return
+                }
                 const response=await fetch(`${import.meta.env.VITE_API_URL}/drivers/update-status/${tripId}`,{
                     method:"PATCH",
                     credentials:"include",
@@ -273,7 +277,7 @@ function Route({
             
                             <MapController location={location} pickup={selectedRequest?{
                                 latitude:selectedRequest.pickup_lat,
-                                longitude:selectedRequest.pickup_long,
+                                longitude:selectedRequest.pickup_long
                             }:null} navigateToPickup={navigateToPickup} />
 
                         {selectedRequest && (
