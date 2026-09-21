@@ -60,17 +60,17 @@
     // };
     function MapController({ location,pickup,navigateToPickup }: MapControllerProps) {
         const map = useMap();
-        console.log("Pickup Point before useEffect:",pickup)
         useEffect(() => {
+            console.log("Pickup Point before useEffect:",pickup)
+            console.log("Navigate to pickup:", navigateToPickup);
             if (!map) return;
-            console.log("This is  the pickup point",pickup)
             if(navigateToPickup&&pickup){
-                if(!pickup) return
                 map.panTo({
                     lat: pickup.latitude,
                     lng: pickup.longitude
                 });
                 map.setZoom(18);
+                return;
             }
             if (location) {
                 map.panTo({
