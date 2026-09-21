@@ -63,6 +63,7 @@
 
         useEffect(() => {
             if (!map) return;
+            console.log("This is  the pickup point",pickup)
             if(navigateToPickup&&pickup){
                 map.panTo({
                     lat: pickup.latitude,
