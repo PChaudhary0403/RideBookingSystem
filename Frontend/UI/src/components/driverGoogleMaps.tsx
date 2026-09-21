@@ -64,22 +64,13 @@
         useEffect(() => {
             if (!map) return;
             console.log("This is  the pickup point",pickup)
-            if(navigateToPickup){
+            if(navigateToPickup&&pickup){
                 if(!pickup) return
                 map.panTo({
                     lat: pickup.latitude,
                     lng: pickup.longitude
                 });
                 map.setZoom(18);
-                return;
-            }
-            if(pickup){
-                map.panTo({
-                    lat: pickup.latitude,
-                    lng: pickup.longitude
-                });
-                map.setZoom(18);
-                return
             }
             if (location) {
                 map.panTo({
