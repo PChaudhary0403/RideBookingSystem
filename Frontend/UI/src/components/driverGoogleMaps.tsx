@@ -79,6 +79,7 @@
                     lng: pickup.longitude
                 });
                 map.setZoom(18);
+                return
             }
             if (location) {
                 map.panTo({
