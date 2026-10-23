@@ -26,8 +26,11 @@ from Trip.models.ride_request import RideRequest  # noqa: F401
 # this is the Alembic Config object
 config = context.config
 
-# Override sqlalchemy.url from environment
-config.set_main_option("sqlalchemy.url", os.environ["DATABASE_URL"])
+# Override sqlalchemy.url from environment.
+# configparser uses % as an interpolation character, so we must escape %% in the URL
+# (e.g. passwords containing URL-encoded chars like %40 become %%40).
+_db_url = os.environ["DATABASE_URL"].replace("%", "%%")
+config.set_main_option("sqlalchemy.url", _db_url)
 
 # Interpret the config file for Python logging.
 if config.config_file_name is not None:
