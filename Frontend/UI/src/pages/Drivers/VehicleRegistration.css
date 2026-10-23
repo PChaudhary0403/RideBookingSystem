@@ -1,0 +1,125 @@
+/* ── Vehicle Registration ───────────────────────────────── */
+.vr-page {
+  min-height: 100svh;
+  background: var(--gray-50);
+  padding-bottom: var(--space-16);
+}
+
+.vr-header {
+  background: #fff;
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-4) var(--space-8);
+}
+
+.vr-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: var(--space-8);
+  padding-top: var(--space-8);
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .vr-layout { grid-template-columns: 1fr; }
+}
+
+/* Preview panel */
+.vr-preview {}
+.vr-preview__card {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: var(--space-8);
+}
+
+.vr-preview__img-wrap {
+  background: var(--gray-50);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin-bottom: var(--space-5);
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.vr-preview__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.vr-preview__name {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: var(--space-1);
+}
+.vr-preview__model { font-size: var(--font-size-md); color: var(--gray-600); margin-bottom: var(--space-1); }
+.vr-preview__type { font-size: var(--font-size-sm); color: var(--gray-400); }
+
+/* Form card */
+.vr-form__title {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  color: var(--gray-900);
+  letter-spacing: -0.3px;
+  margin-bottom: var(--space-2);
+}
+.vr-form__sub { font-size: var(--font-size-sm); color: var(--gray-500); margin-bottom: var(--space-6); }
+
+.vr-error-banner {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-5);
+}
+
+.vr-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+.vr-form .form-group:nth-child(1),
+.vr-form .form-group:nth-child(2),
+.vr-form .form-group:nth-child(3) {
+  grid-column: 1 / -1;
+}
+@media (max-width: 600px) { .vr-form { grid-template-columns: 1fr; } }
+
+.vr-form__actions {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-2);
+  flex-wrap: wrap;
+}
+
+/* Success */
+.vr-success {
+  background: #fff;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  padding: var(--space-16) var(--space-8);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+.vr-success__icon {
+  width: 64px; height: 64px;
+  background: #d1fae5;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto var(--space-5);
+}
+.vr-success h2 {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: var(--space-2);
+}
+.vr-success p { color: var(--gray-500); }
