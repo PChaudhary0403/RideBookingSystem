@@ -52,30 +52,30 @@ def login(driver:DriverLogin,response:Response):
             return {
                 "message": "Invalid password"
             }
-    rider=result["rider"]
-    token=jwt.encode({"sub":str(rider.id),
-                      "role":"driver",
-                      "exp":datetime.utcnow()+timedelta(minutes=15)},
-    SECRET_KEY,
-    algorithm="HS256"
-    )
+    rider = result["rider"]
+    token = jwt.encode({"sub": str(rider.id),
+                       "role": "driver",
+                       "exp": datetime.utcnow() + timedelta(minutes=15)},
+                      SECRET_KEY,
+                      algorithm="HS256"
+                      )
     refresh_token = jwt.encode(
-    {
-        "sub": str(rider.id),
-        "role": "driver",
-        "type": "refresh",
-        "exp": datetime.utcnow() + timedelta(days=30)
-    },
-    SECRET_KEY,
-    algorithm="HS256"
-)
+        {
+            "sub": str(rider.id),
+            "role": "driver",
+            "type": "refresh",
+            "exp": datetime.utcnow() + timedelta(days=30)
+        },
+        SECRET_KEY,
+        algorithm="HS256"
+    )
     response.set_cookie(
         key="access_token",
         value=token,
         httponly=True,
         secure=True,
         samesite="none",
-        max_age=60*15
+        max_age=60 * 15
     )
     response.set_cookie(
         key="refresh_token",
@@ -83,12 +83,13 @@ def login(driver:DriverLogin,response:Response):
         httponly=True,
         secure=True,
         samesite="none",
-        max_age=60*60*24*30
+        max_age=60 * 60 * 24 * 30
     )
     return {
-        "role":"driver",
-        "status":True,
-        "message":"login successful"
+        "role": "driver",
+        "status": True,
+        "id": rider.id,        # Bug #13 fix: return driver id, matching user login
+        "message": "login successful"
     }
 
 @router.post("/logout")

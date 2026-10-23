@@ -2,37 +2,50 @@ from DriverSide.models.Driver import Rider
 from DriverSide.repositories.rider_repo import RiderRepository
 from DynamicDB.repositories.active_rider_repo import ActiveDriverRepository
 from DynamicDB.repositories.driver_location_repo import Driver_Location_Repository
-from datetime import datetime,timezone
+from utils.security import hash_password, verify_password
+from datetime import datetime, timezone
+
 
 class RiderService:
-    def register_rider(self,name,surname,email,phone,password,address,licenseno):
-        rider=Rider(name=name,
-                    surname=surname,
-                    email=email,
-                    phone=phone,
-                    password=password,
-                    address=address,
-                    licenceno=licenseno,
-                    permit=True,
-                    )
+    def register_rider(self, name, surname, email, phone, password, address, licenseno):
+        """Register a new driver with a securely hashed password.
+
+        Bug #1 fix: password is hashed with bcrypt before storage.
+        """
+        hashed = hash_password(password)
+        rider = Rider(
+            name=name,
+            surname=surname,
+            email=email,
+            phone=phone,
+            password=hashed,
+            address=address,
+            licenceno=licenseno,
+            permit=True,
+        )
         RiderRepository.add(rider)
         return rider
 
-    def login(self,email,password):
-        rider=RiderRepository.find_by_email(email=email)
-        if rider is None:
-            return {"success":False,"error":"USER_NOT_FOUND"}
+    def login(self, email, password):
+        """Authenticate a driver by email and password.
 
-        if rider.password != password:
-            return {"success":False,"error":"INVALID_PASSWORD"}
+        Bug #1 fix: uses bcrypt verification instead of plaintext comparison.
+        """
+        rider = RiderRepository.find_by_email(email=email)
+        if rider is None:
+            return {"success": False, "error": "USER_NOT_FOUND"}
+
+        if not verify_password(password, rider.password):
+            return {"success": False, "error": "INVALID_PASSWORD"}
+
         ActiveDriverRepository.upsert(
-        driver_id=rider.id,
-        is_online=True,
-        is_available=True
+            driver_id=rider.id,
+            is_online=True,
+            is_available=True
         )
         return {
-            "success":True,
-            "rider":rider
+            "success": True,
+            "rider": rider
         }
 
     def logout(self, driver_id):
@@ -48,36 +61,34 @@ class RiderService:
                 "success": False,
                 "error": "DRIVER_NOT_FOUND"
             }
-        print("is_online: ",rider.is_online)
         return {
             "success": True
         }
 
-    def get_driver_profile(self,driver_id):
-        driver=RiderRepository.get_profile(
-            driver_id=driver_id
-        )
-        if driver is None:
-            return{
-                "success":False,
-                "error":"No Driver Found with such ID"
-            }
-        return{
-            "success":True,
-            "driver":driver
-        }
-
-    def update_location(self,driver_id,latitude,longitude):
-        driver=Driver_Location_Repository.update_location(
-            driver_id=driver_id,
-            latitude=latitude,
-            longitude=longitude)
+    def get_driver_profile(self, driver_id):
+        driver = RiderRepository.get_profile(driver_id=driver_id)
         if driver is None:
             return {
-                "success":False,
-                "error":"No driver Found"
+                "success": False,
+                "error": "No Driver Found with such ID"
             }
-        return{
-            "success":True,
-            "message":f"Location updated at {datetime.utcnow()}"
+        return {
+            "success": True,
+            "driver": driver
         }
+
+    def update_location(self, driver_id, latitude, longitude):
+        driver = Driver_Location_Repository.update_location(
+            driver_id=driver_id,
+            latitude=latitude,
+            longitude=longitude
+        )
+        if driver is None:
+            return {
+                "success": False,
+                "error": "No driver Found"
+            }
+        return {
+            "success": True,
+            "message": f"Location updated at {datetime.now(timezone.utc).isoformat()}"
+        }

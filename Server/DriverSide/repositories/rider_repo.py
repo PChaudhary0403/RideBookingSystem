@@ -29,10 +29,11 @@ class RiderRepository:
         finally:
             db.close()
 
+    @staticmethod
     def get_profile(driver_id):
-        db=SessionLocal()
+        db = SessionLocal()
         try:
-            driver=db.query(Rider).filter(Rider.id==driver_id).first()
+            driver = db.query(Rider).filter(Rider.id == driver_id).first()
             return driver
         finally:
             db.close()

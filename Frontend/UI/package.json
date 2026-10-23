@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@vis.gl/react-google-maps": "^1.9.0",
+    "bootstrap": "^5.3.8",
     "jsonwebtoken": "^9.0.3",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",

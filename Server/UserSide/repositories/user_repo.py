@@ -33,16 +33,22 @@ class UserRepository:
         finally:
             db.close()
 
-    def update_status(user_id,is_online,is_available,last_seen=None):
-        db=SessionLocal()
+    @staticmethod
+    def update_status(user_id, is_online, is_available, last_seen=None):
+        """Update user online/availability status.
+
+        Bug #3 fix: User model now has is_online, is_available, last_seen
+        columns, so this no longer raises AttributeError.
+        """
+        db = SessionLocal()
         try:
-            user=db.query(User).filter(User.id==user_id).first()
+            user = db.query(User).filter(User.id == user_id).first()
             if user is None:
                 return None
-            user.is_online=is_online
-            user.is_available=is_available
+            user.is_online = is_online
+            user.is_available = is_available
             if last_seen is not None:
-                user.last_seen=last_seen
+                user.last_seen = last_seen
             db.commit()
             db.refresh(user)
             return user

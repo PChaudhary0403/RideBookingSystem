@@ -9,10 +9,11 @@ class VehicleRepository:
         db.refresh(vehicle)
         db.close()
 
+    @staticmethod
     def show_vehicle(driver_id):
-        db=SessionLocal()
+        db = SessionLocal()
         try:
-            return db.query(Vehicle).filter(Vehicle.driver_id==driver_id).all()
+            return db.query(Vehicle).filter(Vehicle.driver_id == driver_id).all()
         finally:
             db.close()
         
