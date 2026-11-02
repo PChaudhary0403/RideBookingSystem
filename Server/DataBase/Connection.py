@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy.orm import declarative_base, sessionmaker, Session
 from sqlalchemy.pool import StaticPool
+from typing import Generator
 import os
 from dotenv import load_dotenv
 
@@ -32,4 +33,33 @@ else:
 
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 Base = declarative_base()
+
+
+def get_db() -> Generator[Session, None, None]:
+    """FastAPI dependency that provides a request-scoped DB session.
+
+    Yields a SQLAlchemy session that is automatically closed after the
+    request completes.  The caller is responsible for calling
+    ``db.commit()`` for write operations; the session rolls back
+    automatically on unhandled exceptions.
+
+    Usage::
+
+        from fastapi import Depends
+        from DataBase.Connection import get_db
+
+        @router.post("/example")
+        def example(db: Session = Depends(get_db)):
+            db.add(some_object)
+            db.commit()
+    """
+    db = SessionLocal()
+    try:
+        yield db
+    except Exception:
+        db.rollback()
+        raise
+    finally:
+        db.close()
+
 
