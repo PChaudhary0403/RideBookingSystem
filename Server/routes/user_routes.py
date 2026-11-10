@@ -5,6 +5,7 @@ from schemas.nearby_drivers import NearbyDriversRequest
 from DynamicDB.services.trip_request_Services import TripRequestServices
 from schemas.trip_request_schema import TripRequestResponse,TripRequestUpdate
 from auth.dependencies import  get_current_user
+from auth.utils import cookie_params
 from DynamicDB.websockets.manager import manager
 from datetime import datetime, timedelta
 import jwt
@@ -65,22 +66,8 @@ def login(user:UserLogin,response:Response):
     SECRET_KEY,
     algorithm="HS256"
     )
-    response.set_cookie(
-        key="access_token",
-        value=token,
-        httponly=True,
-        secure=True,
-        samesite="none",
-        max_age=60*15
-    )
-    response.set_cookie(
-        key="refresh_token",
-        value=refresh_token,
-        httponly=True,
-        secure=True,
-        samesite="none",
-        max_age=60*60*24*30
-    )
+    response.set_cookie(key="access_token", value=token, **cookie_params(max_age=60 * 15))
+    response.set_cookie(key="refresh_token", value=refresh_token, **cookie_params(max_age=60 * 60 * 24 * 30))
     return {
         "role":"user",
         "status":True,
@@ -152,14 +139,7 @@ def refresh_token(
             algorithm="HS256"
         )
 
-        response.set_cookie(
-            key="access_token",
-            value=new_access_token,
-            httponly=True,
-            secure=True,
-            samesite="none",
-            max_age=60 * 15
-        )
+        response.set_cookie(key="access_token", value=new_access_token, **cookie_params(max_age=60 * 15))
 
         return {
             "status": True,

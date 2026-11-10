@@ -10,6 +10,7 @@ All existing API contracts are preserved.
 from fastapi import APIRouter, Response, Cookie, HTTPException, Depends
 from schemas.driver_schema import DriverCreate, DriverLogin
 from DriverSide.services.rider_services import RiderService
+from auth.utils import cookie_params
 from DynamicDB.services.trip_request_Services import TripRequestServices
 from DynamicDB.services.active_rider_services import ActiveRiderServices
 from schemas.DriveProfile import DriverProfileResponse
@@ -92,22 +93,8 @@ def login(driver: DriverLogin, response: Response):
         SECRET_KEY,
         algorithm="HS256",
     )
-    response.set_cookie(
-        key="access_token",
-        value=token,
-        httponly=True,
-        secure=True,
-        samesite="none",
-        max_age=60 * 15,
-    )
-    response.set_cookie(
-        key="refresh_token",
-        value=refresh_token,
-        httponly=True,
-        secure=True,
-        samesite="none",
-        max_age=60 * 60 * 24 * 30,
-    )
+    response.set_cookie(key="access_token", value=token, **cookie_params(max_age=60 * 15))
+    response.set_cookie(key="refresh_token", value=refresh_token, **cookie_params(max_age=60 * 60 * 24 * 30))
     return {
         "role": "driver",
         "status": True,
@@ -162,14 +149,7 @@ def refresh_token(
             algorithm="HS256",
         )
 
-        response.set_cookie(
-            key="access_token",
-            value=new_access_token,
-            httponly=True,
-            secure=True,
-            samesite="none",
-            max_age=60 * 15,
-        )
+        response.set_cookie(key="access_token", value=new_access_token, **cookie_params(max_age=60 * 15))
         return {"status": True, "message": "Access token refreshed"}
 
     except jwt.ExpiredSignatureError:
